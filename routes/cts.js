@@ -58,7 +58,7 @@ router.post('/allCompanies', function(req, res, next) {
   // console.log('/allCompanies: ', req.body);
   Company.find({}, function(err, records) {
     if(err) return res.send('err: ', err);
-    console.log('records in /allCompanies: ', records);
+    // console.log('records in /allCompanies: ', records);
     res.send(records);
   });
 })
