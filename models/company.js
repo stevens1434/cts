@@ -137,7 +137,7 @@ var companySchema = new mongoose.Schema({
       DateCompleted: {Type: Date},
       MovedToBy: {userId: [{type: [String], ref: 'User'}]}
     }
-  ]
+  ],
   ApprovedForNextStep: {
     type: Boolean,
     default: false

@@ -59,7 +59,7 @@ class App extends Component {
       })
     } else {
       //   Validate the token against the server
-      const a = this;
+      // const a = this;
       axios.post('/auth/me/from/token', {
         token: token
       }).then(response => {

@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import './App.css';
 // import { CircularProgress } from 'material-ui/Progress';
-import axios from 'axios';
-import ReactDOM from 'react-dom';
+// import axios from 'axios';
+// import ReactDOM from 'react-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 // var unirest = require('unirest');
 // var jQuery = require('jquery');
 require('dotenv').config();
-let salesClosing = [];
-let salesClosed = [];
-let SCReceived = [];
-let SCCompleted = [];
-let OpsReceived = [];
-let OpsOngoing = [];
-let OpsCompleted = [];
-let AccReceived = [];
-let AccCompleted = [];
-let Completed = [];
-var DragSource;
+// let salesClosing = [];
+// let salesClosed = [];
+// let SCReceived = [];
+// let SCCompleted = [];
+// let OpsReceived = [];
+// let OpsOngoing = [];
+// let OpsCompleted = [];
+// let AccReceived = [];
+// let AccCompleted = [];
+// let Completed = [];
+// var DragSource;
 
 class CtsMain extends Component {
   constructor(props) {
@@ -57,9 +57,7 @@ class CtsMain extends Component {
     //
   //
   init(initial) {
-    // console.log('initial start: ', DragSource);
-    DragSource = initial;
-    // console.log('initial end: ', DragSource);
+
   }
 
   onDragStart = (initial) => {
@@ -92,7 +90,6 @@ class CtsMain extends Component {
   }
 
   droppable(map, ident) {
-    console.log('map: ', map, 'ident: ', ident);
     return (
       <Droppable id='droppable' droppableId={ident} isDropDisabled={false} className='dropBox'>
         {(provided, snapshot) => (
@@ -111,7 +108,7 @@ class CtsMain extends Component {
   render() {
     //TODO: split into multiple components to make it more readable
     if (this.props.user && this.props.companyData) {
-      console.log('salesClosing before map: ', this.props.salesClosing);
+      // console.log('salesClosing before map: ', this.props.salesClosing);
       let salesClosingMap = this.props.salesClosing.map((records, index) => {
         return ( <div>{this.draggable(records, index)}</div> )
       })
@@ -151,13 +148,10 @@ class CtsMain extends Component {
                   Closing
                 </div>
                 <div>{this.droppable(salesClosingMap, 'salesClosing')}</div>
-                {console.log('console.log: ', salesClosingMap, 'salesClosing')}
                 <div className='subRight'>
                   Closed
                 </div>
                 <div>{this.droppable(salesClosedMap, 'salesClosed')}</div>
-
-
                 </div>
                 <div className="column">
                   Sales Coordinator<hr/><br/>
@@ -165,14 +159,10 @@ class CtsMain extends Component {
                     Received
                   </div>
                   <div>{this.droppable(SCReceivedMap, 'SCReceived')}</div>
-
-
                   <div className='subRight'>
                     Completed
                   </div>
                   <div>{this.droppable(SCCompletedMap, 'SCCompleted')}</div>
-
-
               </div>
               <div className="column operations">
                   Operations<hr/><br/>
@@ -180,20 +170,14 @@ class CtsMain extends Component {
                     Received
                   </div>
                   <div>{this.droppable(OpsReceivedMap, 'OpsReceived')}</div>
-
-
                   <div className='middle'>
                     Ongoing
                   </div>
                   <div>{this.droppable(OpsOngoingMap, 'OpsOngoing')}</div>
-
-
                   <div className='subRight'>
                     Completed
                   </div>
                   <div>{this.droppable(OpsCompletedMap, 'OpsCompleted')}</div>
-
-
               </div>
               <div className="column">
                   Accounting<hr/><br/>
@@ -201,14 +185,10 @@ class CtsMain extends Component {
                     Received
                   </div>
                   <div>{this.droppable(AccReceivedMap, 'AccReceived')}</div>
-
-
                   <div className='subRight'>
                     Completed
                   </div>
                   <div>{this.droppable(AccCompletedMap, 'AccCompleted')}</div>
-
-
               </div>
             </div>
           </DragDropContext>

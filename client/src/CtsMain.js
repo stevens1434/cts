@@ -84,7 +84,7 @@ class CtsMain extends Component {
       console.log('state not updated yet');
     }
 
-    const a = this;
+    // const a = this;
     let closingsales = [];
     let closedsales = [];
     let receivedsc = [];
