@@ -3,8 +3,6 @@ import './App.css';
 // import { CircularProgress } from 'material-ui/Progress';
 import axios from 'axios';
 import Dashboard from './Dashboard';
-// var unirest = require('unirest');
-// var jQuery = require('jquery');
 require('dotenv').config();
 
 class CtsMain extends Component {
@@ -43,17 +41,11 @@ class CtsMain extends Component {
       let _destination = result.destination.droppableId;
       let sourceState = this.state[_source];
       let destinationState = this.state[_destination];
-      // console.log('sourceState: ', sourceState);
-      // console.log('desintationState: ', destinationState);
       let indexSource = result.source.index;
       let indexDestination = result.destination.index;
       let itemToMove = sourceState[indexSource];
-      // console.log('itemToMove: ', itemToMove);
       sourceState.splice(indexSource, 1);
       destinationState.splice(indexDestination, 0, itemToMove);
-      // console.log('new DestinationState: ', destinationState);
-      // console.log('new sourceState: ', sourceState);
-      // this.props.handleStateChange(_source, _destination, indexSource, indexDestination)
       this.setState({
         [_source]: sourceState,
         [_destination]: destinationState
@@ -62,31 +54,23 @@ class CtsMain extends Component {
   }
 
   componentDidMount() {
-    // let user = this.props.user;
-    // console.log('user: ', user);
     axios.get('cts', {
     }).then(function(response) {
-      // console.log('response from backend in ctsMain.js get route /: ', response.data);
     }).catch(function(err) {
       console.log("err: ", err);
     })
-
     if (this.state.user) {
       axios.post('cts/user', {
         data: this.props.user
       }).then(response => {
-        // console.log('response.......: ', response.data);
         this.setState({
           userData: response.data
         })
       }).then(response => {
-        // console.log('this.state in CTSMAIN:......: ', this.state);
       })
     } else {
       console.log('state not updated yet');
     }
-
-    // const a = this;
     let closingsales = [];
     let closedsales = [];
     let receivedsc = [];
@@ -155,7 +139,6 @@ class CtsMain extends Component {
   render() {
     return (
       <div className='CtsMain'>
-        <h1>CTS Home Page</h1>
         <Dashboard
           user={this.props.user}
           companyData={this.state.companyData}

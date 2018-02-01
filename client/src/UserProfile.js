@@ -20,6 +20,7 @@ class UserProfile extends Component {
 
   render() {
     let user = this.props.user;
+    console.log('user in userProfile: ', user);
     const AppBarStyle = {
       background: '#ae1936'
       }

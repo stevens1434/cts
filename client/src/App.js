@@ -65,7 +65,7 @@ class App extends Component {
       }).then(response => {
         //   Store the token and user
         localStorage.setItem('mernToken', response.data.token)
-        // console.log('response.data in app.js compdidmt: ', response.data);
+        console.log('response.data in app.js compdidmt: ', response.data);
         // let user = response.data.user;
         this.setState({
           token: response.data.token,
@@ -94,13 +94,13 @@ class App extends Component {
         background: '#ae1936'
         }
       return (
-        <div onClick={this.change} className='App'>
+        <div className='App'>
           <Grid container spacing={16}>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
               <AppBar style={AppBarStyle} position="fixed">
                 <Toolbar>
                   <span className='UserName'>
-                    <Button className='UserName' color='inherit'>RescueTime</Button>
+                    <Button className='UserName' color='inherit'>CTS Companies</Button>
                   </span>
                   <Typography type="title" color="inherit" className='MenuTitle'>
                     Log In or Sign Up

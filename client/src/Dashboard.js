@@ -1,27 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
-// import { CircularProgress } from 'material-ui/Progress';
-// import axios from 'axios';
-// import ReactDOM from 'react-dom';
 import SalesDash from './SalesDash';
 import SalesCoordinatorDash from './SalesCoordinatorDash';
 import OperationsDash from './OperationsDash';
 import AccountingDash from './AccountingDash';
+import { MuiThemeProvider, theme } from 'material-ui/styles';
+import Grid from 'material-ui/Grid';
+import Card, { CardHeader, CardTitle, CardText} from 'material-ui/Card';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-// var unirest = require('unirest');
-// var jQuery = require('jquery');
 require('dotenv').config();
-// let salesClosing = [];
-// let salesClosed = [];
-// let SCReceived = [];
-// let SCCompleted = [];
-// let OpsReceived = [];
-// let OpsOngoing = [];
-// let OpsCompleted = [];
-// let AccReceived = [];
-// let AccCompleted = [];
-// let Completed = [];
-// var DragSource;
 
 class CtsMain extends Component {
   constructor(props) {
@@ -55,11 +42,6 @@ class CtsMain extends Component {
     console.log("this.state in Rescutetime.js parent: ", this.state);
   }
 
-  //Use HOOKS to do conditionals
-  //ISSUES:
-    //see Synchronous Reordering
-    //
-  //
   init(initial) {
 
   }
@@ -79,11 +61,7 @@ class CtsMain extends Component {
       <Draggable id='draggable' draggableId={records._id} index={index} key={index} className='card'>
         {(provided, snapshot) => (
           <div>
-            <div
-              ref={provided.innerRef}
-              {...provided.draggableProps}
-              {...provided.dragHandleProps}
-            >
+            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
               <p>{records.Name}</p>
               {provided.placeholder}
             </div>
@@ -113,52 +91,61 @@ class CtsMain extends Component {
     //TODO: split into multiple components to make it more readable
     if (this.props.user && this.props.companyData) {
       return (
-          <DragDropContext
-            onDragStart={this.onDragStart}
-            onDragEnd={this.onDragEnd}
-          >
-            <div onClick={this.change} className='Dashboard row'>
-                <SalesDash
-                  user={this.props.user}
-                  companyData={this.props.companyData}
-                  salesClosing={this.props.salesClosing}
-                  salesClosed={this.props.salesClosed}
-                  handlepropsChange={this.handlepropsChange}
-                  Completed={this.props.Completed}
-                  Cold={this.props.Completed}
-                  Dead={this.props.Completed}
-                />
-                <SalesCoordinatorDash
-                  user={this.props.user}
-                  companyData={this.props.companyData}
-                  SCReceived={this.props.SCReceived}
-                  SCCompleted={this.props.SCCompleted}
-                  handlepropsChange={this.handlepropsChange}
-                  Completed={this.props.Completed}
-                  Cold={this.props.Completed}
-                  Dead={this.props.Completed}
-                />
-                <OperationsDash
-                  user={this.props.user}
-                  companyData={this.props.companyData}
-                  OpsReceived={this.props.OpsReceived}
-                  OpsOngoing={this.props.OpsOngoing}
-                  OpsCompleted={this.props.OpsCompleted}
-                  handlepropsChange={this.handlepropsChange}
-                  Completed={this.props.Completed}
-                  Cold={this.props.Completed}
-                  Dead={this.props.Completed}
-                />
-                <AccountingDash
-                  user={this.props.user}
-                  companyData={this.props.companyData}
-                  AccReceived={this.props.AccReceived}
-                  AccCompleted={this.props.AccCompleted}
-                  handlepropsChange={this.handlepropsChange}
-                  Completed={this.props.Completed}
-                />
-            </div>
+        <div className='mainGrid'>
+          <DragDropContext onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}>
+            <MuiThemeProvider theme={theme}>
+              <Grid container spacing={16}>
+                <Grid item xl={3} lg={3} md={6} sm={6} xs={12}>
+                  <SalesDash
+                    user={this.props.user}
+                    companyData={this.props.companyData}
+                    salesClosing={this.props.salesClosing}
+                    salesClosed={this.props.salesClosed}
+                    handlepropsChange={this.handlepropsChange}
+                    Completed={this.props.Completed}
+                    Cold={this.props.Completed}
+                    Dead={this.props.Completed}
+                  />
+                </Grid>
+                <Grid item xl={3} lg={3} md={6} sm={6} xs={12}>
+                  <SalesCoordinatorDash
+                    user={this.props.user}
+                    companyData={this.props.companyData}
+                    SCReceived={this.props.SCReceived}
+                    SCCompleted={this.props.SCCompleted}
+                    handlepropsChange={this.handlepropsChange}
+                    Completed={this.props.Completed}
+                    Cold={this.props.Completed}
+                    Dead={this.props.Completed}
+                  />
+                </Grid>
+                <Grid item xl={3} lg={3} md={6} sm={6} xs={12}>
+                  <OperationsDash
+                    user={this.props.user}
+                    companyData={this.props.companyData}
+                    OpsReceived={this.props.OpsReceived}
+                    OpsOngoing={this.props.OpsOngoing}
+                    OpsCompleted={this.props.OpsCompleted}
+                    handlepropsChange={this.handlepropsChange}
+                    Completed={this.props.Completed}
+                    Cold={this.props.Completed}
+                    Dead={this.props.Completed}
+                  />
+                </Grid>
+                <Grid item xl={3} lg={3} md={6} sm={6} xs={12}>
+                  <AccountingDash
+                    user={this.props.user}
+                    companyData={this.props.companyData}
+                    AccReceived={this.props.AccReceived}
+                    AccCompleted={this.props.AccCompleted}
+                    handlepropsChange={this.handlepropsChange}
+                    Completed={this.props.Completed}
+                  />
+                </Grid>
+              </Grid>
+            </MuiThemeProvider>
           </DragDropContext>
+        </div>
       )
     } else {
       return (
