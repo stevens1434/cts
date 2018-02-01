@@ -22,7 +22,9 @@ class CtsMain extends Component {
       OpsCompleted: [],
       AccReceived: [],
       AccCompleted: [],
-      Completed: []
+      Completed: [],
+      Cold: [],
+      Dead: []
     }
     this.componentDidMount = this.componentDidMount.bind(this);
     this.change = this.change.bind(this);
@@ -95,6 +97,8 @@ class CtsMain extends Component {
     let receivedacc = [];
     let completedacc = [];
     let completed = [];
+    let cold = [];
+    let dead = [];
     let responseData;
     //TODO: change to switch statement or something more efficient
     if (this.props.user) {
@@ -120,8 +124,10 @@ class CtsMain extends Component {
             receivedacc.push(responseData[i]);
           } else if(responseData[i].CurrentStage === 'Accounting Completed') {
             completedacc.push(responseData[i]);
-          } else {
-            completed.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Cold'){
+            cold.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Dead') {
+            dead.push(responseData[i]);
           }
         }
       }).then(response => {
@@ -136,7 +142,9 @@ class CtsMain extends Component {
           OpsCompleted: completedopps,
           AccReceived: receivedacc,
           AccCompleted: completedacc,
-          Completed: completed
+          Completed: completed,
+          Cold: cold,
+          Dead: dead
         })
       })
     } else {

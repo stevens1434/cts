@@ -3,6 +3,10 @@ import './App.css';
 // import { CircularProgress } from 'material-ui/Progress';
 // import axios from 'axios';
 // import ReactDOM from 'react-dom';
+import SalesDash from './SalesDash';
+import SalesCoordinatorDash from './SalesCoordinatorDash';
+import OperationsDash from './OperationsDash';
+import AccountingDash from './AccountingDash';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 // var unirest = require('unirest');
 // var jQuery = require('jquery');
@@ -108,88 +112,51 @@ class CtsMain extends Component {
   render() {
     //TODO: split into multiple components to make it more readable
     if (this.props.user && this.props.companyData) {
-      // console.log('salesClosing before map: ', this.props.salesClosing);
-      let salesClosingMap = this.props.salesClosing.map((records, index) => {
-        return ( <div>{this.draggable(records, index)}</div> )
-      })
-      let salesClosedMap = this.props.salesClosed.map((records, index) => {
-        return ( <div>{this.draggable(records, index)}</div> )
-      })
-      let SCReceivedMap = this.props.SCReceived.map((records, index) => {
-        return ( <div>{this.draggable(records, index)}</div> )
-      })
-      let SCCompletedMap = this.props.SCCompleted.map((records, index) => {
-        return ( <div>{this.draggable(records, index)}</div> )
-      })
-      let OpsReceivedMap = this.props.OpsReceived.map((records, index) => {
-        return ( <div>{this.draggable(records, index)}</div> )
-      })
-      let OpsOngoingMap = this.props.OpsOngoing.map((records, index) => {
-        return ( <div>{this.draggable(records, index)}</div> )
-      })
-      let OpsCompletedMap = this.props.OpsCompleted.map((records, index) => {
-        return ( <div>{this.draggable(records, index)}</div> )
-      })
-      let AccReceivedMap = this.props.AccReceived.map((records, index) => {
-        return ( <div>{this.draggable(records, index)}</div> )
-      })
-      let AccCompletedMap = this.props.AccCompleted.map((records, index) => {
-        return ( <div>{this.draggable(records, index)}</div> )
-      })
       return (
           <DragDropContext
             onDragStart={this.onDragStart}
             onDragEnd={this.onDragEnd}
           >
             <div onClick={this.change} className='Dashboard row'>
-              <div className="column">
-                  Sales<hr/><br/>
-                <div className='subLeft'>
-                  Closing
-                </div>
-                <div>{this.droppable(salesClosingMap, 'salesClosing')}</div>
-                <div className='subRight'>
-                  Closed
-                </div>
-                <div>{this.droppable(salesClosedMap, 'salesClosed')}</div>
-                </div>
-                <div className="column">
-                  Sales Coordinator<hr/><br/>
-                  <div className='subLeft'>
-                    Received
-                  </div>
-                  <div>{this.droppable(SCReceivedMap, 'SCReceived')}</div>
-                  <div className='subRight'>
-                    Completed
-                  </div>
-                  <div>{this.droppable(SCCompletedMap, 'SCCompleted')}</div>
-              </div>
-              <div className="column operations">
-                  Operations<hr/><br/>
-                  <div className='subLeft'>
-                    Received
-                  </div>
-                  <div>{this.droppable(OpsReceivedMap, 'OpsReceived')}</div>
-                  <div className='middle'>
-                    Ongoing
-                  </div>
-                  <div>{this.droppable(OpsOngoingMap, 'OpsOngoing')}</div>
-                  <div className='subRight'>
-                    Completed
-                  </div>
-                  <div>{this.droppable(OpsCompletedMap, 'OpsCompleted')}</div>
-              </div>
-              <div className="column">
-                  Accounting<hr/><br/>
-                  <div className='subLeft'>
-                    Received
-                  </div>
-                  <div>{this.droppable(AccReceivedMap, 'AccReceived')}</div>
-                  <div className='subRight'>
-                    Completed
-                  </div>
-                  <div>{this.droppable(AccCompletedMap, 'AccCompleted')}</div>
-              </div>
+                <SalesDash
+                  user={this.props.user}
+                  companyData={this.props.companyData}
+                  salesClosing={this.props.salesClosing}
+                  salesClosed={this.props.salesClosed}
+                  handlepropsChange={this.handlepropsChange}
+                  Completed={this.props.Completed}
+                  Cold={this.props.Completed}
+                  Dead={this.props.Completed}
+                />
+                <SalesCoordinatorDash
+                  user={this.props.user}
+                  companyData={this.props.companyData}
+                  SCReceived={this.props.SCReceived}
+                  SCCompleted={this.props.SCCompleted}
+                  handlepropsChange={this.handlepropsChange}
+                  Completed={this.props.Completed}
+                  Cold={this.props.Completed}
+                  Dead={this.props.Completed}
+                />
+                <OperationsDash
+                  user={this.props.user}
+                  companyData={this.props.companyData}
+                  OpsReceived={this.props.OpsReceived}
+                  OpsOngoing={this.props.OpsOngoing}
+                  OpsCompleted={this.props.OpsCompleted}
+                  handlepropsChange={this.handlepropsChange}
+                  Completed={this.props.Completed}
+                  Cold={this.props.Completed}
+                  Dead={this.props.Completed}
+                />
+                <AccountingDash
+                  user={this.props.user}
+                  companyData={this.props.companyData}
+                  AccReceived={this.props.AccReceived}
+                  AccCompleted={this.props.AccCompleted}
+                  handlepropsChange={this.handlepropsChange}
+                  Completed={this.props.Completed}
+                />
             </div>
           </DragDropContext>
       )

@@ -71,7 +71,6 @@ onDragStart = (initial) => {
 
   render() {
     if (this.props.user && this.props.companyData) {
-      // console.log('salesClosing before map: ', this.props.salesClosing);
       let salesClosingMap = this.props.salesClosing.map((records, index) => {
         return ( <div>{this.draggable(records, index)}</div> )
       })
@@ -79,24 +78,12 @@ onDragStart = (initial) => {
         return ( <div>{this.draggable(records, index)}</div> )
       })
       return (
-          <DragDropContext
-            onDragStart={this.onDragStart}
-            onDragEnd={this.onDragEnd}
-          >
-            <div onClick={this.change} className='Dashboard row'>
-              <div className="column">
-                  Sales<hr/><br/>
-                <div className='subLeft'>
-                  Closing
-                </div>
-                <div>{this.droppable(salesClosingMap, 'salesClosing')}</div>
-                <div className='subRight'>
-                  Closed
-                </div>
-                <div>{this.droppable(salesClosedMap, 'salesClosed')}</div>
-                </div>
-            </div>
-          </DragDropContext>
+          <div onClick={this.change} className="column"> Sales<hr/><br/>
+            <div className='subLeft'> Closing </div>
+              <div>{this.droppable(salesClosingMap, 'salesClosing')}</div>
+            <div className='subRight'> Closed </div>
+              <div>{this.droppable(salesClosedMap, 'salesClosed')}</div>
+          </div>
       )
     } else {
       return (
