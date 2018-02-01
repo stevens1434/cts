@@ -131,6 +131,13 @@ var companySchema = new mongoose.Schema({
     type: String,
     Required: true
   },
+  StageHistory: [
+    { StageName: {Type: String},
+      DateEntered: {Type: String},
+      DateCompleted: {Type: Date},
+      MovedToBy: {userId: [{type: [String], ref: 'User'}]}
+    }
+  ]
   ApprovedForNextStep: {
     type: Boolean,
     default: false
