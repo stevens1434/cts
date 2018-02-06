@@ -27,6 +27,7 @@ class App extends Component {
     this.state = {
       token: '',
       user: {},
+      name: {},
       userData: {}
     }
     this.change = this.change.bind(this);
@@ -65,11 +66,12 @@ class App extends Component {
       }).then(response => {
         //   Store the token and user
         localStorage.setItem('mernToken', response.data.token)
-        console.log('response.data in app.js compdidmt: ', response.data);
+        // console.log('response.data in app.js compdidmt: ', response.data);
         // let user = response.data.user;
         this.setState({
           token: response.data.token,
-          user: response.data.user
+          user: response.data.user,
+          name: response.data.name
         })
         //   Pass User into child components and display main app
       }).catch(err => {
@@ -85,7 +87,7 @@ class App extends Component {
     if (typeof this.state.user === 'object' && Object.keys(this.state.user).length !== 0) {
       return (
         <div onClick={this.change} className='App'>
-          <UserProfile id='navbar' user={this.state.user} logout={this.logout} />
+          <UserProfile id='navbar' user={this.state.user} name={this.state.name} logout={this.logout} />
           <CtsMain id='content' user={this.state.user} logout={this.logout} />
         </div>
       );

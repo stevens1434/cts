@@ -19,8 +19,9 @@ class UserProfile extends Component {
   }
 
   render() {
-    let user = this.props.user;
-    console.log('user in userProfile: ', user);
+    let name = this.props.name;
+    // console.log('name: ', name);
+    // console.log('user in userProfile: ', user);
     const AppBarStyle = {
       background: '#ae1936'
       }
@@ -29,7 +30,7 @@ class UserProfile extends Component {
         <AppBar className='AppBar' style={AppBarStyle} position="fixed">
           <Toolbar>
             <span className='UserName'>
-              <p className='UserName' color='inherit'><span className='WelcomeMessage'>Welcome</span>, {user.name}</p>
+              <p className='UserName' color='inherit'><span className='WelcomeMessage'>Welcome</span>, {name.firstName} {name.lastName}</p>
             </span>
             <Typography type="title" color="inherit" className='MenuTitle'>
               RescueTime

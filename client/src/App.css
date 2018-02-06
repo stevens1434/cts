@@ -140,6 +140,7 @@ input[type=submit]:hover {
   width: 100%;
   position: relative;
   display: inline-block;
+  padding-right: 0px;
 }
 .compName { /*company name */
   font-size: 13px;
@@ -159,21 +160,29 @@ input[type=submit]:hover {
   color: grey;
   font-size: 11px;
   position: absolute;
-  bottom: 25px;
+  bottom: 50px;
   left: -15px;
+  font-weight: bold;
 }
 .location {
   color: grey;
   font-size: 11px;
   position: absolute;
-  bottom: 5px;
+  bottom: 30px;
   left: -15px;
 }
 .saleType {
   color: grey;
   font-size: 11px;
   position: absolute;
-  bottom: -10px;
+  bottom: 15px;
+  left: -15px;
+}
+.nextToDo {
+  color: grey;
+  font-size: 11px;
+  position: absolute;
+  bottom: 0px;
   left: -15px;
 }
 .dollarAmount {
@@ -181,8 +190,9 @@ input[type=submit]:hover {
   font-size: 12px;
   /*font-weight: bold;*/
   position: absolute;
-  bottom: -10px;
+  bottom: -14px;
   right: -15px;
+
 }
 .opsCompName { /*company name */
   font-size: 13px;
@@ -202,17 +212,25 @@ input[type=submit]:hover {
   color: grey;
   font-size: 11px;
   position: absolute;
-  bottom: 35px;
+  bottom: 50px;
   left: -15px;
+  font-weight: bold;
 }
 .opsLocation {
   color: grey;
   font-size: 11px;
   position: absolute;
-  bottom: 15px;
+  bottom: 30px;
   left: -15px;
 }
 .opsSaleType {
+  color: grey;
+  font-size: 10px;
+  position: absolute;
+  bottom: 15px;
+  left: -15px;
+}
+.opsNextToDo {
   color: grey;
   font-size: 10px;
   position: absolute;
@@ -224,20 +242,24 @@ input[type=submit]:hover {
   font-size: 12px;
   /*font-weight: bold;*/
   position: absolute;
-  bottom: -20px;
+  bottom: -22px;
   right: 15px;
   float: right;
   margin-bottom: 10px;
 }
-.nextToDo {
-  color: grey;
-  font-size: 10px;
-  position: absolute;
-  bottom: 0px;
-  left: -15px;
-}
 .break {
   display: none;
+}
+@media screen and (max-width: 1420px) {
+  .opsDollarAmount {
+    color: green;
+    font-size: 12px;
+    position: absolute;
+    bottom: -22px;
+    right: 30px;
+    float: right;
+    margin-bottom: 10px;
+  }
 }
 @media screen and (max-width: 1279px) {
   .opsCompName { /*company name */
@@ -258,19 +280,26 @@ input[type=submit]:hover {
     color: grey;
     font-size: 11px;
     position: absolute;
-    bottom: 40px;
+    bottom: 55px;
     left: -15px;
   }
   .opsLocation {
     color: grey;
     font-size: 11px;
     position: absolute;
-    bottom: 20px;
+    bottom: 35px;
     left: -15px;
   }
   .opsSaleType {
     color: grey;
     font-size: 11px;
+    position: absolute;
+    bottom: 20px;
+    left: -15px;
+  }
+  .opsNextToDo {
+    color: grey;
+    font-size: 10px;
     position: absolute;
     bottom: 5px;
     left: -15px;
@@ -282,6 +311,7 @@ input[type=submit]:hover {
     position: absolute;
     bottom: -20px;
     right: -15px;
+    float: right;
   }
   .break {
     display: block;
@@ -306,21 +336,28 @@ input[type=submit]:hover {
     color: grey;
     font-size: 11px;
     position: absolute;
-    bottom: 25px;
+    bottom: 50px;
     left: -15px;
   }
   .opsLocation {
     color: grey;
     font-size: 11px;
     position: absolute;
-    bottom: 5px;
+    bottom: 30px;
     left: -15px;
   }
   .opsSaleType {
     color: grey;
     font-size: 11px;
     position: absolute;
-    bottom: -10px;
+    bottom: 15px;
+    left: -15px;
+  }
+  .opsNextToDo {
+    color: grey;
+    font-size: 10px;
+    position: absolute;
+    bottom: 0px;
     left: -15px;
   }
   .opsDollarAmount {
@@ -343,9 +380,12 @@ input[type=submit]:hover {
 .toDoDue {
   font-size: 10px;
   font-style: italic;
+  text-align: left;
 }
 .toDoContent {
   font-size: 11px;
+  text-align: left;
+  margin-bottom: 0px;
 }
 
 /*.opsDollarAmount {

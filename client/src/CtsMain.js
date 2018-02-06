@@ -3,6 +3,10 @@ import './App.css';
 // import { CircularProgress } from 'material-ui/Progress';
 import axios from 'axios';
 import Dashboard from './Dashboard';
+import PropTypes from 'prop-types';
+import { withStyles } from 'material-ui/styles';
+import Typography from 'material-ui/Typography';
+import Modal from 'material-ui/Modal';
 require('dotenv').config();
 
 class CtsMain extends Component {
@@ -23,15 +27,23 @@ class CtsMain extends Component {
       AccCompleted: [],
       Completed: [],
       Cold: [],
-      Dead: []
+      Dead: [],
+      modal: false
     }
     this.componentDidMount = this.componentDidMount.bind(this);
     this.change = this.change.bind(this);
     this.handleStateChange = this.handleStateChange.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   change(e) {
     console.log("this.state in CtsMain.js parent: ", this.state);
+  }
+
+  handleClose() {
+    this.setState({
+      modal: false
+    })
   }
 
   handleStateChange(result) {
@@ -60,7 +72,11 @@ class CtsMain extends Component {
           userData: userData
         })
       } else {
-        console.log('YOU SHALL NOT PASS, nor make that change')
+        //MODAL TO EXPLAIN THAT YOU CANNOT DO THAT here
+        console.log('YOU SHALL NOT PASS, nor make that change');
+        this.setState({
+          modal: true
+        })
       }
     }
   }
@@ -81,7 +97,7 @@ class CtsMain extends Component {
       }).then(response => {
       })
     } else {
-      console.log('state not updated yet');
+      // console.log('state not updated yet');
     }
     let closingsales = [];
     let closedsales = [];
@@ -149,6 +165,24 @@ class CtsMain extends Component {
   }
 
   render() {
+    function getModalStyle() {
+      const top = 50;
+      const left = 50;
+      return {
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+      };
+    }
+    const styles = theme => ({
+      paper: {
+        position: 'absolute',
+        width: theme.spacing.unit * 50,
+        backgroundColor: theme.palette.background.paper,
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing.unit * 4,
+      },
+    });
     return (
       <div onClick={this.change} className='CtsMain'>
         <Dashboard
@@ -166,6 +200,21 @@ class CtsMain extends Component {
           Completed={this.state.Completed}
           handleStateChange={this.handleStateChange}
         />
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={this.state.modal}
+          onClose={this.handleClose}
+        >
+          <div style={getModalStyle()} className='modal'>
+            <Typography variant="title" id="modal-title">
+              Sorry, you do not have permissions to do that
+            </Typography>
+            <Typography variant="subheading" id="simple-modal-description">
+              Contact the help desk for more information or if this is an error.
+            </Typography>
+          </div>
+        </Modal>
       </div>
     )
   }

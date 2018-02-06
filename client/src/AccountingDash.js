@@ -50,58 +50,80 @@ class AccountingDash extends Component {
 
   typeOfSale(SaleType) {
     // console.log('saletype: ', SaleType);
-    return (
-      SaleType.map((records, index) => (
-        <span>{records} </span>
-      ))
-    )
+    if (SaleType) {
+      return (
+        SaleType.map((records, index) => (
+          <span>{records} </span>
+        ))
+      )
+    } else {
+      <span>No Sale Type</span>
+    }
   }
 
   dollarAmount(Amount) {
     // console.log('amount: ', Amount);
-     let formattedAmount = nf.format(Amount);
-     return (
-       <span className='dollarAmountFunction'>{formattedAmount}</span>
-     )
+    if (Amount) {
+      let formattedAmount = nf.format(Amount);
+      return (
+        <span className='dollarAmountFunction'>{formattedAmount}</span>
+      )
+    } else {
+      return (
+        <span className='dollarAmountFunction'>No Amount</span>
+      )
+    }
   }
 
   nextToDo(data) {
-    console.log('todo data: ', data);
-    let nextToDoDate
-    data.sort( (a, b) => {
-      if (a.DueDate.localeCompare(b.DueDate) === -1) {
-        nextToDoDate = a.DueDate;
-        return (
-          <span>{nextToDoDate}<span>
-        )
-      }
-    })
+    if (data.length > 0) {
+      let nextToDoDate;
+      data.sort( (a, b) => {
+        if (a.DueDate.localeCompare(b.DueDate) === -1) {
+          nextToDoDate = b.DueDate;
+        } else if (a.DueDate.localeCompare(b.DueDate) === 1) {
+          nextToDoDate = a.DueDate;
+        }
+      })
+      return (
+        <span>Next f/u: {nextToDoDate}</span>
+      )
+    } else {
+      return (
+        <span>Next f/u: none</span>
+      )
+    }
   }
 
   displayToDo(data) {
-    return (
-      data.map((records, index) => (
-        <ExpansionPanel>
-          <ExpansionPanelSummary>
-            <Typography className='expansionHidden'>
-              <div className='toDoTitle'>{records.Title}</div>
-              <span className='toDoDue'> on {records.DueDate}</span>
+    if (data) {
+      return (
+        data.map((records, index) => (
+          <ExpansionPanel>
+            <ExpansionPanelSummary style={{margin: '5px', marginTop: '0px', marginBottom: '0px', padding: '0px', paddingLeft: '5px', paddingRight: '5px'}}>
+              <Typography style={{paddingRight: '0px', padding: '2px 10px'}} id='expansionHidden' className='expansionHidden'>
+                <div className='toDoTitle'>{records.Title}</div>
+                <span className='toDoDue'> on {records.DueDate}</span>
+              </Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails style={{padding: '2px 10px'}} className='expansionDetails'>
+            <Typography style={{padding: '1px'}}>
+                <div>
+                  <p className='toDoContent'>{records.Content}</p>
+                  <span className='toDoDue'>recorded on {records.RecordDate}</span>
+                </div>
             </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className='expansionDetails'>
-          <Typography>
-              <div>
-                <p className='toDoContent'>{records.Content}</p>
-                <span className='toDoDue'>recorded on {records.RecordDate}</span>
-              </div>
-          </Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      ))
-    )
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        ))
+      )
+    }
   }
 
   draggable(records, index) {
+    const center = {
+      margin: 'auto',
+    }
     let image;
     let check = 'https://dy6j70a9vs3v1.cloudfront.net/funnel_wap/static/files/d97bbb09b0b4d656a621ea8ef892adb2/icon-checkmark.png';
     let noCheck = 'http://sweetclipart.com/multisite/sweetclipart/files/imagecache/middle/x_mark_red_circle.png';
@@ -119,7 +141,7 @@ class AccountingDash extends Component {
                 <ExpansionPanelSummary>
                   <Typography className='expansionHidden'>
                     <span className='compName'>{records.Name}</span>
-                    <img className='approvedImage' src={image}></img>
+                    <img className='approvedImage' src={image} alt='approval'></img>
                     <span className='location'>{records.Address.City}</span>
                     <span className='saleType'>{this.typeOfSale(records.SaleType)}</span>
                     <span className='dollarAmount'>{this.dollarAmount(records.Amount)}</span>
@@ -128,10 +150,11 @@ class AccountingDash extends Component {
                     <br/>
                     <br/>
                     <br/>
+                    <br/>
                   </Typography>
                 </ExpansionPanelSummary>
-                <ExpansionPanelDetails className='expansionDetails'>
-                  <Typography>
+                <ExpansionPanelDetails style={{padding: '3px'}} className='expansionDetails'>
+                  <Typography style={center}>
                     <div>
                       <span>{records.Contacts[0].Primary.FirstName}</span>
                       <span>{records.Contacts[0].Primary.LastName}</span><br/>

@@ -90,11 +90,17 @@ router.post('/me/from/token', function(req, res, next) {
       '_id': user._id
     }, function(err, user) {
       if (err) throw err;
+      // console.log('user: ', user);
+      let name = {};
+      name.firstName = user.firstName;
+      name.lastName = user.lastName;
+      // console.log('name: ', name);
       //Note: you can renew token by creating new token(i.e.
       //refresh it)w/ new expiration time at this point, but I’m
       //passing the old token back.
       // var token = utils.generateToken(user);
       res.json({
+        name: name,
         user: user,
         token: token
       });
