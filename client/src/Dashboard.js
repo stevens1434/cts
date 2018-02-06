@@ -6,7 +6,7 @@ import OperationsDash from './OperationsDash';
 import AccountingDash from './AccountingDash';
 import { MuiThemeProvider, theme } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
-import Card, { CardHeader, CardTitle, CardText} from 'material-ui/Card';
+// import Card, { CardHeader, CardTitle, CardText} from 'material-ui/Card';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 require('dotenv').config();
 
@@ -32,14 +32,9 @@ class CtsMain extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
     this.onDragStart = this.onDragStart.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.change = this.change.bind(this);
     this.init = this.init.bind(this);
     this.draggable = this.draggable.bind(this);
     this.droppable = this.droppable.bind(this);
-  }
-
-  change(e) {
-    console.log("this.state in Rescutetime.js parent: ", this.state);
   }
 
   init(initial) {
@@ -47,7 +42,7 @@ class CtsMain extends Component {
   }
 
   onDragStart = (initial) => {
-    console.log('___result onDragStart___: ', initial);
+    // console.log('___result onDragStart___: ', initial);
     this.init(initial);
   }
 
@@ -94,7 +89,7 @@ class CtsMain extends Component {
         <div className='mainGrid'>
           <DragDropContext onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}>
             <MuiThemeProvider theme={theme}>
-              <Grid container spacing={16}>
+              <Grid container spacing={8}>
                 <Grid item xl={3} lg={3} md={6} sm={6} xs={12}>
                   <SalesDash
                     user={this.props.user}

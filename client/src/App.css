@@ -131,6 +131,70 @@ input[type=submit]:hover {
   background-color: rgba(0, 0, 0, .01);
 }
 
+.MuiExpansionPanelSummary-content-272 {
+  height: 100%;
+  width: 100%;
+}
+.expansionHidden {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: inline-block;
+}
+.compName { /*company name */
+  font-size: 13px;
+  font-weight: bold;
+  position: relative;
+  top: -10px;
+  left: -15px;
+}
+.approvedImage {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: -5px;
+  right: -15px;
+}
+.owner {
+  color: grey;
+  font-size: 11px;
+  position: absolute;
+  bottom: 25px;
+  left: -15px;
+}
+.location {
+  color: grey;
+  font-size: 11px;
+  position: absolute;
+  bottom: 5px;
+  left: -15px;
+}
+.saleType {
+  color: grey;
+  font-size: 11px;
+  position: absolute;
+  bottom: -10px;
+  left: -15px;
+}
+.dollarAmount {
+  color: green;
+  font-size: 12px;
+  /*font-weight: bold;*/
+  position: absolute;
+  bottom: -10px;
+  right: -15px;
+}
+.opsDollarAmount {
+  color: green;
+  font-size: 12px;
+  /*font-weight: bold;*/
+  position: absolute;
+  bottom: -25px;
+  right: 11px;
+  float: right;
+  margin-bottom: 10px;
+}
+
 .mainGrid {
   margin: 0px 5px;
 }

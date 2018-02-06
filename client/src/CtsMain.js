@@ -10,6 +10,7 @@ class CtsMain extends Component {
     super(props)
     this.state = {
       user: {},
+      userData: {},
       data: {},
       salesClosing: [],
       salesClosed: [],
@@ -30,26 +31,37 @@ class CtsMain extends Component {
   }
 
   change(e) {
-    console.log("this.state in Rescutetime.js parent: ", this.state);
+    console.log("this.state in CtsMain.js parent: ", this.state);
   }
 
   handleStateChange(result) {
     if (!result.destination) {
       return;
     } else {
-      let _source = result.source.droppableId;
-      let _destination = result.destination.droppableId;
-      let sourceState = this.state[_source];
-      let destinationState = this.state[_destination];
-      let indexSource = result.source.index;
-      let indexDestination = result.destination.index;
-      let itemToMove = sourceState[indexSource];
-      sourceState.splice(indexSource, 1);
-      destinationState.splice(indexDestination, 0, itemToMove);
-      this.setState({
-        [_source]: sourceState,
-        [_destination]: destinationState
-      })
+      //To allow pickup and drop...
+        // ensure that they can move an item form where it was picked up...
+      let canChange = this.state.userData.CanChange;
+      let dropSource = result.source.droppableId;
+      let dropDest = result.destination.droppableId;
+      if (canChange.includes(dropSource) === true && canChange.includes(dropDest)) {
+        let userData = this.state.userData;
+        let _source = result.source.droppableId;
+        let _destination = result.destination.droppableId;
+        let sourceState = this.state[_source];
+        let destinationState = this.state[_destination];
+        let indexSource = result.source.index;
+        let indexDestination = result.destination.index;
+        let itemToMove = sourceState[indexSource];
+        sourceState.splice(indexSource, 1);
+        destinationState.splice(indexDestination, 0, itemToMove);
+        this.setState({
+          [_source]: sourceState,
+          [_destination]: destinationState,
+          userData: userData
+        })
+      } else {
+        console.log('YOU SHALL NOT PASS, nor make that change')
+      }
     }
   }
 
@@ -84,7 +96,7 @@ class CtsMain extends Component {
     let cold = [];
     let dead = [];
     let responseData;
-    //TODO: change to switch statement or something more efficient
+    //TODO: change to switch statement for better readability
     if (this.props.user) {
       axios.post('cts/allCompanies', {
       }).then(response => {
@@ -138,7 +150,7 @@ class CtsMain extends Component {
 
   render() {
     return (
-      <div className='CtsMain'>
+      <div onClick={this.change} className='CtsMain'>
         <Dashboard
           user={this.props.user}
           companyData={this.state.companyData}

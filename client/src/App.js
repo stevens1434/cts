@@ -36,7 +36,7 @@ class App extends Component {
   }
 
   change() {
-    console.log('state: ', this.state);
+    // console.log('state: ', this.state);
   }
 
   liftTokenToState(data) {

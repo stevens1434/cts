@@ -127,6 +127,10 @@ var companySchema = new mongoose.Schema({
       {type: Date, default: Date.now}
     }
   ],
+  Amount: {type: Number},
+  SaleType: [
+    {type: String}
+  ],
   CurrentStage: {
     type: String,
     Required: true
@@ -141,7 +145,8 @@ var companySchema = new mongoose.Schema({
   ApprovedForNextStep: {
     type: Boolean,
     default: false
-  }
+  },
+  Owner: {type: String}
 });
 
 var Company = mongoose.model('Company', companySchema);

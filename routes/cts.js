@@ -30,7 +30,8 @@ router.post('/user', function(req, res, next) {
   User.findOne({_id: user}, {password: false}, function(err, records) {
     if(err) return res.send('err: ', err);
     let data = {};
-    // console.log('records.RoleType: ', records.RoleType);
+    // console.log("records: ", records);
+    // console.log('records.CanChange: ', records.CanChange);
     let firstName = records.firstName;
     let lastName = records.lastName;
     let email = records.email;
@@ -40,6 +41,13 @@ router.post('/user', function(req, res, next) {
     let Notes = records.Notes;
     let ToDo = records.ToDo;
     let Address = records.Address;
+    let id = records._id;
+    let CanChange = records.CanChange;
+    let CanDrop = records.CanDrop;
+    let Amount = records.Amount;
+    let SaleType = records.SaleType;
+    let Owner = records.Owner;
+    data.id = id;
     data.firstName = firstName;
     data.lastName = lastName;
     data.email = email;
@@ -48,7 +56,12 @@ router.post('/user', function(req, res, next) {
     data.companies = Companies;
     data.Notes = Notes;
     data.ToDo = ToDo;
-    data.Address = Address;user
+    data.Address = Address;
+    data.CanChange = CanChange;
+    data.CanDrop = CanDrop;
+    data.Amount = Amount;
+    data.SaleType = SaleType;
+    data.Owner = Owner;
     // console.log('query result from User db in cts/cts backend: ', data);
     res.send(data);
   })

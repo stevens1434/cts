@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Grid from 'material-ui/Grid';
-import Card, { CardHeader, CardTitle, CardText} from 'material-ui/Card';
+import Card from 'material-ui/Card';
 import ExpansionPanel, {
   ExpansionPanelSummary,
   ExpansionPanelDetails,
@@ -9,6 +9,12 @@ import ExpansionPanel, {
 import Typography from 'material-ui/Typography';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 require('dotenv').config();
+const nf = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2
+});
 
 class AccountingDash extends Component {
   constructor(props) {
@@ -24,18 +30,14 @@ class AccountingDash extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
     this.onDragStart = this.onDragStart.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
-    this.change = this.change.bind(this);
     this.draggable = this.draggable.bind(this);
     this.droppable = this.droppable.bind(this);
     this.displayNotes = this.displayNotes.bind(this);
-    this.approvedForNextStep = this.approvedForNextStep.bind(this);
+    this.typeOfSale = this.typeOfSale.bind(this);
+    this.dollarAmount = this.dollarAmount.bind(this);
   }
 
-  change(e) {
-    console.log("this.state in CtsMain/Dashboard/SalesDash: ", this.state);
-  }
-
-onDragStart = (initial) => {
+  onDragStart = (initial) => {
     console.log('___result onDragStart___: ', initial);
     this.init(initial);
   }
@@ -45,32 +47,53 @@ onDragStart = (initial) => {
       this.props.handleStateChange(result)
   }
 
-  displayNotes(data) {
-    let notes = data.map((records, index) => (
-      <span>
-        <div className='bold'>{data.Title}</div>
-        <p>{data.Content}</p>
-        <span>{data.RecordDate}</span>
-      </span>
-    ))
+  typeOfSale(SaleType) {
+    // console.log('saletype: ', SaleType);
     return (
-      <div>{notes}</div>
+      SaleType.map((records, index) => (
+        <span>{records} </span>
+      ))
     )
   }
 
-  approvedForNextStep(data) {
-    if (data === true) {
-      return (
-        <div>Approved</div>
-      )
-    } else {
-      return (
-        <div>Not Approved</div>
-      )
-    }
+  dollarAmount(Amount) {
+    // console.log('amount: ', Amount);
+     let formattedAmount = nf.format(Amount);
+     return (
+       <span className='dollarAmountFunction'>{formattedAmount}</span>
+     )
+  }
+
+  displayNotes(data) {
+    return (
+      data.map((records, index) => (
+        <ExpansionPanel>
+          <ExpansionPanelSummary>
+            <Typography className='expansionHidden'>Notes</Typography>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails className='expansionDetails'>
+          <Typography>
+            <div>{records.Title}</div>
+              <div>
+                <p>{records.Content}</p>
+                <span>{records.RecordDate}</span>
+              </div>
+          </Typography>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      ))
+    )
   }
 
   draggable(records, index) {
+    let image;
+    let check = 'https://dy6j70a9vs3v1.cloudfront.net/funnel_wap/static/files/d97bbb09b0b4d656a621ea8ef892adb2/icon-checkmark.png';
+    let noCheck = 'http://sweetclipart.com/multisite/sweetclipart/files/imagecache/middle/x_mark_red_circle.png';
+    if (records.ApprovedForNextStep === false) {
+      image = noCheck;
+    } else {
+      image = check;
+    }
     return (
       <Draggable id='draggable' draggableId={records._id} index={index} key={index} className='card'>
         {(provided, snapshot) => (
@@ -78,11 +101,20 @@ onDragStart = (initial) => {
             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
               <ExpansionPanel>
                 <ExpansionPanelSummary>
-                  <Typography className='expansionHidden'>{records.Name}</Typography>
+                  <Typography className='expansionHidden'>
+                    <span className='compName'>{records.Name}</span>
+                    <img className='approvedImage' src={image}></img>
+                    <span className='location'>{records.Address.City}</span>
+                    <span className='saleType'>{this.typeOfSale(records.SaleType)}</span>
+                    <span className='dollarAmount'>{this.dollarAmount(records.Amount)}</span>
+                    <span className='owner'>{records.Owner}</span>
+                    <br/>
+                    <br/>
+                    <br/>
+                  </Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className='expansionDetails'>
                   <Typography>
-                    <div>{this.approvedForNextStep(records.ApprovedForNextStep)}</div>
                     <div>
                       <span>{records.Contacts[0].Primary.FirstName}</span>
                       <span>{records.Contacts[0].Primary.LastName}</span><br/>
@@ -123,7 +155,7 @@ onDragStart = (initial) => {
         return ( <div>{this.draggable(records, index)}</div> )
       })
       return (
-        <Grid container spacing={8} onClick={this.change}>
+        <Grid container spacing={8}>
           <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
             <h3 className="column">Accounting<hr/><br/></h3>
           </Grid>

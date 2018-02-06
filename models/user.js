@@ -87,6 +87,9 @@ var userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  CanChange: [
+      {type: String}
+  ],
   ActiveEmployee: {
     type: Boolean
   },
