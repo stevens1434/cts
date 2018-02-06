@@ -8,8 +8,6 @@ import ExpansionPanel, {
 } from 'material-ui/ExpansionPanel';
 import Typography from 'material-ui/Typography';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-const Dimensions = require('Dimensions');
-const window = Dimensions.get('window');
 require('dotenv').config();
 const nf = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -17,8 +15,6 @@ const nf = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 0,
   maximumFractionDigits: 2
 });
-let {height, width} = Dimensions.get('window');
-console.log('height: ', height, 'width: ', width)
 
 class OperationsDash extends Component {
   constructor(props) {
@@ -116,7 +112,7 @@ class OperationsDash extends Component {
                     <br/>
                     <br/>
                     <br/>
-                    <br/>
+                    <br className='break'/>
                   </Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className='expansionDetails'>
