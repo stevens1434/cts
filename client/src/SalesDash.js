@@ -33,7 +33,7 @@ class SalesDash extends Component {
     this.onDragEnd = this.onDragEnd.bind(this);
     this.draggable = this.draggable.bind(this);
     this.droppable = this.droppable.bind(this);
-    this.displayNotes = this.displayNotes.bind(this);
+    this.displayToDo = this.displayToDo.bind(this);
     this.typeOfSale = this.typeOfSale.bind(this);
     this.dollarAmount = this.dollarAmount.bind(this);
   }
@@ -65,20 +65,22 @@ class SalesDash extends Component {
      )
   }
 
-  displayNotes(data) {
+  displayToDo(data) {
     return (
       data.map((records, index) => (
         <ExpansionPanel>
           <ExpansionPanelSummary>
-            <Typography className='expansionHidden'>Notes</Typography>
+            <Typography className='expansionHidden'>
+              <div className='toDoTitle'>{records.Title}</div>
+              <span className='toDoDue'> on {records.DueDate}</span>
+            </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className='expansionDetails'>
           <Typography>
-            <p>{records.Title}</p>
-              <p>
-                <p>{records.Content}</p>
-                <span>{records.RecordDate}</span>
-              </p>
+              <div>
+                <p className='toDoContent'>{records.Content}</p>
+                <span className='toDoDue'>recorded on {records.RecordDate}</span>
+              </div>
           </Typography>
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -122,7 +124,7 @@ class SalesDash extends Component {
                     <div>{records.Contacts[0].Primary.Title}</div>
                   </div>
                   <span>{records.Address.City}</span>
-                  <div>{this.displayNotes(records.Notes)}</div>
+                  <div>{this.displayToDo(records.ToDo)}</div>
                 </Typography>
                 </ExpansionPanelDetails>
               </ExpansionPanel>

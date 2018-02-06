@@ -184,6 +184,20 @@ input[type=submit]:hover {
   bottom: -10px;
   right: -15px;
 }
+.opsCompName { /*company name */
+  font-size: 13px;
+  font-weight: bold;
+  position: relative;
+  top: -10px;
+  left: -15px;
+}
+.opsApprovedImage {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: -5px;
+  right: 10px;
+}
 .opsOwner {
   color: grey;
   font-size: 11px;
@@ -215,10 +229,31 @@ input[type=submit]:hover {
   float: right;
   margin-bottom: 10px;
 }
+.nextToDo {
+  color: grey;
+  font-size: 10px;
+  position: absolute;
+  bottom: 0px;
+  left: -15px;
+}
 .break {
   display: none;
 }
 @media screen and (max-width: 1279px) {
+  .opsCompName { /*company name */
+    font-size: 13px;
+    font-weight: bold;
+    position: relative;
+    top: -10px;
+    left: -15px;
+  }
+  .opsApprovedImage {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: -5px;
+    right: -15px;
+  }
   .opsOwner {
     color: grey;
     font-size: 11px;
@@ -253,6 +288,20 @@ input[type=submit]:hover {
   }
 } /*864*/
 @media screen and (max-width: 959px) {
+  .opsCompName { /*company name */
+    font-size: 13px;
+    font-weight: bold;
+    position: relative;
+    top: -10px;
+    left: -15px;
+  }
+  .opsApprovedImage {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: -5px;
+    right: -15px;
+  }
   .opsOwner {
     color: grey;
     font-size: 11px;
@@ -285,6 +334,18 @@ input[type=submit]:hover {
   .break {
     display: none;
   }
+}
+
+.toDoTitle {
+  font-weight: bold;
+  font-size: 13px;
+}
+.toDoDue {
+  font-size: 10px;
+  font-style: italic;
+}
+.toDoContent {
+  font-size: 11px;
 }
 
 /*.opsDollarAmount {

@@ -32,7 +32,7 @@ class OperationsDash extends Component {
     this.onDragEnd = this.onDragEnd.bind(this);
     this.draggable = this.draggable.bind(this);
     this.droppable = this.droppable.bind(this);
-    this.displayNotes = this.displayNotes.bind(this);
+    this.displayToDo = this.displayToDo.bind(this);
     this.typeOfSale = this.typeOfSale.bind(this);
     this.dollarAmount = this.dollarAmount.bind(this);
   }
@@ -64,19 +64,21 @@ class OperationsDash extends Component {
      )
   }
 
-  displayNotes(data) {
+  displayToDo(data) {
     return (
       data.map((records, index) => (
         <ExpansionPanel>
           <ExpansionPanelSummary>
-            <Typography className='expansionHidden'>Notes</Typography>
+            <Typography className='expansionHidden'>
+              <div className='toDoTitle'>{records.Title}</div>
+              <span className='toDoDue'> on {records.DueDate}</span>
+            </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className='expansionDetails'>
           <Typography>
-            <div>{records.Title}</div>
               <div>
-                <p>{records.Content}</p>
-                <span>{records.RecordDate}</span>
+                <p className='toDoContent'>{records.Content}</p>
+                <span className='toDoDue'>recorded on {records.RecordDate}</span>
               </div>
           </Typography>
           </ExpansionPanelDetails>
@@ -103,8 +105,8 @@ class OperationsDash extends Component {
               <ExpansionPanel>
                 <ExpansionPanelSummary>
                   <Typography className='expansionHidden'>
-                    <span className='compName'>{records.Name}</span>
-                    <img className='approvedImage' src={image}></img>
+                    <span className='opsCompName'>{records.Name}</span>
+                    <img className='opsApprovedImage' src={image}></img>
                     <span className='opsLocation'>{records.Address.City}</span>
                     <span className='opsSaleType'>{this.typeOfSale(records.SaleType)}</span>
                     <span className='opsDollarAmount'>{this.dollarAmount(records.Amount)}</span>
@@ -123,7 +125,7 @@ class OperationsDash extends Component {
                     <p>{records.Contacts[0].Primary.Title}</p>
                   </div>
                   <span>{records.Address.City}</span>
-                  <div>{this.displayNotes(records.Notes)}</div>
+                  <div>{this.displayToDo(records.ToDo)}</div>
                 </Typography>
                 </ExpansionPanelDetails>
               </ExpansionPanel>
