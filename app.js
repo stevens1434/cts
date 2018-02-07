@@ -15,6 +15,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var cts = require('./routes/cts');
+var userCompanies = require('./routes/userCompanies')
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use('/', index); //commented out for Heroku
 app.use('/users', users);
 app.use('/auth', auth);
 app.use('/cts', cts);
+app.use('/userCompanies', userCompanies);
 // for heroku deployment
 // app.get('*', function(req, res, next) {
 // 	res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));

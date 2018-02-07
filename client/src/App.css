@@ -9,7 +9,6 @@
   margin: 70px 5px 0px 5px;
   height: 365px;
 }
-
 .LoginBox {
   padding: 0.5em;
   border: 2px solid grey;
@@ -17,10 +16,20 @@
   margin: 70px 5px 0px 5px;
   height: 365px;
 }
-
 .LogoutBox {
   background: red;
   padding: 0.5em;
+}
+.hamburgerHolder {
+  position: relative;
+  left: -10px;
+}
+.hamburger {
+  height: 80px;
+  width: 80px;
+  position: relative;
+  top: -15px;
+  left: -5px;
 }
 
 .MuiAppBar {
@@ -388,15 +397,21 @@ input[type=submit]:hover {
   margin-bottom: 0px;
 }
 
-/*.opsDollarAmount {
-  color: green;
-  font-size: 12px;
-  position: absolute;
-  bottom: -25px;
-  right: 11px;
-  float: right;
-  margin-bottom: 10px;
-}*/
+.mgtchart {
+  background-color: red;
+}
+.mgtcompare {
+  background-color: yellow;
+}
+.mgteff {
+  background-color: green;
+}
+.mgtlist {
+  background-color: blue;
+}
+.mgtother {
+  background-color: grey;
+}
 
 .mainGrid {
   margin: 0px 5px;

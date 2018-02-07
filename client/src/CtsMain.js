@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-// import { CircularProgress } from 'material-ui/Progress';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 import axios from 'axios';
 import Dashboard from './Dashboard';
-import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
-import Modal from 'material-ui/Modal';
+import MyManagement from './MyManagement';
 require('dotenv').config();
 
 class CtsMain extends Component {
@@ -165,57 +166,45 @@ class CtsMain extends Component {
   }
 
   render() {
-    function getModalStyle() {
-      const top = 50;
-      const left = 50;
-      return {
-        top: `${top}%`,
-        left: `${left}%`,
-        transform: `translate(-${top}%, -${left}%)`,
-      };
-    }
-    const styles = theme => ({
-      paper: {
-        position: 'absolute',
-        width: theme.spacing.unit * 50,
-        backgroundColor: theme.palette.background.paper,
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing.unit * 4,
-      },
-    });
     return (
-      <div onClick={this.change} className='CtsMain'>
-        <Dashboard
-          user={this.props.user}
-          companyData={this.state.companyData}
-          salesClosing={this.state.salesClosing}
-          salesClosed={this.state.salesClosed}
-          SCReceived={this.state.SCReceived}
-          SCCompleted={this.state.SCCompleted}
-          OpsReceived={this.state.OpsReceived}
-          OpsOngoing={this.state.OpsOngoing}
-          OpsCompleted={this.state.OpsCompleted}
-          AccReceived={this.state.AccReceived}
-          AccCompleted={this.state.AccCompleted}
-          Completed={this.state.Completed}
-          handleStateChange={this.handleStateChange}
-        />
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          open={this.state.modal}
-          onClose={this.handleClose}
-        >
-          <div style={getModalStyle()} className='modal'>
-            <Typography variant="title" id="modal-title">
-              Sorry, you do not have permissions to do that
-            </Typography>
-            <Typography variant="subheading" id="simple-modal-description">
-              Contact the help desk for more information or if this is an error.
-            </Typography>
-          </div>
-        </Modal>
-      </div>
+      <Router>
+        <div onClick={this.change} className='CtsMain'>
+          <Route className='Application' exact path="/"
+              render={() => <Dashboard
+                user={this.props.user}
+                companyData={this.state.companyData}
+                salesClosing={this.state.salesClosing}
+                salesClosed={this.state.salesClosed}
+                SCReceived={this.state.SCReceived}
+                SCCompleted={this.state.SCCompleted}
+                OpsReceived={this.state.OpsReceived}
+                OpsOngoing={this.state.OpsOngoing}
+                OpsCompleted={this.state.OpsCompleted}
+                AccReceived={this.state.AccReceived}
+                AccCompleted={this.state.AccCompleted}
+                Completed={this.state.Completed}
+                handleStateChange={this.handleStateChange}
+                />}
+            />
+          <Route className='Application' className='MyManagement' path="/mycompanies"
+              render={props => ( <MyManagement
+                user={this.props.user}
+                companyData={this.state.companyData}
+                salesClosing={this.state.salesClosing}
+                salesClosed={this.state.salesClosed}
+                SCReceived={this.state.SCReceived}
+                SCCompleted={this.state.SCCompleted}
+                OpsReceived={this.state.OpsReceived}
+                OpsOngoing={this.state.OpsOngoing}
+                OpsCompleted={this.state.OpsCompleted}
+                AccReceived={this.state.AccReceived}
+                AccCompleted={this.state.AccCompleted}
+                Completed={this.state.Completed}
+                handleStateChange={this.handleStateChange}
+              />)}
+            />
+        </div>
+      </Router>
     )
   }
 }

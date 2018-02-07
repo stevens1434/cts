@@ -4,20 +4,16 @@ import React, { Component } from 'react';
 //   Route,
 //   Link
 // } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom'
 import './App.css';
 import axios from 'axios';
-// import PropTypes from 'prop-types';
-// import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
-// import IconButton from 'material-ui/IconButton';
-// import { MuiThemeProvider, theme } from 'material-ui/styles';
 import Grid from 'material-ui/Grid';
 import Signup from './Signup';
 import Login from './Login';
-// import Logout from './Logout';
 import UserProfile from './UserProfile';
 import CtsMain from './CtsMain';
 
@@ -86,10 +82,12 @@ class App extends Component {
     // console.log('user in App.js: ', user);
     if (typeof this.state.user === 'object' && Object.keys(this.state.user).length !== 0) {
       return (
-        <div onClick={this.change} className='App'>
-          <UserProfile id='navbar' user={this.state.user} name={this.state.name} logout={this.logout} />
-          <CtsMain id='content' user={this.state.user} logout={this.logout} />
-        </div>
+        <BrowserRouter>
+          <div onClick={this.change} className='App'>
+            <UserProfile id='navbar' user={this.state.user} name={this.state.name} logout={this.logout} />
+            <CtsMain id='content' user={this.state.user} logout={this.logout} />
+          </div>
+        </BrowserRouter>
       );
     } else {
       const AppBarStyle = {

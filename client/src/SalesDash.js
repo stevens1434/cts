@@ -72,6 +72,7 @@ class SalesDash extends Component {
       data.sort( (a, b) => {
         if (a.DueDate.localeCompare(b.DueDate) === -1) {
           nextToDoDate = b.DueDate;
+          return( '' )
         } else if (a.DueDate.localeCompare(b.DueDate) === 1) {
           nextToDoDate = a.DueDate;
         }
