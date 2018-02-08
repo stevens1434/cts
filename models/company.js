@@ -137,7 +137,7 @@ var companySchema = new mongoose.Schema({
   },
   CurrentStageAlt: {
     type: String
-  }
+  },
   StageHistory: [
     { StageName: {Type: String},
       DateEntered: {Type: String},

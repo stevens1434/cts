@@ -38,10 +38,16 @@ class MyMgtSummaryChart extends Component {
   }
 
   randomColor(index, entry) {
+    // console.log('index: ', index);
+    console.log('entry stage111: ', entry.stage);
     let _categories = ['salesClosing', 'salesClosed', 'SCReceived', 'SCCompleted', 'OpsReceived', 'OpsOngoing', 'OpsCompleted', 'AccReceived', 'AccCompleted'];
     for (var m in _categories) {
       let tempCat = this.props[_categories[m]];
+      // console.log("match....: ", this.state.amountPerCateg[m].name);
+
       if (entry.stage === this.state.amountPerCateg[m].name) {
+        console.log("matched....: ", entry.stage, "------", this.state.amountPerCateg[m].name, 'to color: ', this.state.amountPerCateg[m].color);
+        console.log('color: ', this.state.amountPerCateg[m].color);
         return this.state.amountPerCateg[m].color;
       }
     }
@@ -59,8 +65,8 @@ class MyMgtSummaryChart extends Component {
       console.log('companyData: ', companyData);
       let colorsScheme = ['rgb(173, 25, 52)','rgb(173, 72, 25)', 'rgb(173, 146, 25)', 'rgb(106, 173, 25)', 'rgb(65, 133, 129)', 'rgb(25, 52, 173)', 'rgb(72, 25, 173)', 'rgb(146, 25, 173)', 'rgb(103, 95, 96)'];
       let currentStageInfo = [];
-      let nameInCategInfo = {};
       for (var k in companyData) {
+        let nameInCategInfo = {};
         nameInCategInfo.name = companyData[k].Name;
         nameInCategInfo.amount = companyData[k].Amount;
         nameInCategInfo.stage = companyData[k].CurrentStageAlt;
@@ -136,12 +142,13 @@ class MyMgtSummaryChart extends Component {
                           ))
                         }
                       </Pie>
-                      <Pie data={this.state.nameInCateg} cx={250} cy={200} dataKey='amount' nameKey='name' innerRadius={110} outerRadius={120} fill="#82ca9d">
+                      <Pie data={this.state.nameInCateg} cx={250} cy={200} dataKey='amount' nameKey='stage' innerRadius={110} outerRadius={120} fill="#82ca9d">
                         {
                           this.state.nameInCateg.map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={this.randomColor(index, entry)}/>
                           ))
                         }
+                        <LabelList dataKey="amount" value='amount' angle='-90' fill='red' position='outside' />
                       </Pie>
                       <Tooltip/>
                     </PieChart>
