@@ -422,6 +422,11 @@ input[type=submit]:hover {
   margin-bottom: 0px;
 }
 
+.pieChartHeader {
+  text-align: center;
+  border: 2px, solid, red;
+}
+
 .mgtchart {
 
 }
