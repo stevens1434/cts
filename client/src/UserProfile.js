@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
+// import {
+//   BrowserRouter as Router,
+//   Route,
+//   Link
+// } from 'react-router-dom';
 import {
-  BrowserRouter as Router,
-  Route,
   Link
 } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
@@ -10,9 +13,9 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
-import Menu, { MenuItem, MenuList } from 'material-ui/Menu';
-import Dashboard from './Dashboard';
-import MyManagement from './MyManagement';
+import Menu, { MenuItem } from 'material-ui/Menu';
+// import Dashboard from './Dashboard';
+// import MyManagement from './MyManagement';
 
 class UserProfile extends Component {
   constructor(props) {

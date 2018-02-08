@@ -57,7 +57,9 @@ class AccountingDash extends Component {
         ))
       )
     } else {
-      <span>No Sale Type</span>
+      return (
+        <span>No Sale Type</span>
+      )
     }
   }
 
@@ -85,6 +87,7 @@ class AccountingDash extends Component {
         } else if (a.DueDate.localeCompare(b.DueDate) === 1) {
           nextToDoDate = a.DueDate;
         }
+        return( '' )
       })
       return (
         <span>Next f/u: {nextToDoDate}</span>

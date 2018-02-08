@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
-  Route,
-  Link
+  Route
 } from 'react-router-dom';
 import axios from 'axios';
 import Dashboard from './Dashboard';
@@ -186,7 +185,7 @@ class CtsMain extends Component {
                 handleStateChange={this.handleStateChange}
                 />}
             />
-          <Route className='Application' className='MyManagement' path="/mycompanies"
+          <Route className='MyManagement' path="/mycompanies"
               render={props => ( <MyManagement
                 user={this.props.user}
                 companyData={this.state.companyData}

@@ -76,6 +76,7 @@ class SalesDash extends Component {
         } else if (a.DueDate.localeCompare(b.DueDate) === 1) {
           nextToDoDate = a.DueDate;
         }
+        return( '' )
       })
       return (
         <span>Next f/u: {nextToDoDate}</span>

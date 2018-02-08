@@ -16,6 +16,7 @@ router.get('/login', function(req, res, next) {
 // POST /auth/login route - returns a JWT
 router.post('/login', function(req, res, next) {
   // check authentication
+  console.log('/auth/login route in auth.js');
   var hashedPass = ''
   var passwordMatch = false
   // look up user

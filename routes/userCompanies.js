@@ -8,7 +8,7 @@ const fetch = require("isomorphic-fetch");
 
 
 
-// router.post('/user', function(req, res, next) {
+// router.post('/user/', function(req, res, next) {
 //   // console.log("/cts post route: ", req.body);
 //   let user = req.body.data.id
 //   User.findOne({_id: user}, {password: false}, function(err, records) {
