@@ -82,6 +82,7 @@ class CtsMain extends Component {
   }
 
   componentDidMount() {
+    // console.log('THIS.PROPS IN CtsMain.js compdidmt: ', this.props);
     axios.get('cts', {
     }).then(function(response) {
     }).catch(function(err) {
@@ -171,6 +172,7 @@ class CtsMain extends Component {
           <Route className='Application' exact path="/"
               render={() => <Dashboard
                 user={this.props.user}
+                userData={this.state.userData}
                 companyData={this.state.companyData}
                 salesClosing={this.state.salesClosing}
                 salesClosed={this.state.salesClosed}
@@ -188,18 +190,8 @@ class CtsMain extends Component {
           <Route className='MyManagement' path="/mycompanies"
               render={props => ( <MyManagement
                 user={this.props.user}
-                companyData={this.state.companyData}
-                salesClosing={this.state.salesClosing}
-                salesClosed={this.state.salesClosed}
-                SCReceived={this.state.SCReceived}
-                SCCompleted={this.state.SCCompleted}
-                OpsReceived={this.state.OpsReceived}
-                OpsOngoing={this.state.OpsOngoing}
-                OpsCompleted={this.state.OpsCompleted}
-                AccReceived={this.state.AccReceived}
-                AccCompleted={this.state.AccCompleted}
-                Completed={this.state.Completed}
-                handleStateChange={this.handleStateChange}
+                roles={this.props.roles}
+                userData={this.state.userData}
               />)}
             />
         </div>

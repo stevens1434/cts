@@ -1,6 +1,12 @@
 .App {
   text-align: center;
 }
+.pageHeader {
+
+}
+.sectionHeader {
+
+}
 
 .SignupBox {
   padding: 0.5em;
@@ -19,6 +25,12 @@
 .LogoutBox {
   background: red;
   padding: 0.5em;
+}
+.logoutButton {
+  border: 1px solid white;
+}
+.logoutButton:hover {
+  border: none;
 }
 .hamburgerHolder {
   position: relative;
@@ -96,6 +108,7 @@ input[type=submit]:hover {
 
 .MenuTitle {
   flex: 10;
+  letter-spacing: 3px;
 }
 
 .LogoutButton {
@@ -405,6 +418,9 @@ input[type=submit]:hover {
   .break {
     display: none;
   }
+  .UserName {
+    display: none;
+  }
 }
 
 .toDoTitle {
@@ -420,11 +436,6 @@ input[type=submit]:hover {
   font-size: 11px;
   text-align: left;
   margin-bottom: 0px;
-}
-
-.pieChartHeader {
-  text-align: center;
-  border: 2px, solid, red;
 }
 
 .mgtchart {

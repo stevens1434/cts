@@ -47,7 +47,7 @@ class CtsMain extends Component {
   }
 
   onDragEnd = (result) => {
-    console.log('___result onDragEnd___: ', result);
+    // console.log('___result onDragEnd___: ', result);
       this.props.handleStateChange(result)
   }
 

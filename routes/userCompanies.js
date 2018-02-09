@@ -51,8 +51,18 @@ const fetch = require("isomorphic-fetch");
 //   })
 // });
 
+// router.post('/getRoleType', function(req, res, next) {
+//   // console.log('/ in usercompanies: ', req.body);
+//   let userId = req.body.data.id
+//   Company.find({userId: userId}, function(err, records) {
+//     if(err) return res.send('err: ', err);
+//     // console.log('records in /allCompanies: ', records);
+//     res.send(records);
+//   });
+// })
+
 router.post('/user', function(req, res, next) {
-  console.log('/ in usercompanies: ', req.body);
+  // console.log('/ in usercompanies: ', req.body);
   let userId = req.body.data.id
   Company.find({userId: userId}, function(err, records) {
     if(err) return res.send('err: ', err);

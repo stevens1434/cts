@@ -18,22 +18,66 @@ require('dotenv').config();
 //   maximumFractionDigits: 2
 // });
 
-
 class SalesDash extends Component {
   constructor(props) {
     super(props)
     this.state = {
       user: {},
+      companyData: [],
+      salesClosing: [],
+      salesClosed: [],
+      SCReceived: [],
+      SCCompleted: [],
+      OpsReceived: [],
+      OpsOngoing: [],
+      OpsCompleted: [],
+      AccReceived: [],
+      AccCompleted: [],
+      Completed: [],
+      Cold: [],
+      Dead: [],
     }
     this.componentDidMount = this.componentDidMount.bind(this);
     this.change = this.change.bind(this);
+    // this.handleData = this.handleData.bind(this);
   }
 
   change() {
     console.log('state in myManagement.js: ', this.state);
   }
 
-  componentDidMount() {
+  // handleData(responseData) {
+  //   // console.log('2-----in handleData(responseData): ', responseData);
+  //   for (var i in responseData) {
+  //     if(responseData[i].CurrentStage === 'Closing') {
+  //       closingsales.push(responseData[i]);
+  //     } else if (responseData[i].CurrentStage === 'Closed') {
+  //       closedsales.push(responseData[i]);
+  //     } else if (responseData[i].CurrentStage === 'Sales Coordinator Received') {
+  //       receivedsc.push(responseData[i]);
+  //     } else if(responseData[i].CurrentStage === 'Sales Coordinator Completed') {
+  //       completedsc.push(responseData[i]);
+  //     } else if(responseData[i].CurrentStage === 'Operations Received') {
+  //       receivedopps.push(responseData[i]);
+  //     } else if(responseData[i].CurrentStage === 'Operations Ongoing') {
+  //       ongoingopps.push(responseData[i]);
+  //     } else if(responseData[i].CurrentStage === 'Operations Completed') {
+  //       completedopps.push(responseData[i]);
+  //     } else if(responseData[i].CurrentStage === 'Accounting Received') {
+  //       receivedacc.push(responseData[i]);
+  //     } else if(responseData[i].CurrentStage === 'Accounting Completed') {
+  //       completedacc.push(responseData[i]);
+  //     } else if(responseData[i].CurrentStage === 'Cold'){
+  //       cold.push(responseData[i]);
+  //     } else if(responseData[i].CurrentStage === 'Dead') {
+  //       dead.push(responseData[i]);
+  //     }
+  //     // console.log('closingsales: ', closingsales, 'receivedsc: ', receivedsc)
+  //     // console.log('i: ', i, ' length of iterator: ', responseData.length -1);
+  //   }
+  // }
+
+  componentWillReceiveProps() {
     let closingsales = [];
     let closedsales = [];
     let receivedsc = [];
@@ -46,80 +90,170 @@ class SalesDash extends Component {
     let completed = [];
     let cold = [];
     let dead = [];
+    // console.log('this.props in mymanagent form ctsmain WILL RECEIVE PROPS: ', this.props)
     let responseData;
-    axios.post('userCompanies/user', {
-      data: this.props.user
-    }).then(response => {
-      responseData = response.data;
-      for (var i in responseData) {
-        if(responseData[i].CurrentStage === 'Closing') {
-          closingsales.push(responseData[i]);
-        } else if (responseData[i].CurrentStage === 'Closed') {
-          closedsales.push(responseData[i]);
-        } else if (responseData[i].CurrentStage === 'Sales Coordinator Received') {
-          receivedsc.push(responseData[i]);
-        } else if(responseData[i].CurrentStage === 'Sales Coordinator Completed') {
-          completedsc.push(responseData[i]);
-        } else if(responseData[i].CurrentStage === 'Operations Received') {
-          receivedopps.push(responseData[i]);
-        } else if(responseData[i].CurrentStage === 'Operations Ongoing') {
-          ongoingopps.push(responseData[i]);
-        } else if(responseData[i].CurrentStage === 'Operations Completed') {
-          completedopps.push(responseData[i]);
-        } else if(responseData[i].CurrentStage === 'Accounting Received') {
-          receivedacc.push(responseData[i]);
-        } else if(responseData[i].CurrentStage === 'Accounting Completed') {
-          completedacc.push(responseData[i]);
-        } else if(responseData[i].CurrentStage === 'Cold'){
-          cold.push(responseData[i]);
-        } else if(responseData[i].CurrentStage === 'Dead') {
-          dead.push(responseData[i]);
+    // console.log('props: ', this.props);
+    if (this.props.roles.RoleType === 'Employee') {
+      axios.post('userCompanies/user', {
+        data: this.props.user
+      }).then(response => {
+        responseData = response.data;
+        for (var i in responseData) {
+          // console.log('responseData[i]: ', responseData[i]);
+          if (responseData[i].CurrentStage === 'Closing') {
+            responseData[i].stageAlt = 'Closing';
+            closingsales.push(responseData[i]);
+          } else if (responseData[i].CurrentStage === 'Closed') {
+            responseData[i].stageAlt = 'Closed';
+            closedsales.push(responseData[i]);
+          } else if (responseData[i].CurrentStage === 'Sales Coordinator Received') {
+            receivedsc.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Sales Coordinator Completed') {
+            completedsc.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Operations Received') {
+            receivedopps.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Operations Ongoing') {
+            ongoingopps.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Operations Completed') {
+            completedopps.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Accounting Received') {
+            receivedacc.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Accounting Completed') {
+            completedacc.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Cold'){
+            cold.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Dead') {
+            dead.push(responseData[i]);
+          }
         }
-      }
-    }).then(response => {
-      this.setState({
-        companyData: responseData,
-        salesClosing: closingsales,
-        salesClosed: closedsales,
-        SCReceived: receivedsc,
-        SCCompleted: completedsc,
-        OpsReceived: receivedopps,
-        OpsOngoing: ongoingopps,
-        OpsCompleted: completedopps,
-        AccReceived: receivedacc,
-        AccCompleted: completedacc,
-        Completed: completed,
-        Cold: cold,
-        Dead: dead
+      }).then(response => {
+        this.setState({
+          companyData: responseData,
+          salesClosing: closingsales,
+          salesClosed: closedsales,
+          SCReceived: receivedsc,
+          SCCompleted: completedsc,
+          OpsReceived: receivedopps,
+          OpsOngoing: ongoingopps,
+          OpsCompleted: completedopps,
+          AccReceived: receivedacc,
+          AccCompleted: completedacc,
+          Completed: completed,
+          Cold: cold,
+          Dead: dead
+        })
+      }).then(response => {
+        responseData = [];
       })
-    }).catch(function (error) {
-      console.log('error: ', error);
-    });
+    } else if (this.props.roles.RoleType === 'Manager' || this.props.roles.RoleType === 'Owner') {
+      // console.log('user is a manger or owner');
+      axios.post('cts/allCompanies', {
+      }).then(response => {
+        // console.log('response in allCompanies GET for owner/manager: ', response);
+        responseData = response.data;
+        //this.handleData(responseData);
+        for (var i in responseData) {
+          if(responseData[i].CurrentStage === 'Closing') {
+            closingsales.push(responseData[i]);
+          } else if (responseData[i].CurrentStage === 'Closed') {
+            closedsales.push(responseData[i]);
+          } else if (responseData[i].CurrentStage === 'Sales Coordinator Received') {
+            receivedsc.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Sales Coordinator Completed') {
+            completedsc.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Operations Received') {
+            receivedopps.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Operations Ongoing') {
+            ongoingopps.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Operations Completed') {
+            completedopps.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Accounting Received') {
+            receivedacc.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Accounting Completed') {
+            completedacc.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Cold'){
+            cold.push(responseData[i]);
+          } else if(responseData[i].CurrentStage === 'Dead') {
+            dead.push(responseData[i]);
+          }
+        }
+      }).then(response => {
+        this.setState({
+          companyData: responseData,
+          salesClosing: closingsales,
+          salesClosed: closedsales,
+          SCReceived: receivedsc,
+          SCCompleted: completedsc,
+          OpsReceived: receivedopps,
+          OpsOngoing: ongoingopps,
+          OpsCompleted: completedopps,
+          AccReceived: receivedacc,
+          AccCompleted: completedacc,
+          Completed: completed,
+          Cold: cold,
+          Dead: dead
+        })
+      })
+    }
+  }
 
+  componentDidMount() {
+    // console.log('this.props in mymanagent form ctsmain COMPDIDMT: ', this.props)
+    // let responseData;
+    // axios.post('userCompanies/user', {
+    //   data: this.props.user
+    // }).then(response => {
+    //   responseData = response.data;
+    //   //this.handleData(responseData);
+    //   for (var i in responseData) {
+    //     if(responseData[i].CurrentStage === 'Closing') {
+    //       closingsales.push(responseData[i]);
+    //     } else if (responseData[i].CurrentStage === 'Closed') {
+    //       closedsales.push(responseData[i]);
+    //     } else if (responseData[i].CurrentStage === 'Sales Coordinator Received') {
+    //       receivedsc.push(responseData[i]);
+    //     } else if(responseData[i].CurrentStage === 'Sales Coordinator Completed') {
+    //       completedsc.push(responseData[i]);
+    //     } else if(responseData[i].CurrentStage === 'Operations Received') {
+    //       receivedopps.push(responseData[i]);
+    //     } else if(responseData[i].CurrentStage === 'Operations Ongoing') {
+    //       ongoingopps.push(responseData[i]);
+    //     } else if(responseData[i].CurrentStage === 'Operations Completed') {
+    //       completedopps.push(responseData[i]);
+    //     } else if(responseData[i].CurrentStage === 'Accounting Received') {
+    //       receivedacc.push(responseData[i]);
+    //     } else if(responseData[i].CurrentStage === 'Accounting Completed') {
+    //       completedacc.push(responseData[i]);
+    //     } else if(responseData[i].CurrentStage === 'Cold'){
+    //       cold.push(responseData[i]);
+    //     } else if(responseData[i].CurrentStage === 'Dead') {
+    //       dead.push(responseData[i]);
+    //     }
+    //   }
+    // }).then(response => {
+    //   this.setState({
+    //     companyData: responseData,
+    //     salesClosing: closingsales,
+    //     salesClosed: closedsales,
+    //     SCReceived: receivedsc,
+    //     SCCompleted: completedsc,
+    //     OpsReceived: receivedopps,
+    //     OpsOngoing: ongoingopps,
+    //     OpsCompleted: completedopps,
+    //     AccReceived: receivedacc,
+    //     AccCompleted: completedacc,
+    //     Completed: completed,
+    //     Cold: cold,
+    //     Dead: dead
+    //   })
+    // })
   }
 
   render() {
-    // let userId;
-    // // if (this.props.companyData) {
-    //   console.log('this.props: ', this.props);
-    //   let user = this.props.user;
-    //   let companyData = this.state.companyData;
-    //   let salesClosing = this.state.salesClosing;
-    //   let salesClosed = this.state.salesClosed;
-    //   let SCReceived = this.state.SCReceived;
-    //   let SCCompleted = this.state.SCCompleted;
-    //   let OpsReceived = this.state.OpsReceived;
-    //   let OpsOngoing = this.state.OpsOngoing;
-    //   let OpsCompleted = this.state.OpsCompleted;
-    //   let AccReceived = this.state.AccReceived;
-    //   let AccCompleted = this.state.AccCompleted;
-    //   let Completed = this.state.Completed;
-    //   let Cold = this.state.Cold;
-    //   let Dead = this.state.Dead;
-      // let handleStateChange = this.handleStateChange;
+      // console.log('===== state in myMgt: ', this.state);
       return (
         <div>
-          <p onClick={this.change}>MyManagement</p>
+          <h1 className='pageHeader' onClick={this.change}>Management Dashboard</h1>
           <Grid container spacing={16}>
             <Grid className='mgtchart' item xl={12} lg={12} md={12} sm={12} xs={12}>
               <MyMgtSummaryChart
@@ -150,11 +284,6 @@ class SalesDash extends Component {
           </Grid>
         </div>
       )
-    // } else {
-    //   return (
-    //     <p>Loading...</p>
-    //   )
-    // }
   }
 }
 

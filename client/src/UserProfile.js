@@ -53,7 +53,7 @@ class UserProfile extends Component {
       }
     const { anchorEl } = this.state;
     let hamburger = 'http://houstoncreativesmiles.com/wp-content/themes/ss3/assets/css/hamburger.png';
-    let menu = this.state.menu;
+    // let menu = this.state.menu;
     return (
       <div className='container AppBar'>
         <AppBar className='AppBar' style={AppBarStyle} position="fixed">
@@ -92,11 +92,11 @@ class UserProfile extends Component {
             <span className='UserName'>
               <p className='UserName' color='inherit'><span className='WelcomeMessage'>Welcome</span>, {name.firstName} {name.lastName}</p>
             </span>
-            <Typography type="title" color="inherit" className='MenuTitle'>
-              RescueTime
+            <Typography style={{fontSize: '30px', margin: '0 auto'}} type="title" color="inherit" className='MenuTitle'>
+              CTS Companies
             </Typography>
             <span className='LogoutButton'>
-              <Button onClick={this.props.logout} color="inherit">Logout</Button>
+              <Button style={{border: '1px solid white'}} className='logoutButton' onClick={this.props.logout} color="inherit">Logout</Button>
             </span>
           </Toolbar>
         </AppBar>

@@ -24,6 +24,7 @@ class App extends Component {
       token: '',
       user: {},
       name: {},
+      roles: {},
       userData: {}
     }
     this.change = this.change.bind(this);
@@ -33,16 +34,17 @@ class App extends Component {
   }
 
   change() {
-    // console.log('state: ', this.state);
+    console.log('state: ', this.state);
   }
 
   liftTokenToState(data) {
-    this.setState({token: data.token, user: data.user})
+    // console.log('________DATA_______ IN liftTOkenToState(data): ', data);
+    this.setState({token: data.token, roles: data.roles, user: data.user})
   }
 
   logout() {
     localStorage.removeItem('mernToken')
-    this.setState({token: '', user: {}})
+    this.setState({token: '', user: {}, roles: {}, name: {}, userData: {}})
   }
 
   componentDidMount() {
@@ -61,13 +63,15 @@ class App extends Component {
         token: token
       }).then(response => {
         //   Store the token and user
+        // console.log('response for user: ', response);
         localStorage.setItem('mernToken', response.data.token)
         // console.log('response.data in app.js compdidmt: ', response.data);
         // let user = response.data.user;
         this.setState({
           token: response.data.token,
           user: response.data.user,
-          name: response.data.name
+          name: response.data.name,
+          roles: response.data.roles
         })
         //   Pass User into child components and display main app
       }).catch(err => {
@@ -80,12 +84,13 @@ class App extends Component {
   render() {
     // let user = this.state.user
     // console.log('user in App.js: ', user);
+    // console.log('this.state.user: ', this.state.user);
     if (typeof this.state.user === 'object' && Object.keys(this.state.user).length !== 0) {
       return (
         <BrowserRouter>
           <div onClick={this.change} className='App'>
             <UserProfile id='navbar' user={this.state.user} name={this.state.name} logout={this.logout} />
-            <CtsMain id='content' user={this.state.user} logout={this.logout} />
+            <CtsMain id='content' user={this.state.user} roles={this.state.roles} logout={this.logout} />
           </div>
         </BrowserRouter>
       );
@@ -94,7 +99,7 @@ class App extends Component {
         background: '#ae1936'
         }
       return (
-        <div className='App'>
+        <div onClick={this.change} className='App'>
           <Grid container spacing={16}>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
               <AppBar style={AppBarStyle} position="fixed">

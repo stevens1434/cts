@@ -31,7 +31,11 @@ router.post('/login', function(req, res, next) {
       var token = jwt.sign(user.toObject(), process.env.JWT_SECRET, {
         expiresIn: 60 * 60 * 24 // expires in 24 hours
       })
-      res.json({user: user, token: token})
+      console.log('user in backend /login: ', user);
+      let roles = {};
+      roles.RoleCat = user.RoleCat;
+      roles.RoleType = user.RoleType
+      res.json({user: user, roles: roles, token: token})
     } else {
       console.log("passwords don't match")
       // Return an error
@@ -93,8 +97,14 @@ router.post('/me/from/token', function(req, res, next) {
       if (err) throw err;
       // console.log('user: ', user);
       let name = {};
+      let roles = {};
       name.firstName = user.firstName;
       name.lastName = user.lastName;
+      let RoleCat = user.RoleCat;
+      let RoleType = user.RoleType;
+      roles.RoleCat = RoleCat;
+      roles.RoleType = RoleType
+      // console.log('user2: ', user)
       // console.log('name: ', name);
       //Note: you can renew token by creating new token(i.e.
       //refresh it)w/ new expiration time at this point, but I’m
@@ -102,6 +112,7 @@ router.post('/me/from/token', function(req, res, next) {
       // var token = utils.generateToken(user);
       res.json({
         name: name,
+        roles: roles,
         user: user,
         token: token
       });
