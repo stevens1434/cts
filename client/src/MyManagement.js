@@ -4,7 +4,7 @@ import MyMgtSummaryChart from './MyMgtSummaryChart';
 import MyMgtCompare from './MyMgtCompare';
 import Grid from 'material-ui/Grid';
 import axios from 'axios';
-// import Card from 'material-ui/Card';
+import Card from 'material-ui/Card';
 // import ExpansionPanel, {
 //   ExpansionPanelSummary,
 //   ExpansionPanelDetails,
@@ -152,22 +152,24 @@ class MyManagement extends Component {
               />
             </Grid>
             <Grid className='mgtcompare' item xl={12} lg={12} md={12} sm={12} xs={12}>
-              <MyMgtCompare
-                user={this.props.user}
-                companyData={this.state.companyData}
-                salesClosing={this.state.salesClosing}
-                salesClosed={this.state.salesClosed}
-                SCReceived={this.state.SCReceived}
-                SCCompleted={this.state.SCCompleted}
-                OpsReceived={this.state.OpsReceived}
-                OpsOngoing={this.state.OpsOngoing}
-                OpsCompleted={this.state.OpsCompleted}
-                AccReceived={this.state.AccReceived}
-                AccCompleted={this.state.AccCompleted}
-                Completed={this.state.Completed}
-                Cold={this.state.Completed}
-                Dead={this.state.Completed}
-              />
+              <Card style={{backgroundColor: 'rgb(163, 163, 163)', margin: '0px 20px'}}>
+                <MyMgtCompare
+                  user={this.props.user}
+                  companyData={this.state.companyData}
+                  salesClosing={this.state.salesClosing}
+                  salesClosed={this.state.salesClosed}
+                  SCReceived={this.state.SCReceived}
+                  SCCompleted={this.state.SCCompleted}
+                  OpsReceived={this.state.OpsReceived}
+                  OpsOngoing={this.state.OpsOngoing}
+                  OpsCompleted={this.state.OpsCompleted}
+                  AccReceived={this.state.AccReceived}
+                  AccCompleted={this.state.AccCompleted}
+                  Completed={this.state.Completed}
+                  Cold={this.state.Completed}
+                  Dead={this.state.Completed}
+                />
+              </Card>
             </Grid>
             <Grid className='mgteff' item xl={4} lg={4} md={4} sm={6} xs={12}>
             </Grid>

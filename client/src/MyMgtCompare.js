@@ -2,7 +2,18 @@ import React, { Component } from 'react';
 import './App.css';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import TableHeaderColumn from 'material-ui/Table';
+import ExpansionPanel, {
+  ExpansionPanelSummary,
+  ExpansionPanelDetails,
+} from 'material-ui/ExpansionPanel';
+import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
+const nf = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2
+});
 
 class MyMgtCompare extends Component {
   constructor(props) {
@@ -16,6 +27,7 @@ class MyMgtCompare extends Component {
     this.change = this.change.bind(this);
     this.stageHistory = this.stageHistory.bind(this);
     this.getDifference = this.getDifference.bind(this);
+    this.formatAmount = this.formatAmount.bind(this);
   }
 
   change() {
@@ -44,53 +56,44 @@ class MyMgtCompare extends Component {
     }
   }
 
+  formatAmount(amount) {
+    if (amount) {
+      let formattedAmount = nf.format(amount);
+      return (
+        <span>{formattedAmount}</span>
+      )
+    } else {
+      return (
+        <span>No Amount</span>
+      )
+    }
+  }
+
   stageHistory(stageHistory) {
     // console.log('________________________________________');
     let length = stageHistory.length;
     console.log('stagehistorysssss: ', stageHistory[length -1])
-    // return (
-    //     <div>
-    //       <Table>
-    //         <TableHead>
-    //           <TableRow>
-    //             <TableCell>STAGE HISTORY</TableCell>
-    //           </TableRow>
-    //         </TableHead>
-    //       <TableBody>
-    //         {stageHistory.map((records, index) => (
-    //           <TableRow key={records.index}>
-    //             <TableCell>{records.StageName}</TableCell>
-    //             <TableCell numeric>{records.DateEntered}</TableCell>
-    //             <TableCell numeric>{this.getDifference(records.DateEntered, records.DateCompleted, records.StageName)}</TableCell>
-    //           </TableRow>
-    //         ))}
-    //       </TableBody>
-    //       </Table>
-    //     </div>
-    //
-    // )
     return (
-      <TableBody>
-        <span className='bold'>
-          <TableRow tooltip='thing'>STAGE</TableRow>
-          <TableRow>DATE ENTERED</TableRow>
-          <TableRow>Time in STAGE</TableRow>
-        </span>
-        {stageHistory.map((records, index) => (
-          <span>
-          <TableRow key={index}>{records.StageName}</TableRow>
-          <TableRow key={index}>{records.DateEntered}</TableRow>
-          <TableRow key={index}>{this.getDifference(records.DateEntered, records.DateCompleted, records.StageName)}</TableRow>
-          </span>
-        ))}
-      </TableBody>
+      stageHistory.map((records, index) => (
+          <ExpansionPanelDetails>
+                    <TableRow className='tableRowStage'>
+                      <TableCell className='tableCellStage bold' key={index}>{records.StageName}</TableCell>
+                      <TableCell className='tableCellStage' key={index}>{records.DateEntered}</TableCell>
+                      <TableCell className='tableCellStage' key={index}>{this.getDifference(records.DateEntered, records.DateCompleted, records.StageName)}</TableCell>
+                    </TableRow>
+
+          </ExpansionPanelDetails>
+      ))
     )
   }
 
-  // <p>{records.StageName}</p>
-  // <p>{records.DateEntered}</p>
-  // <p>{this.getDifference(records.DateEntered, records.DateCompleted, records.StageName)}</p>
-  // <hr/>
+  // <TableHead>
+  //   <TableRow>
+  //     <TableCell>Stage</TableCell>
+  //     <TableCell numeric>Date Entered</TableCell>
+  //     <TableCell numeric>Time In Stage</TableCell>
+  //   </TableRow>
+  // </TableHead>
 
   componentWillReceiveProps() {
     if (this.props.companyData.length > 0) {
@@ -223,17 +226,15 @@ class MyMgtCompare extends Component {
       ))
       return (
         <div>
-            <h3>Dataset 1</h3>
-
             <Paper>
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Dessert (100g serving)</TableCell>
-                    <TableCell numeric>Calories</TableCell>
-                    <TableCell numeric>Fat (g)</TableCell>
-                    <TableCell numeric>Carbs (g)</TableCell>
-                    <TableCell numeric>Protein (g)</TableCell>
+                    <TableCell>Company</TableCell>
+                    <TableCell numeric>Owner</TableCell>
+                    <TableCell numeric>Current Stage</TableCell>
+                    <TableCell numeric>Amount</TableCell>
+                    <TableCell numeric>Stage History</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -242,9 +243,16 @@ class MyMgtCompare extends Component {
                       <TableRow key={records.index}>
                         <TableCell>{records.Name}</TableCell>
                         <TableCell numeric>{records.Owner}</TableCell>
-                        <TableCell tooltip={this.stageHistory(records.StageHistory)} numeric>{records.CurrentStage}</TableCell>
-                        <TableCell numeric>${records.Amount}</TableCell>
-                        <TableCell numeric>{this.stageHistory(records.StageHistory)}</TableCell>
+                        <TableCell numeric>{records.CurrentStage}</TableCell>
+                        <TableCell numeric>{this.formatAmount(records.Amount)}</TableCell>
+                        <TableCell numeric>
+                          <ExpansionPanel>
+                            <ExpansionPanelSummary>
+                              <Typography>StageHistory</Typography>
+                            </ExpansionPanelSummary>
+                            {this.stageHistory(records.StageHistory)}
+                          </ExpansionPanel>
+                        </TableCell>
                       </TableRow>
                     );
                   })}

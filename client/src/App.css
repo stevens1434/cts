@@ -1,3 +1,6 @@
+html {
+  background-color: rgb(252, 252, 252);
+}
 .App {
   text-align: center;
 }
@@ -441,12 +444,25 @@ input[type=submit]:hover {
 .stageHistory {
   border: 1px solid black;
 }
+.tableRowStage {
+  margin: 0 auto;
+  margin-bottom: -50px;
+  /*margin-top: -30px;*/
+  padding: 0px 0px;
+}
+.tableCellStage {
+
+}
 
 .mgtchart {
 
 }
 .mgtcompare {
-  background-color: yellow;
+
+}
+.MyMgtCompareCard {
+  background-color: rgb(163, 163, 163);
+  padding: 8px 8px;
 }
 .mgteff {
   background-color: green;
