@@ -16,7 +16,7 @@ router.get('/login', function(req, res, next) {
 // POST /auth/login route - returns a JWT
 router.post('/login', function(req, res, next) {
   // check authentication
-  console.log('/auth/login route in auth.js');
+  // console.log('/auth/login route in auth.js');
   var hashedPass = ''
   var passwordMatch = false
   // look up user
@@ -31,7 +31,7 @@ router.post('/login', function(req, res, next) {
       var token = jwt.sign(user.toObject(), process.env.JWT_SECRET, {
         expiresIn: 60 * 60 * 24 // expires in 24 hours
       })
-      console.log('user in backend /login: ', user);
+      // console.log('user in backend /login: ', user);
       let roles = {};
       roles.RoleCat = user.RoleCat;
       roles.RoleType = user.RoleType

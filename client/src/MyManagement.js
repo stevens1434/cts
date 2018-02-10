@@ -151,7 +151,7 @@ class MyManagement extends Component {
                 Dead={this.state.Completed}
               />
             </Grid>
-            <Grid className='mgtcompare' item xl={4} lg={4} md={4} sm={6} xs={12}>
+            <Grid className='mgtcompare' item xl={12} lg={12} md={12} sm={12} xs={12}>
               <MyMgtCompare
                 user={this.props.user}
                 companyData={this.state.companyData}

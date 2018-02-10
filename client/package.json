@@ -3,18 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@devexpress/dx-react-core": "^1.0.0",
+    "@devexpress/dx-react-grid": "^1.0.0",
+    "@devexpress/dx-react-grid-material-ui": "^1.0.0",
     "axios": "^0.17.0",
     "bootstrap": "^4.0.0",
     "d3": "^4.12.2",
     "jquery": "^3.3.1",
     "lodash": "^4.17.4",
     "material-ui": "^1.0.0-beta.31",
+    "pondjs": "^0.8.8",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-beautiful-dnd": "^4.0.1",
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14",
+    "react-timeseries-charts": "^0.13.1",
     "recharts": "^1.0.0-beta.10"
   },
   "scripts": {

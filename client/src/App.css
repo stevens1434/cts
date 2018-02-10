@@ -438,6 +438,10 @@ input[type=submit]:hover {
   margin-bottom: 0px;
 }
 
+.stageHistory {
+  border: 1px solid black;
+}
+
 .mgtchart {
 
 }
