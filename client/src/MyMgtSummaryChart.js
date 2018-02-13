@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import Grid from 'material-ui/Grid';
+import AppBar from 'material-ui/AppBar';
+import Tabs, { Tab } from 'material-ui/Tabs';
+import Typography from 'material-ui/Typography';
 import {PieChart, Pie, Tooltip, Cell, Radar, Label,
   RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
   ResponsiveContainer, Sector} from 'recharts';
@@ -16,13 +19,15 @@ class MyMgtSummaryChart extends Component {
       numberPerCateg: [],
       amountPerCateg: [],
       nameInCateg: [],
-      activeIndex: 1
+      activeIndex: 1,
+      value: 0
     }
     this.change = this.change.bind(this);
     this.randomColor = this.randomColor.bind(this);
     this.changeActiveIndex = this.changeActiveIndex.bind(this);
     this.changeDollar = this.changeDollar.bind(this);
     this.renderActiveShape = this.renderActiveShape.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   change() {
@@ -46,7 +51,7 @@ class MyMgtSummaryChart extends Component {
   changeDollar(value) {
     let formattedAmount = nf.format(value);
     return (
-      <span>{formattedAmount}</span>
+      <span style={{fontWeight: 'bold'}}>{formattedAmount}</span>
     )
   }
 
@@ -81,13 +86,18 @@ class MyMgtSummaryChart extends Component {
           fill={fill}
         />
         <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none"/>
-        <text style={{fontWeight: 'bold'}} x={175} y={20} textAnchor={100} fill={color}>{`${stage}`}</text>
-        <text x={175} y={20} dy={18} textAnchor={100} fill={color}>{nf.format(value)}</text>
-        <text x={175} y={20} dy={36} textAnchor={100} fill={color}>
-          {`(Rate ${(percent * 100).toFixed(2)}%)`}
+        <text style={{fontWeight: 'bold', fontSize: '18px'}} x={20} y={30} textAnchor={100} fill={color}>{`${stage}`}:</text>
+        <text x={20} y={30} dy={22} textAnchor={100} fill={color}>
+          The total value found in this stage is {nf.format(value)}.</text>
+        <text x={20} y={30} dy={40} textAnchor={100} fill={color}>
+          {(percent * 100).toFixed(2)}% of your companies are currently in this stage.
         </text>
       </g>
     );
+  };
+
+  handleChange = (event, value) => {
+    this.setState({ value });
   };
 
   componentWillReceiveProps() {
@@ -152,57 +162,74 @@ class MyMgtSummaryChart extends Component {
   render() {
     // console.log('============================== STATE AT END CHART: ', this.state);
       if (this.state.numberPerCateg && this.state.nameInCateg) {
+        const {value} = this.state;
         let colors = ['rgb(173, 25, 52)','rgb(173, 72, 25)', 'rgb(173, 146, 25)', 'rgb(106, 173, 25)', 'rgb(65, 133, 129)', 'rgb(25, 52, 173)', 'rgb(72, 25, 173)', 'rgb(146, 25, 173)', 'rgb(103, 95, 96)'];
         return(
           <div className='summaryChart' onClick={this.change}>
-            <ResponsiveContainer width='100%' height='100%'>
-              <Grid className='summaryChart' container spacing={16}>
-                <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-                  <RadarChart className='radar' cx={295} cy={200} outerRadius={100} width={600} height={350} data={this.state.numberPerCateg}>
-                    <PolarGrid/>
-                    <PolarAngleAxis dataKey="stage" stroke='rgb(103, 95, 96)'/>
-                    <PolarRadiusAxis/>
-                    <Radar name="stage" dataKey='amount' stroke="rgb(173, 25, 52)" fill="rgb(103, 95, 96)" fillOpacity={0.6}/>
-                    <Tooltip/>
-                  </RadarChart>
-                </Grid>
-                <Grid className='pie' item xl={6} lg={6} md={6} sm={12} xs={12}>
-                    <PieChart className='pie' width={400} height={350}>
-                      <Pie
-                      data={this.state.amountPerCateg}
-                      cx={250} cy={200}
-                      dataKey='amount' nameKey='stage'
-                      outerRadius={100}
-                      fill="#8884d8"
-                      activeIndex={this.state.activeIndex} activeShape={this.renderActiveShape} onMouseEnter={this.changeActiveIndex}
-                    >
-                        {
-                          this.state.amountPerCateg.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={colors[index]}/>
-                          ))
-                        }
-                      </Pie>
-                      <Pie
-                        data={this.state.nameInCateg}
-                        cx={250} cy={200}
-                        dataKey='amount'
-                        key='amount'
-                        nameKey='stageAlt'
-                        innerRadius={110} outerRadius={120}
-                        fill="#82ca9d"
-                      >
-                        {
-                          this.state.nameInCateg.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={this.randomColor(index, entry)}>
-                              <Tooltip />
-                            </Cell>
-                          ))
-                        }
-                      </Pie>
-                    </PieChart>
+            <div className='tabContainer'>
+              <AppBar position="static" color='default'>
+                <Tabs value={value} onChange={this.handleChange} indicatorColor="primary" textColor="rgba(174, 25, 54, .67)" fullWidth centered>
+                  <Tab className='tabLabel' label="Companies Per Stage (%)" />
+                  <Tab className='tabLabel' label="Value Per Stage ($)"  href="#basic-tabs" />
+                </Tabs>
+              </AppBar>
+              {value === 0 &&
+                <ResponsiveContainer width='100%' height='100%'>
+                  <Grid className='summaryChart' container spacing={8}>
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <RadarChart className='radar' cx={225} cy={245} outerRadius={100} width={450} height={437} data={this.state.numberPerCateg}>
+                        <PolarGrid/>
+                        <PolarAngleAxis dataKey="stage" stroke='rgb(103, 95, 96)'/>
+                        <PolarRadiusAxis/>
+                        <Radar name="stage" dataKey='amount' stroke="rgb(173, 25, 52)" fill="rgb(103, 95, 96)" fillOpacity={0.6}/>
+                        <Tooltip/>
+                      </RadarChart>
+                    </Grid>
                   </Grid>
-                </Grid>
-            </ResponsiveContainer>
+                </ResponsiveContainer>
+              }
+              {value === 1 &&
+                <ResponsiveContainer width='100%' height='100%'>
+                  <Grid className='summaryChart' container spacing={16}>
+                    <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <PieChart className='pie' width={450} height={437}>
+                        <Pie
+                        data={this.state.amountPerCateg}
+                        cx={225} cy={245}
+                        dataKey='amount' nameKey='stage'
+                        outerRadius={100}
+                        fill="#8884d8"
+                        activeIndex={this.state.activeIndex} activeShape={this.renderActiveShape} onMouseEnter={this.changeActiveIndex}
+                      >
+                          {
+                            this.state.amountPerCateg.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={colors[index]}/>
+                            ))
+                          }
+                        </Pie>
+                        <Pie
+                          data={this.state.nameInCateg}
+                          cx={225} cy={245}
+                          dataKey='amount'
+                          key='amount'
+                          nameKey='stageAlt'
+                          innerRadius={110} outerRadius={120}
+                          fill="#82ca9d"
+                        >
+                          {
+                            this.state.nameInCateg.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={this.randomColor(index, entry)}>
+                                <Tooltip />
+                              </Cell>
+                            ))
+                          }
+                        </Pie>
+                      </PieChart>
+                    </Grid>
+                  </Grid>
+                </ResponsiveContainer>
+              }
+            </div>
           </div>
         )
       } else {

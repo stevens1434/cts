@@ -42,7 +42,7 @@ class MyMgtCompare extends Component {
       var timeDiff = Math.abs(diff);
       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
       return (
-        <span>{diffDays} Days in current stage ({stage})</span>
+        <span className='getDifference'>{diffDays} Days in current stage (<span className='bold'>{stage}</span>)</span>
       )
     } else {
       let d1 = new Date(date1).getTime();
@@ -51,7 +51,7 @@ class MyMgtCompare extends Component {
       var timeDiff = Math.abs(diff);
       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
       return (
-        <span>{diffDays} Days in {stage}</span>
+        <span className='getDifference'>{diffDays} Days in <span className='bold'>{stage}</span></span>
       )
     }
   }
@@ -72,28 +72,19 @@ class MyMgtCompare extends Component {
   stageHistory(stageHistory) {
     // console.log('________________________________________');
     let length = stageHistory.length;
-    console.log('stagehistorysssss: ', stageHistory[length -1])
+    // console.log('stagehistorysssss: ', stageHistory[length -1])
     return (
       stageHistory.map((records, index) => (
-          <ExpansionPanelDetails>
+          <ExpansionPanelDetails key={index}>
                     <TableRow className='tableRowStage'>
-                      <TableCell className='tableCellStage bold' key={index}>{records.StageName}</TableCell>
-                      <TableCell className='tableCellStage' key={index}>{records.DateEntered}</TableCell>
                       <TableCell className='tableCellStage' key={index}>{this.getDifference(records.DateEntered, records.DateCompleted, records.StageName)}</TableCell>
+                      <TableCell className='tableCellStage' key={index}>{records.DateEntered}</TableCell>
                     </TableRow>
 
           </ExpansionPanelDetails>
       ))
     )
   }
-
-  // <TableHead>
-  //   <TableRow>
-  //     <TableCell>Stage</TableCell>
-  //     <TableCell numeric>Date Entered</TableCell>
-  //     <TableCell numeric>Time In Stage</TableCell>
-  //   </TableRow>
-  // </TableHead>
 
   componentWillReceiveProps() {
     if (this.props.companyData.length > 0) {
@@ -137,75 +128,6 @@ class MyMgtCompare extends Component {
 
   componentDidMount() {
   }
-//POND.JS
-  // nameAndStageData = [
-  //   {
-  //     name: 'xxx',
-  //     columns: ['dateEntered', 'stage'],
-  //     points: [
-  //       [ stage: 'xxx', dateEntered: 'xxx', name: 'xxx' ],
-  //       [ stage: 'xxx', dateEntered: 'xxx', name: 'xxx' ]
-  //     ]
-  //   },
-  //   {
-  //     name: 'xxx',
-  //     columns: ['dateEntered', 'stage'],
-  //     points: [
-  //       [ stage: 'xxx', dateEntered: 'xxx', name: 'xxx' ],
-  //       [ stage: 'xxx', dateEntered: 'xxx', name: 'xxx' ],
-  //       [ stage: 'xxx', dateEntered: 'xxx', name: 'xxx' ]
-  //     ]
-  //   },
-  //     ...
-  // ]
-
-//MY INFO
-// nameAndStageData = [
-//   {
-//     name: 'xxx',
-//     data: [
-//       { stage: 'xxx', dateEntered: 'xxx' },
-//       { stage: 'xxx', dateEntered: 'xxx' },
-//     ]
-//   },
-//   {
-//     name: 'xxx',
-//     data: [
-//       { stage: 'xxx', dateEntered: 'xxx' },
-//       { stage: 'xxx', dateEntered: 'xxx' },
-//     ]
-//   },
-//     ...
-// ]
-
-  // CompanyData = [
-  //   {
-  //     name: 'xxxx',
-  //     StageHistory: [
-  //       {
-  //         stage: 'xxx',
-  //         DateEntered: 'xxx'
-  //       },
-  //       {
-  //         stage: 'xxx',
-  //         DateEntered: 'xxx'
-  //       },...
-  //     ]
-  //   },
-  //   {
-  //     name: 'xxxx',
-  //     StageHistory: [
-  //       {
-  //         stage: 'xxx',
-  //         DateEntered: 'xxx'
-  //       },
-  //       {
-  //         stage: 'xxx',
-  //         DateEntered: 'xxx'
-  //       },...
-  //     ]
-  //   },...
-  // ]
 
   render() {
     if (this.state.nameAndStageData.length > 0) {
@@ -213,39 +135,29 @@ class MyMgtCompare extends Component {
       let nameAndStageData = this.state.nameAndStageData;
       let chartData = this.state.chartData;
       let companyData = this.state.companyData;
-      let map = this.state.companyData.map((records, index) => (
-        <div>
-          <p className='bold'>{records.Name}</p>
-          <p>${records.Owner}</p>
-          <p>Current Stage: {records.CurrentStage}</p>
-          <p>Amount: ${records.Amount}</p>
-          <div className='stageHistory'>StageHistory
-            <p>{this.stageHistory(records.StageHistory)}</p>
-          </div>
-        </div>
-      ))
       return (
         <div>
             <Paper>
               <Table>
                 <TableHead>
+                  <div className="tableTitle">Company Data</div>
                   <TableRow>
-                    <TableCell>Company</TableCell>
-                    <TableCell numeric>Owner</TableCell>
-                    <TableCell numeric>Current Stage</TableCell>
-                    <TableCell numeric>Amount</TableCell>
-                    <TableCell numeric>Stage History</TableCell>
+                    <TableCell style={{color: 'rgba(174, 25, 54, .67)'}}>Company</TableCell>
+                    <TableCell style={{color: 'rgba(174, 25, 54, .67)'}}>Owner</TableCell>
+                    <TableCell style={{color: 'rgba(174, 25, 54, .67)'}}>Current Stage</TableCell>
+                    <TableCell style={{color: 'rgba(174, 25, 54, .67)'}} numeric>Amount</TableCell>
+                    <TableCell style={{color: 'rgba(174, 25, 54, .67)'}}>Stage History</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {companyData.map((records, index) => {
                     return (
-                      <TableRow key={records.index}>
+                      <TableRow key={index} hover>
                         <TableCell>{records.Name}</TableCell>
-                        <TableCell numeric>{records.Owner}</TableCell>
-                        <TableCell numeric>{records.CurrentStage}</TableCell>
+                        <TableCell>{records.Owner}</TableCell>
+                        <TableCell>{records.CurrentStage}</TableCell>
                         <TableCell numeric>{this.formatAmount(records.Amount)}</TableCell>
-                        <TableCell numeric>
+                        <TableCell>
                           <ExpansionPanel>
                             <ExpansionPanelSummary>
                               <Typography>StageHistory</Typography>
@@ -270,22 +182,3 @@ class MyMgtCompare extends Component {
 }
 
 export default MyMgtCompare;
-
-// <div>
-//
-// </div>
-// <p>MyMgtCompare</p>
-// <div>
-// <p>line chart for past 12 months showing number of companies at each stage in any given month</p>
-// <p>red = sales closed, green = ops received</p>
-// <p>January: red = 2, green = 3</p>
-// <p>February: red = 3, green = 2</p>
-// <p></p>
-// </div>
-// <div>
-// <p>Line chart showing each company -as a line- and at what dates they were in any given stage</p>
-// <p>red = Co1, green = Co 2</p>
-// <p>January: Co1 = closed</p>
-// <p>February: Co1 = Ops Rcvd</p>
-// <p></p>
-// </div>

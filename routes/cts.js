@@ -72,6 +72,11 @@ router.post('/allCompanies', function(req, res, next) {
   Company.find({}, function(err, records) {
     if(err) return res.send('err: ', err);
     // console.log('records in /allCompanies: ', records);
+    // let stageHistory = records.StageHistory;
+    // console.log('stageHIstory: ', stageHistory)
+    // records.forEach((records, index) => {
+    //   console.log('name: ', records.StageHistory);
+    // });
     res.send(records);
   });
 })

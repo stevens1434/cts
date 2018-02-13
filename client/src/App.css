@@ -5,7 +5,7 @@ html {
   text-align: center;
 }
 .pageHeader {
-
+ color: rgb(174, 25, 54);
 }
 .sectionHeader {
 
@@ -446,12 +446,32 @@ input[type=submit]:hover {
 }
 .tableRowStage {
   margin: 0 auto;
-  margin-bottom: -50px;
+  margin-bottom: -30px;
   /*margin-top: -30px;*/
   padding: 0px 0px;
 }
 .tableCellStage {
+  padding: 0px 0px;
+}
+.tableTitle {
+  color: rgb(174, 25, 54);
+  font-family: inherit;
+  float: left;
+  margin: 5px 0px 10px 10px;
+  font-size: 28px;
+  font-weight: bold;
+}
+.getDifference {
+  padding: 0px 0px;
+  width: 120%;
+}
 
+text {
+  font-size: 13px;
+}
+
+.tabLabel {
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .mgtchart {
@@ -465,7 +485,7 @@ input[type=submit]:hover {
   padding: 8px 8px;
 }
 .mgteff {
-  background-color: green;
+
 }
 .mgtlist {
   background-color: blue;

@@ -8,6 +8,7 @@ import axios from 'axios';
 import Dashboard from './Dashboard';
 import MyManagement from './MyManagement';
 require('dotenv').config();
+const stages = ['Closing', 'Closed', 'SCReceived', 'SCCompleted', 'Operations Received', 'Operations Ongoing', 'Operations Completed', 'Accounting Received', 'Accounting Completed'];
 
 class CtsMain extends Component {
   constructor(props) {
@@ -28,12 +29,14 @@ class CtsMain extends Component {
       Completed: [],
       Cold: [],
       Dead: [],
+      allData: [],
       modal: false
     }
     this.componentDidMount = this.componentDidMount.bind(this);
     this.change = this.change.bind(this);
     this.handleStateChange = this.handleStateChange.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleData = this.handleData.bind(this);
   }
 
   change(e) {
@@ -81,13 +84,50 @@ class CtsMain extends Component {
     }
   }
 
-  componentDidMount() {
-    // console.log('THIS.PROPS IN CtsMain.js compdidmt: ', this.props);
-    axios.get('cts', {
-    }).then(function(response) {
-    }).catch(function(err) {
-      console.log("err: ", err);
+  handleData(request) {
+    let allData = {};
+    let subData = {};
+    axios.post(request, {
+      data: this.props.user
+    }).then(response => {
+      let responseData = response.data
+      console.log('responseData: ', responseData)
+      stages.forEach((_currStage, index) => {
+        let dateEntered = [];
+        let dateCompleted = [];
+        for (var i in responseData) {
+          if (responseData[i].StageName === _currStage) {
+            // console.log('responseData.StageName: ', i, ': ', responseData[i]);
+            dateEntered.push(responseData[i].DateEntered);
+            dateCompleted.push(responseData[i].DateCompleted);
+            allData[responseData[i].StageName] = {
+              stage: responseData[i].StageName,
+              data: {
+                dateEntered: dateEntered,
+                dateCompleted: dateCompleted
+              }
+            }
+          }
+        }
+      })
+    }).then(records => {
+      this.setState({
+        allData: allData
+      })
+    }).catch(err => {
+      console.log('err: ', err);
     })
+  }
+
+  componentDidMount() {
+    if (this.props.roles.RoleType === 'Employee') {
+      // console.log('employee');
+      let request = 'userCompanies/userefficiency';
+      this.handleData(request);
+    } else if (this.props.roles.RoleType === 'Manager' || this.props.roles.RoleType === 'Owner') {
+      let request = 'userCompanies/efficiency';
+      this.handleData(request);
+    }
     if (this.state.user) {
       axios.post('cts/user', {
         data: this.props.user
@@ -191,6 +231,7 @@ class CtsMain extends Component {
               render={props => ( <MyManagement
                 user={this.props.user}
                 roles={this.props.roles}
+                allData={this.state.allData}
                 userData={this.state.userData}
               />)}
             />

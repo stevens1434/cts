@@ -93,7 +93,7 @@ var userSchema = new mongoose.Schema({
   ActiveEmployee: {
     type: Boolean
   },
-  Companies: [{type: Number, ref: 'Company'}]
+  Companies: [{type: [String], ref: 'Company'}]
 });
 
 // Override 'toJSON' to prevent the password from being returned with the user

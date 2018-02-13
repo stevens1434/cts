@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 import MyMgtSummaryChart from './MyMgtSummaryChart';
 import MyMgtCompare from './MyMgtCompare';
+import MyMgtEff from './MyMgtEff';
+import MetaData from './MetaData';
 import Grid from 'material-ui/Grid';
 import axios from 'axios';
+import Paper from 'material-ui/Paper';
 import Card from 'material-ui/Card';
 // import ExpansionPanel, {
 //   ExpansionPanelSummary,
@@ -12,12 +15,7 @@ import Card from 'material-ui/Card';
 // import Typography from 'material-ui/Typography';
 // import { Droppable, Draggable } from 'react-beautiful-dnd';
 require('dotenv').config();
-// const nf = new Intl.NumberFormat('en-US', {
-//   style: 'currency',
-//   currency: 'USD',
-//   minimumFractionDigits: 0,
-//   maximumFractionDigits: 2
-// });
+const stages = ['Closing', 'Closed', 'SCReceived', 'SCCompleted', 'Operations Received', 'Operations Ongoing', 'Operations Completed', 'Accounting Received', 'Accounting Completed'];
 
 class MyManagement extends Component {
   constructor(props) {
@@ -41,10 +39,44 @@ class MyManagement extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
     this.change = this.change.bind(this);
     this.handleData = this.handleData.bind(this);
+    this.handleMetaData = this.handleMetaData.bind(this);
   }
 
   change() {
     console.log('state in myManagement.js: ', this.state);
+  }
+
+  handleMetaData(request) {
+    let metaData = {};
+    let subData = {};
+    axios.post(request, {
+      data: this.props.user
+    }).then(response => {
+      let responseData = response.data
+      console.log('responseData for MetaData.js: ', responseData)
+      stages.forEach((_currStage, index) => {
+        let amount = [];
+        let stage = [];
+        for (var i in responseData) {
+          stage = [_currStage];
+          if (responseData[i].stageName === _currStage) {
+            amount.push(responseData[i].amount);
+            console.log('stage: ', stage, '.. amount: ', amount);
+            metaData[responseData[i].stageName] = {
+              stage: stage,
+              amount: responseData[i].amount
+            }
+          }
+        }
+      })
+    }).then(records => {
+      console.log('metaData: ', metaData);
+      this.setState({
+        metaData: metaData
+      })
+    }).catch(err => {
+      console.log('err: ', err);
+    })
   }
   //USED FOR MyMgtSummarChart.js
   handleData(request) {
@@ -66,6 +98,7 @@ class MyManagement extends Component {
       data: this.props.user
     }).then(response => {
       responseData = response.data;
+      console.log('responseData: ', responseData);
       for (var i in responseData) {
         if (responseData[i].CurrentStage === 'Closing') {
           responseData[i].stageAlt = 'Closing';
@@ -125,34 +158,65 @@ class MyManagement extends Component {
   }
 
   componentDidMount() {
+    if (this.props.roles.RoleType === 'Employee') {
+      let request = 'userCompanies/userAmount';
+      this.handleMetaData(request);
+    } else if (this.props.roles.RoleType === 'Manager' || this.props.roles.RoleType === 'Owner') {
+      let request = 'cts/amount';
+      this.handleMetaData(request);
+    }
   }
 
   render() {
-      // console.log('===== state in myMgt: ', this.state);
+      console.log('===== state in myMgt: ', this.state);
       return (
         <div>
-          <h1 className='pageHeader' onClick={this.change}>Management Dashboard</h1>
           <Grid container spacing={16}>
-            <Grid className='mgtchart' item xl={12} lg={12} md={12} sm={12} xs={12}>
-              <MyMgtSummaryChart
-                user={this.props.user}
-                companyData={this.state.companyData}
-                salesClosing={this.state.salesClosing}
-                salesClosed={this.state.salesClosed}
-                SCReceived={this.state.SCReceived}
-                SCCompleted={this.state.SCCompleted}
-                OpsReceived={this.state.OpsReceived}
-                OpsOngoing={this.state.OpsOngoing}
-                OpsCompleted={this.state.OpsCompleted}
-                AccReceived={this.state.AccReceived}
-                AccCompleted={this.state.AccCompleted}
-                Completed={this.state.Completed}
-                Cold={this.state.Completed}
-                Dead={this.state.Completed}
-              />
+            <Grid className='mgteff' item xl={12} lg={12} md={12} sm={12} xs={12}>
+              <Card style={{margin: '0px 5px -5px 5px', padding: '8px'}}>
+                <h1 className='pageHeader' onClick={this.change}>Management Dashboard</h1>
+              </Card>
+            </Grid>
+            <Grid className='mgteff' item xl={8} lg={8} md={12} sm={12} xs={12}>
+              <Card style={{backgroundColor: 'rgba(163, 163, 163, .4)', margin: '0px 10px', paddingRight: '0px'}}>
+                <MyMgtEff
+                  allData={this.props.allData}
+                  user={this.props.user}
+                />
+              </Card>
+            </Grid>
+            <Grid className='mgtchart' item xl={4} lg={4} md={6} sm={12} xs={12}>
+              <Paper style={{ margin: '0px 10px 0px 0px' , padding: '0px'}}>
+                <MyMgtSummaryChart
+                  user={this.props.user}
+                  companyData={this.state.companyData}
+                  salesClosing={this.state.salesClosing}
+                  salesClosed={this.state.salesClosed}
+                  SCReceived={this.state.SCReceived}
+                  SCCompleted={this.state.SCCompleted}
+                  OpsReceived={this.state.OpsReceived}
+                  OpsOngoing={this.state.OpsOngoing}
+                  OpsCompleted={this.state.OpsCompleted}
+                  AccReceived={this.state.AccReceived}
+                  AccCompleted={this.state.AccCompleted}
+                  Completed={this.state.Completed}
+                  Cold={this.state.Completed}
+                  Dead={this.state.Completed}
+                />
+              </Paper>
+            </Grid>
+            <Grid className='mgtlist' item xl={6} lg={6} md={6} sm={12} xs={12}>
+              <Card style={{backgroundColor: 'rgba(163, 163, 163, .4)', margin: '0px 10px'}}>
+                <MetaData
+                  user={this.props.user}
+                  metaData={this.state.metaData}
+                />
+              </Card>
+            </Grid>
+            <Grid className='mgtother' item xl={6} lg={6} md={12} sm={12} xs={12}>
             </Grid>
             <Grid className='mgtcompare' item xl={12} lg={12} md={12} sm={12} xs={12}>
-              <Card style={{backgroundColor: 'rgb(163, 163, 163)', margin: '0px 20px'}}>
+              <Card style={{backgroundColor: 'rgba(163, 163, 163, .4)', margin: '0px 10px'}}>
                 <MyMgtCompare
                   user={this.props.user}
                   companyData={this.state.companyData}
@@ -170,12 +234,6 @@ class MyManagement extends Component {
                   Dead={this.state.Completed}
                 />
               </Card>
-            </Grid>
-            <Grid className='mgteff' item xl={4} lg={4} md={4} sm={6} xs={12}>
-            </Grid>
-            <Grid className='mgtlist' item xl={4} lg={4} md={4} sm={12} xs={12}>
-            </Grid>
-            <Grid className='mgtother' item xl={12} lg={12} md={12} sm={12} xs={12}>
             </Grid>
           </Grid>
         </div>

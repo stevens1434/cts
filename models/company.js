@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
+var Schema = mongoose.Schema; //this is new
 
 var companySchema = new mongoose.Schema({
   userId: [{type: [String], ref: 'User'}],
@@ -145,12 +146,31 @@ var companySchema = new mongoose.Schema({
       MovedToBy: {userId: [{type: [String], ref: 'User'}]}
     }
   ],
+
   ApprovedForNextStep: {
     type: Boolean,
     default: false
   },
   Owner: {type: String}
 });
+
+// companySchema.virtual('stages').get(function() {
+//   let closing = {};
+//   let closingEntered = [];
+//   let closingCompleted = [];
+//   for (var i in stageHistory) {
+//     // console.log('stageHistory: ', records.StageHistory[i]);
+//     if (stageHistory[i].StageName === 'Closing') {
+//       // console.log('stageHistory.DateEntered: ', stageHistory[i].DateEntered);
+//       closingEntered.push(stageHistory.DateEntered);
+//       closingCompleted.push(stageHistory.DateCompleted)
+//     }
+//   }
+//   closing.entered = closingEntered;
+//   closing.completed = closingCompleted;
+//   console.log('closing: ', closing);
+//   return closing;
+// })
 
 var Company = mongoose.model('Company', companySchema);
 
