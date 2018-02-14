@@ -7,69 +7,80 @@ var axios = require('axios');
 var Schema = mongoose.Schema; //this is new
 const fetch = require("isomorphic-fetch");
 
-router.post('/amount', function(req, res, next) {
-  const stages = ['Closing', 'Closed', 'SCReceived', 'SCCompleted', 'OpsReceived', 'OpsOngoing', 'OpsCompleted', 'AccReceived', 'AccCompleted'];
-  Company.find({}, 'StageHistory.StageName StageHistory.DateEntered StageHistory.DateCompleted Amount')
-    .populate({path: 'StageName DateEntered DateCompleted'})
-    .exec(function(err, records) {
-      let finalData = [];
-      records.forEach((data, index) => {
-        // console.log("amount: ", data.Amount);
-        const Amt = data.Amount;
-        let amount = [];
-        let result = {}
-        result.amount = data.Amount;
-        const info = data.StageHistory
-        for (var i in info) {
-          if (info[i].StageName !== undefined) {
-            let currentStage = '';
-            if (stages[i] !== undefined) {
-              currentStage = stages[i];
-            }
-            // console.log('info[i]: ', info[i])
-            result.stageName = info[i].StageName
-            // console.log('info[i]: ', info[i]);
-            // console.log('result: ', result);
-            // finalData.push(result);
-          }
-          finalData.push(result);
-        }
-      })
-      res.send(finalData);
-    })
-})
+// router.post('/amount', function(req, res, next) {
+//   const stages = ['Closing', 'Closed', 'SCReceived', 'SCCompleted', 'OpsReceived', 'OpsOngoing', 'OpsCompleted', 'AccReceived', 'AccCompleted'];
+//   Company.find({}, 'StageHistory.StageName StageHistory.DateEntered StageHistory.DateCompleted Amount')
+//     .populate({path: 'StageName DateEntered DateCompleted'})
+//     .exec(function(err, records) {
+//       let finalData = [];
+//       records.forEach((data, index) => {
+//         // console.log("amount: ", data.Amount);
+//         const Amt = data.Amount;
+//         let amount = [];
+//         let result = {}
+//         result.amount = data.Amount;
+//         const info = data.StageHistory
+//         for (var i in info) {
+//           if (info[i].StageName !== undefined) {
+//             let currentStage = '';
+//             if (stages[i] !== undefined) {
+//               currentStage = stages[i];
+//             }
+//             // console.log('info[i]: ', info[i])
+//             result.stageName = info[i].StageName
+//             // console.log('info[i]: ', info[i]);
+//             // console.log('result: ', result);
+//             // finalData.push(result);
+//           }
+//           finalData.push(result);
+//         }
+//       })
+//       res.send(finalData);
+//     })
+// })
 
-router.post('/userAmount', function(req, res, next) {
-  let userId = req.body.data.id
-  const stages = ['Closing', 'Closed', 'SCReceived', 'SCCompleted', 'OpsReceived', 'OpsOngoing', 'OpsCompleted', 'AccReceived', 'AccCompleted'];
-  Company.find({userId: userId}, 'StageHistory.StageName StageHistory.DateEntered StageHistory.DateCompleted Amount')
-    .populate({path: 'StageName DateEntered DateCompleted'})
-    .exec(function(err, records) {
-      let finalData = [];
-      records.forEach((data, index) => {
-        console.log("data: ", data);
-        const Amt = data.Amount;
-        let amount = [];
-        let result = {}
-        result.amount = data.Amount;
-        const info = data.StageHistory
-        for (var i in info) {
-          if (info[i].StageName !== undefined) {
-            let currentStage = '';
-            if (stages[i] !== undefined) {
-              currentStage = stages[i];
-            }
-            // console.log('info[i]: ', info[i])
-            result.stageName = info[i].StageName
-            // console.log('info[i]: ', info[i]);
-            // console.log('result: ', result);
-            finalData.push(result);
-          }
-          // finalData.push(result);
-        }
-      })
-      res.send(finalData);
-    })
+// router.post('/userAmount', function(req, res, next) {
+//   let userId = req.body.data.id
+//   const stages = ['Closing', 'Closed', 'SCReceived', 'SCCompleted', 'OpsReceived', 'OpsOngoing', 'OpsCompleted', 'AccReceived', 'AccCompleted'];
+//   Company.find({userId: userId}, 'StageHistory.StageName StageHistory.DateEntered StageHistory.DateCompleted Amount')
+//     .populate({path: 'StageName DateEntered DateCompleted'})
+//     .exec(function(err, records) {
+//       let finalData = [];
+//       records.forEach((data, index) => {
+//         // console.log("data: ", data);
+//         const Amt = data.Amount;
+//         let amount = [];
+//         let result = {}
+//         result.amount = data.Amount;
+//         const info = data.StageHistory
+//         for (var i in info) {
+//           if (info[i].StageName !== undefined) {
+//             let currentStage = '';
+//             if (stages[i] !== undefined) {
+//               currentStage = stages[i];
+//             }
+//             // console.log('info[i]: ', info[i])
+//             result.stageName = info[i].StageName
+//             // console.log('info[i]: ', info[i]);
+//             // console.log('result: ', result);
+//             finalData.push(result);
+//           }
+//           // finalData.push(result);
+//         }
+//       })
+//       res.send(finalData);
+//     })
+// })
+
+router.post('/api', function(req, res, next) {
+  let apiKey = process.env.GoogleMapsApi;
+  // console.log('req.body.data: ', req.body);
+  let address = req.body.data;
+  fetch('http://maps.googleapis.com/maps/api/geocode/json?address='+address+'&key='+apiKey)
+  .then(response => {
+    console.log('response: ', response);
+    res.send(response);
+  })
 })
 
 router.post('/efficiency', function(req, res, next) {

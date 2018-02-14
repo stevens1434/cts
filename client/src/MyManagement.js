@@ -4,16 +4,11 @@ import MyMgtSummaryChart from './MyMgtSummaryChart';
 import MyMgtCompare from './MyMgtCompare';
 import MyMgtEff from './MyMgtEff';
 import MetaData from './MetaData';
+import MyMgtMap from './MyMgtMap';
 import Grid from 'material-ui/Grid';
 import axios from 'axios';
 import Paper from 'material-ui/Paper';
 import Card from 'material-ui/Card';
-// import ExpansionPanel, {
-//   ExpansionPanelSummary,
-//   ExpansionPanelDetails,
-// } from 'material-ui/ExpansionPanel';
-// import Typography from 'material-ui/Typography';
-// import { Droppable, Draggable } from 'react-beautiful-dnd';
 require('dotenv').config();
 const stages = ['Closing', 'Closed', 'SCReceived', 'SCCompleted', 'Operations Received', 'Operations Ongoing', 'Operations Completed', 'Accounting Received', 'Accounting Completed'];
 
@@ -217,7 +212,14 @@ class MyManagement extends Component {
                 />
               </Paper>
             </Grid>
-            <Grid className='mgtother' item xl={6} lg={6} md={6} sm={6} xs={12}>
+            <Grid className='mgtmap' item xl={6} lg={6} md={6} sm={6} xs={12}>
+              <Card style={{backgroundColor: 'rgba(163, 163, 163, .4)', margin: '0px 10px'}}>
+                <MyMgtMap
+                  style={{ margin: '0px 10px'}}
+                  user={this.props.user}
+                  companyData={this.state.companyData}
+                />
+              </Card>
             </Grid>
             <Grid className='mgtlist' item xl={6} lg={6} md={12} sm={6} xs={12}>
               <MetaData
