@@ -43,7 +43,7 @@ class MyManagement extends Component {
   }
 
   change() {
-    console.log('state in myManagement.js: ', this.state);
+    console.log('state in myManagement.js parent: ', this.state);
   }
 
   handleMetaData(request) {
@@ -54,26 +54,38 @@ class MyManagement extends Component {
     }).then(response => {
       let responseData = response.data
       console.log('responseData for MetaData.js: ', responseData)
-      stages.forEach((_currStage, index) => {
+      for (var i in responseData) {
         let amount = [];
         let stage = [];
-        for (var i in responseData) {
-          stage = [_currStage];
-          if (responseData[i].stageName === _currStage) {
+        let _currStage = responseData[i].stageName;
+        stages.forEach((_currStage, j) => {
+          console.log('same stage? : ', stages[j], '_currStage: ', _currStage);
+          if (stages[j] === _currStage) {
             amount.push(responseData[i].amount);
-            console.log('stage: ', stage, '.. amount: ', amount);
-            metaData[responseData[i].stageName] = {
-              stage: stage,
-              amount: responseData[i].amount
-            }
+            console.log('stage: ', _currStage, '- amount: ', amount);
           }
-        }
-      })
+        })
+      }
+      // stages.forEach((_currStage, index) => {
+      //   let amount = [];
+      //   let stage = [];
+      //   for (var i in responseData) {
+      //     stage = _currStage;
+      //     if (responseData[i].stageName === _currStage) {
+      //       amount.push(responseData[i].amount);
+      //       // console.log('stage: ', stage, '.. amount: ', amount);
+      //       metaData[responseData[i].stageName] = {
+      //         stage: stage,
+      //         amount: amount
+      //       }
+      //     }
+      //   }
+      // })
     }).then(records => {
-      console.log('metaData: ', metaData);
-      this.setState({
-        metaData: metaData
-      })
+      // console.log('metaData: ', metaData);
+      // this.setState({
+      //   metaData: metaData
+      // })
     }).catch(err => {
       console.log('err: ', err);
     })
@@ -158,27 +170,27 @@ class MyManagement extends Component {
   }
 
   componentDidMount() {
-    if (this.props.roles.RoleType === 'Employee') {
-      let request = 'userCompanies/userAmount';
-      this.handleMetaData(request);
-    } else if (this.props.roles.RoleType === 'Manager' || this.props.roles.RoleType === 'Owner') {
-      let request = 'cts/amount';
-      this.handleMetaData(request);
-    }
+    // if (this.props.roles.RoleType === 'Employee') {
+    //   let request = 'userCompanies/userAmount';
+    //   this.handleMetaData(request);
+    // } else if (this.props.roles.RoleType === 'Manager' || this.props.roles.RoleType === 'Owner') {
+    //   let request = 'userCompanies/amount';
+    //   this.handleMetaData(request);
+    // }
   }
 
   render() {
       console.log('===== state in myMgt: ', this.state);
       return (
-        <div>
+        <div onClick={this.change}>
           <Grid container spacing={16}>
-            <Grid className='mgteff' item xl={12} lg={12} md={12} sm={12} xs={12}>
-              <Card style={{margin: '0px 5px -5px 5px', padding: '8px'}}>
+            <Grid className='mgtTitle' item xl={12} lg={12} md={12} sm={12} xs={12}>
+              <Card style={{margin: '0px 10px -5px 10px', padding: '8px'}}>
                 <h1 className='pageHeader' onClick={this.change}>Management Dashboard</h1>
               </Card>
             </Grid>
             <Grid className='mgteff' item xl={8} lg={8} md={12} sm={12} xs={12}>
-              <Card style={{backgroundColor: 'rgba(163, 163, 163, .4)', margin: '0px 10px', paddingRight: '0px'}}>
+              <Card style={{backgroundColor: 'rgba(163, 163, 163, .4)', margin: '0px 0px 0px 10px', paddingRight: '0px'}}>
                 <MyMgtEff
                   allData={this.props.allData}
                   user={this.props.user}
@@ -186,7 +198,7 @@ class MyManagement extends Component {
               </Card>
             </Grid>
             <Grid className='mgtchart' item xl={4} lg={4} md={6} sm={12} xs={12}>
-              <Paper style={{ margin: '0px 10px 0px 0px' , padding: '0px'}}>
+              <Paper style={{ margin: '0px 10px 10px 0px' , padding: '0px'}}>
                 <MyMgtSummaryChart
                   user={this.props.user}
                   companyData={this.state.companyData}
@@ -205,15 +217,15 @@ class MyManagement extends Component {
                 />
               </Paper>
             </Grid>
-            <Grid className='mgtlist' item xl={6} lg={6} md={6} sm={12} xs={12}>
-              <Card style={{backgroundColor: 'rgba(163, 163, 163, .4)', margin: '0px 10px'}}>
-                <MetaData
-                  user={this.props.user}
-                  metaData={this.state.metaData}
-                />
-              </Card>
+            <Grid className='mgtother' item xl={6} lg={6} md={6} sm={6} xs={12}>
             </Grid>
-            <Grid className='mgtother' item xl={6} lg={6} md={12} sm={12} xs={12}>
+            <Grid className='mgtlist' item xl={6} lg={6} md={12} sm={6} xs={12}>
+              <MetaData
+                style={{ margin: '0px 10px'}}
+                user={this.props.user}
+                metaData={this.state.metaData}
+                companyData={this.state.companyData}
+              />
             </Grid>
             <Grid className='mgtcompare' item xl={12} lg={12} md={12} sm={12} xs={12}>
               <Card style={{backgroundColor: 'rgba(163, 163, 163, .4)', margin: '0px 10px'}}>

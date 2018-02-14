@@ -441,6 +441,7 @@ input[type=submit]:hover {
   margin-bottom: 0px;
 }
 
+/*First Table in MyManagement.js*/
 .stageHistory {
   border: 1px solid black;
 }
@@ -466,29 +467,83 @@ input[type=submit]:hover {
   width: 120%;
 }
 
+/*Dual Charts in MyManagemnt.js*/
 text {
   font-size: 13px;
 }
-
 .tabLabel {
   color: rgba(0, 0, 0, 0.87);
 }
-
-.mgtchart {
-
+/*MetaData.js in MyManagement.js*/
+.metaCard {
+  height: 130px;
+  display: block;
 }
-.mgtcompare {
-
+.iconImage {
+  height: 100px;
+  width: 100px;
+  display: inline;
+  position: relative;
+  top: -15px;
+  border-radius: 100%;
+  /*left: -80px;*/
+  float: left;
 }
+.metaTitle {
+  position: relative;
+  top: -27px;
+  float: right;
+  /*text-decoration: underline;*/
+  font-family: sans-serif;
+  /*letter-spacing: 1.5px;*/
+  font-weight: 300;
+  /*display: block;*/
+  /*float: right;*/
+  /*right: -20px;*/
+  font-size: 21px;
+  color: white;
+}
+.metaAmount {
+  position: relative;
+  /*float: right;*/
+  /*right: 10px;*/
+  font-size: 18px;
+  color: white;
+}
+@media screen and (max-width: 1200px) {
+  .metaTitle {
+    /*display: block;*/
+    /*float: none;*/
+    /*right: -40px;*/
+    max-width: 110px;
+  }
+  .metaAmount {
+    margin-top: 20px;
+    /*float: right;
+    right: 10px;*/
+  }
+}
+@media screen and (max-width: 960px) { /*863*/
+  .metaTitle {
+    max-width: none;
+  }
+  .metaAmount {
+    margin-top: 0px;
+  }
+}
+@media screen and (max-width: 566px) { /*506*/
+  .metaTitle {
+    max-width: 110px;
+  }
+  .metaAmount {
+    margin-top: 20px;
+  }
+}
+
+/*Last Chart in MyManagement.js*/
 .MyMgtCompareCard {
   background-color: rgb(163, 163, 163);
   padding: 8px 8px;
-}
-.mgteff {
-
-}
-.mgtlist {
-  background-color: blue;
 }
 .mgtother {
   background-color: grey;

@@ -14,7 +14,7 @@ router.post('/amount', function(req, res, next) {
     .exec(function(err, records) {
       let finalData = [];
       records.forEach((data, index) => {
-        console.log("amount: ", data.Amount);
+        // console.log("amount: ", data.Amount);
         const Amt = data.Amount;
         let amount = [];
         let result = {}
@@ -30,8 +30,9 @@ router.post('/amount', function(req, res, next) {
             result.stageName = info[i].StageName
             // console.log('info[i]: ', info[i]);
             // console.log('result: ', result);
-            finalData.push(result);
+            // finalData.push(result);
           }
+          finalData.push(result);
         }
       })
       res.send(finalData);
@@ -46,7 +47,7 @@ router.post('/userAmount', function(req, res, next) {
     .exec(function(err, records) {
       let finalData = [];
       records.forEach((data, index) => {
-        console.log("amount: ", data.Amount);
+        console.log("data: ", data);
         const Amt = data.Amount;
         let amount = [];
         let result = {}
@@ -64,6 +65,7 @@ router.post('/userAmount', function(req, res, next) {
             // console.log('result: ', result);
             finalData.push(result);
           }
+          // finalData.push(result);
         }
       })
       res.send(finalData);

@@ -91,7 +91,7 @@ class CtsMain extends Component {
       data: this.props.user
     }).then(response => {
       let responseData = response.data
-      console.log('responseData: ', responseData)
+      // console.log('responseData: ', responseData)
       stages.forEach((_currStage, index) => {
         let dateEntered = [];
         let dateCompleted = [];

@@ -124,13 +124,6 @@ class MyMgtEff extends Component {
   render() {
     if (this.state.stageData) {
       let stageData = this.state.stageData;
-      console.log('stageData in render(): ', stageData);
-      // stageData.forEach((records, index) => {
-      //   console.log('records in forEach(): ', records);
-      // })
-      console.log('stageData1: ', stageData[0]);
-      console.log('stageData2: ', stageData.Closing);
-
       return (
         <div onClick={this.change}>
           <Paper>
