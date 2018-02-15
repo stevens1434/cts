@@ -11,6 +11,10 @@ var companySchema = new mongoose.Schema({
     maxlength: 99
   },
   Address: {
+    Coorid: {
+      Lat: {type: String},
+      Lon: {type: String}
+    },
     Street: {
       type: String,
       required: true

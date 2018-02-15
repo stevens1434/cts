@@ -76,11 +76,14 @@ router.post('/api', function(req, res, next) {
   let apiKey = process.env.GoogleMapsApi;
   // console.log('req.body.data: ', req.body);
   let address = req.body.data;
-  fetch('http://maps.googleapis.com/maps/api/geocode/json?address='+address+'&key='+apiKey)
-  .then(response => {
-    console.log('response: ', response);
-    res.send(response);
-  })
+  // fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+address+'&region=us&key='+apiKey)
+  // .then((result, status) => {
+  //   console.log('response: ', result, status);
+  //   console.log("response.body: ", result.body._events.error
+  // );
+  //   res.send(apiKey);
+  // })
+  res.send(apiKey);
 })
 
 router.post('/efficiency', function(req, res, next) {
