@@ -50,7 +50,6 @@ class MyMgtEff extends Component {
       let daysBoth = 0;
       for (var i in dateEntered) {
         index += 1;
-        // console.log('index: ', index);
         if (dateCompleted[i] === null) {
           const d1 = new Date(dateEntered[i]).getTime();
           const d2 = new Date().getTime()
@@ -72,8 +71,6 @@ class MyMgtEff extends Component {
       }
       const avg = (days/index).toFixed(2);
       const avgInt = parseInt((days/index).toFixed(2));
-      // console.log('avg: ', avg);
-      // console.log('days in ', stage, ': ', days);
       tempObj.average = avg;
       tempObj.averageAsInteger = avgInt;
       tempObj.items = index;
@@ -83,14 +80,6 @@ class MyMgtEff extends Component {
       tempObj.daysCurIn = daysCurIn;
       tempObj.compCurIn = compCurIn;
       _stage.push(tempObj);
-      // _stage = {
-      //   average: avg,
-      //   items: index,
-      //   stage: stage,
-      //   days: days,
-      //   daysBoth: daysBoth,
-      //   daysNull: daysNull
-      // }
       return ( _stage )
     }
   }
@@ -111,7 +100,6 @@ class MyMgtEff extends Component {
       for (var i in stages) {
         this.getAverage(allData[stages[i]], stages[i], _stage);
       }
-      // console.log('_stage: ', _stage);
       this.setState({
         stageData: _stage
       })
@@ -125,7 +113,7 @@ class MyMgtEff extends Component {
     if (this.state.stageData) {
       let stageData = this.state.stageData;
       return (
-        <div onClick={this.change}>
+        <div className='effChartHolder' onClick={this.change}>
           <Paper>
               <Table>
                 <TableHead>

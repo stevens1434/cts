@@ -212,22 +212,20 @@ class MyManagement extends Component {
                 />
               </Paper>
             </Grid>
-            <Grid className='mgtmap' item xl={6} lg={6} md={6} sm={6} xs={12}>
-              <Card style={{backgroundColor: 'rgba(163, 163, 163, .4)', margin: '0px 10px'}}>
-                <MyMgtMap
-                  style={{ margin: '0px 10px'}}
-                  user={this.props.user}
-                  companyData={this.state.companyData}
-                />
-              </Card>
-            </Grid>
-            <Grid className='mgtlist' item xl={6} lg={6} md={12} sm={6} xs={12}>
+            <Grid className='mgtlist' item xl={12} lg={12} md={6} sm={12} xs={12}>
               <MetaData
                 style={{ margin: '0px 10px'}}
                 user={this.props.user}
                 metaData={this.state.metaData}
                 companyData={this.state.companyData}
               />
+            </Grid>
+            <Grid className='mgtmap' item xl={12} lg={12} md={12} sm={12} xs={12}>
+                <MyMgtMap
+                  style={{ margin: '0px 10px'}}
+                  user={this.props.user}
+                  companyData={this.state.companyData}
+                />
             </Grid>
             <Grid className='mgtcompare' item xl={12} lg={12} md={12} sm={12} xs={12}>
               <Card style={{backgroundColor: 'rgba(163, 163, 163, .4)', margin: '0px 10px'}}>

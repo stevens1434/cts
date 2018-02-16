@@ -16,6 +16,14 @@ import Signup from './Signup';
 import Login from './Login';
 import UserProfile from './UserProfile';
 import CtsMain from './CtsMain';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { createMuiTheme } from 'material-ui/styles';
+
+const muiTheme = createMuiTheme({
+    palette: {
+      type: 'light'
+    }
+})
 
 class App extends Component {
   constructor(props) {
@@ -82,16 +90,15 @@ class App extends Component {
   }
 
   render() {
-    // let user = this.state.user
-    // console.log('user in App.js: ', user);
-    // console.log('this.state.user: ', this.state.user);
     if (typeof this.state.user === 'object' && Object.keys(this.state.user).length !== 0) {
       return (
         <BrowserRouter>
-          <div onClick={this.change} className='App'>
-            <UserProfile id='navbar' user={this.state.user} name={this.state.name} logout={this.logout} />
-            <CtsMain id='content' user={this.state.user} roles={this.state.roles} logout={this.logout} />
-          </div>
+          <MuiThemeProvider theme={muiTheme}>
+            <div onClick={this.change} className='App'>
+              <UserProfile id='navbar' user={this.state.user} name={this.state.name} logout={this.logout} />
+              <CtsMain id='content' user={this.state.user} roles={this.state.roles} logout={this.logout} />
+            </div>
+          </MuiThemeProvider>
         </BrowserRouter>
       );
     } else {
@@ -100,30 +107,32 @@ class App extends Component {
         }
       return (
         <div onClick={this.change} className='App'>
-          <Grid container spacing={16}>
-            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-              <AppBar style={AppBarStyle} position="fixed">
-                <Toolbar>
-                  <span className='UserName'>
-                    <Button className='UserName' color='inherit'>CTS Companies</Button>
-                  </span>
-                  <Typography type="title" color="inherit" className='MenuTitle'>
-                    Log In or Sign Up
-                  </Typography>
-                </Toolbar>
-              </AppBar>
+          <MuiThemeProvider theme={muiTheme}>
+            <Grid container spacing={16}>
+              <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                <AppBar style={AppBarStyle} position="fixed">
+                  <Toolbar>
+                    <span className='UserName'>
+                      <Button className='UserName' color='inherit'>CTS Companies</Button>
+                    </span>
+                    <Typography type="title" color="inherit" className='MenuTitle'>
+                      Log In or Sign Up
+                    </Typography>
+                  </Toolbar>
+                </AppBar>
+              </Grid>
+              <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                <div className='SignupBox'>
+                  <Signup lift={this.liftTokenToState} />
+                </div>
+              </Grid>
+              <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+                <div className='LoginBox'>
+                  <Login lift={this.liftTokenToState} />
+                </div>
+              </Grid>
             </Grid>
-            <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-              <div className='SignupBox'>
-                <Signup lift={this.liftTokenToState} />
-              </div>
-            </Grid>
-            <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-              <div className='LoginBox'>
-                <Login lift={this.liftTokenToState} />
-              </div>
-            </Grid>
-          </Grid>
+          </MuiThemeProvider>
         </div>
       );
     }

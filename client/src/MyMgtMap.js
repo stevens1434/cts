@@ -148,7 +148,7 @@ class MyMgtMap extends Component {
   render() {
     if (this.state.companyData) {
       return (
-        <div style={{height: '500px', width: '100%'}} onClick={this.change} className='map' ref='map'>
+        <div onClick={this.change} className='map' ref='map'>
           <pre>{JSON.stringify({lon: 42.7325, lat: 84.5555}, null, 2)}</pre>
           <div className='marker' ref='marker'></div>
         </div>

@@ -177,7 +177,7 @@ class MyMgtSummaryChart extends Component {
                 <ResponsiveContainer width='100%' height='100%'>
                   <Grid className='summaryChart' container spacing={8}>
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                      <RadarChart className='radar' cx={225} cy={245} outerRadius={100} width={450} height={437} data={this.state.numberPerCateg}>
+                      <RadarChart className='radar' cx={225} cy={200} outerRadius={100} width={450} height={437} data={this.state.numberPerCateg}>
                         <PolarGrid/>
                         <PolarAngleAxis dataKey="stage" stroke='rgb(103, 95, 96)'/>
                         <PolarRadiusAxis/>
@@ -195,7 +195,7 @@ class MyMgtSummaryChart extends Component {
                       <PieChart className='pie' width={450} height={437}>
                         <Pie
                         data={this.state.amountPerCateg}
-                        cx={225} cy={245}
+                        cx={225} cy={200}
                         dataKey='amount' nameKey='stage'
                         outerRadius={100}
                         fill="#8884d8"
@@ -209,7 +209,7 @@ class MyMgtSummaryChart extends Component {
                         </Pie>
                         <Pie
                           data={this.state.nameInCateg}
-                          cx={225} cy={245}
+                          cx={225} cy={200}
                           dataKey='amount'
                           key='amount'
                           nameKey='stageAlt'
