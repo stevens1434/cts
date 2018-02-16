@@ -77,13 +77,13 @@ class MyMgtMap extends Component {
     let grad = null;
     if (this.refs.canvas.getContext('2d')) {
         ctx = this.refs.canvas.getContext('2d');
-        ctx.clearRect(0, 0, 320, 320);
+        ctx.clearRect(0, 0, 487, 487);
         ctx.save();
         grad = ctx.createRadialGradient(252,252,252,252,252,252);
         grad.addColorStop(1, 'rgba(252, 252, 252, 0)');
         grad.addColorStop(0, 'transparent');
         ctx.fillStyle = grad;
-        ctx.fillRect(0,0,320,320);
+        ctx.fillRect(0,0,487,487);
         ctx.save();
     };
     const companyData = this.props.companyData;
@@ -163,7 +163,7 @@ class MyMgtMap extends Component {
     if (this.state.companyData) {
       return (
         <div className='mapContainer'>
-          <canvas style={{height: '328px', width: '100%'}} className='canvas' ref='canvas'></canvas>
+          <canvas className='canvas' ref='canvas'></canvas>
           <div onClick={this.change} className='map' ref='map'>
             <pre>{JSON.stringify({lon: 42.7325, lat: 84.5555}, null, 2)}</pre>
             <div className='marker' ref='marker'></div>

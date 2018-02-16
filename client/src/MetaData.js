@@ -107,10 +107,10 @@ class MetaData extends Component {
       const metaData = this.state.metaData;
       console.log('sales amount: ', this.state.sales)
         return (
-          <div className='metaHolder' onClick={this.change}>
-            <Grid className='meta-container container' container spacing={24}>
-              <Grid className='meta-row row' item xl={3} lg={3} md={6} sm={6} xs={6}>
-                <Card className='metaCard' style={{borderRadius: '5px', margin: '0px 2px -5px 2px', backgroundColor: 'white', padding: '8px'}}>
+          <div className='metaHolder' style={{margin: '0 auto'}} onClick={this.change}>
+            <Grid className='meta-container container' style={{margin: '0 auto'}} container spacing={24}>
+              <Grid className='meta-row row' style={{margin: '0 auto'}} item xl={3} lg={3} md={6} sm={6} xs={6}>
+                <Card className='metaCard' style={{borderRadius: '5px', margin: '0 auto', backgroundColor: 'white', padding: '8px'}}>
                   <Grid className='meta-container container' container spacing={0}>
                     <Grid style={{height: '60px'}} className='meta-sub-row row' item xl={6} lg={6} md={6} sm={6} xs={6}>
                       <img style={{border: '10px solid white'}} className='iconImage' src='http://res.cloudinary.com/stevens1434/image/upload/v1518564977/66-256_dc37nf.png' alt='Sales Icon'></img>
@@ -127,8 +127,8 @@ class MetaData extends Component {
                   </Grid>
                 </Card>
               </Grid>
-              <Grid className='meta-row row' item xl={3} lg={3} md={6} sm={6} xs={6}>
-                <Card className='metaCard' style={{borderRadius: '5px', margin: '0px 2px -5px 2px', backgroundColor: 'white', padding: '8px'}}>
+              <Grid className='meta-row row' style={{margin: '0 auto'}} item xl={3} lg={3} md={6} sm={6} xs={6}>
+                <Card className='metaCard' style={{borderRadius: '5px', margin: '0 auto', backgroundColor: 'white', padding: '8px'}}>
                   <Grid className='meta-container container' container spacing={0}>
                     <Grid style={{height: '60px'}} className='meta-sub-row row' item xl={6} lg={6} md={6} sm={6} xs={6}>
                       <img style={{border: '10px solid white'}} className='iconImage' src='http://res.cloudinary.com/stevens1434/image/upload/v1518564933/list-256_kop5y8.png' alt='SC Icon'></img>
@@ -145,8 +145,8 @@ class MetaData extends Component {
                   </Grid>
                 </Card>
               </Grid>
-              <Grid className='meta-row row' item xl={3} lg={3} md={6} sm={6} xs={6}>
-                <Card className='metaCard' style={{borderRadius: '5px', margin: '0px 2px -5px 2px', backgroundColor: 'white', padding: '8px'}}>
+              <Grid className='meta-row row' style={{margin: '0 auto'}} item xl={3} lg={3} md={6} sm={6} xs={6}>
+                <Card className='metaCard' style={{borderRadius: '5px', margin: '0 auto', backgroundColor: 'white', padding: '8px'}}>
                   <Grid className='meta-container container' container spacing={0}>
                     <Grid style={{height: '60px'}} className='meta-sub-row row' item xl={6} lg={6} md={6} sm={6} xs={6}>
                       <img style={{border: '10px solid white'}} className='iconImage' src='http://res.cloudinary.com/stevens1434/image/upload/v1518565001/tools-256_vlzen5.png' alt='Ops Icon'></img>
@@ -163,8 +163,8 @@ class MetaData extends Component {
                   </Grid>
                 </Card>
               </Grid>
-              <Grid className='meta-row row' item xl={3} lg={3} md={6} sm={6} xs={6}>
-                <Card className='metaCard' style={{borderRadius: '5px', margin: '0px 2px -5px 2px', backgroundColor: 'white', padding: '8px'}}>
+              <Grid className='meta-row row' style={{margin: '0 auto'}} item xl={3} lg={3} md={6} sm={6} xs={6}>
+                <Card className='metaCard' style={{borderRadius: '5px', margin: '0 auto', backgroundColor: 'white', padding: '8px'}}>
                   <Grid className='meta-container container' container spacing={0}>
                     <Grid style={{height: '60px'}} className='meta-sub-row row' item xl={6} lg={6} md={6} sm={6} xs={6}>
                       <img style={{border: '10px solid white'}} className='iconImage' src='http://res.cloudinary.com/stevens1434/image/upload/v1518565004/dollar-bills-256_paddjo.png' alt='Acc Icon'></img>

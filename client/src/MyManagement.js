@@ -220,9 +220,9 @@ class MyManagement extends Component {
                 companyData={this.state.companyData}
               />
             </Grid>
-            <Grid className='mgtmap' item xl={12} lg={12} md={12} sm={12} xs={12}>
+            <Grid style={{margin: '0px -10px'}} className='mgtmap' item xl={12} lg={12} md={12} sm={12} xs={12}>
                 <MyMgtMap
-                  style={{ margin: '0px 10px'}}
+                  style={{ margin: '0px -20px'}}
                   user={this.props.user}
                   companyData={this.state.companyData}
                 />
