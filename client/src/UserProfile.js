@@ -49,7 +49,8 @@ class UserProfile extends Component {
     // console.log('name: ', name);
     console.log('user in userProfile: ', user.id);
     const AppBarStyle = {
-      background: '#ae1936'
+      background: '#ae1936',
+      zIndex: 100000000
       }
     const { anchorEl } = this.state;
     let hamburger = 'http://houstoncreativesmiles.com/wp-content/themes/ss3/assets/css/hamburger.png';

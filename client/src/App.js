@@ -103,7 +103,8 @@ class App extends Component {
       );
     } else {
       const AppBarStyle = {
-        background: '#ae1936'
+        background: '#ae1936',
+        zIndex: 10000000
         }
       return (
         <div onClick={this.change} className='App'>

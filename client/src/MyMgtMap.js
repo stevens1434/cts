@@ -72,6 +72,20 @@ class MyMgtMap extends Component {
   }
 
   componentWillReceiveProps() {
+    const canvas = this.refs.canvas.getContext('2d');
+    let ctx = this.refs.canvas.getContext('2d');
+    let grad = null;
+    if (this.refs.canvas.getContext('2d')) {
+        ctx = this.refs.canvas.getContext('2d');
+        ctx.clearRect(0, 0, 320, 320);
+        ctx.save();
+        grad = ctx.createRadialGradient(252,252,252,252,252,252);
+        grad.addColorStop(1, 'rgba(252, 252, 252, 0)');
+        grad.addColorStop(0, 'transparent');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0,0,320,320);
+        ctx.save();
+    };
     const companyData = this.props.companyData;
     const refs = this.refs;
     let marker = new google.maps.Marker();
@@ -148,9 +162,12 @@ class MyMgtMap extends Component {
   render() {
     if (this.state.companyData) {
       return (
-        <div onClick={this.change} className='map' ref='map'>
-          <pre>{JSON.stringify({lon: 42.7325, lat: 84.5555}, null, 2)}</pre>
-          <div className='marker' ref='marker'></div>
+        <div className='mapContainer'>
+          <canvas style={{height: '328px', width: '100%'}} className='canvas' ref='canvas'></canvas>
+          <div onClick={this.change} className='map' ref='map'>
+            <pre>{JSON.stringify({lon: 42.7325, lat: 84.5555}, null, 2)}</pre>
+            <div className='marker' ref='marker'></div>
+          </div>
         </div>
       )
     } else {
