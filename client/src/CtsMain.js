@@ -7,6 +7,7 @@ import {
 import axios from 'axios';
 import Dashboard from './Dashboard';
 import MyManagement from './MyManagement';
+import IndividCo from './IndividCo';
 require('dotenv').config();
 const stages = ['Closing', 'Closed', 'SCReceived', 'SCCompleted', 'Operations Received', 'Operations Ongoing', 'Operations Completed', 'Accounting Received', 'Accounting Completed'];
 
@@ -227,7 +228,7 @@ class CtsMain extends Component {
                 handleStateChange={this.handleStateChange}
                 />}
             />
-          <Route className='MyManagement' path="/mycompanies"
+          <Route className='MyManagement' exact path="/mycompanies"
               render={props => ( <MyManagement
                 user={this.props.user}
                 roles={this.props.roles}
@@ -235,6 +236,11 @@ class CtsMain extends Component {
                 userData={this.state.userData}
               />)}
             />
+          <Route className='individCo' path="/mycompanies/:id"
+            render={() => <IndividCo
+              user={this.state.user}
+            />}
+          />
         </div>
       </Router>
     )

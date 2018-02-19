@@ -38,7 +38,7 @@ class MyMgtMap extends Component {
   // }
 
   renderMarker(companyData, lat, lon, map, iconImage) {
-    console.log('companyData in renderMarker: ', companyData);
+    // console.log('companyData in renderMarker: ', companyData);
     let mark = new google.maps.Marker({
       position: {
         lat: lat,
@@ -52,8 +52,8 @@ class MyMgtMap extends Component {
         `<div>`+
           '<h3>'+companyData.Name+'</h3>'+
           '<p>Stage: '+companyData.CurrentStage+'</p>'+
-          '<p>Owner:'+companyData.Owner+'</p>'+
-          '<p>Amount:'+nf.format(companyData.Amount)+'</p>'+
+          '<p>Owner: '+companyData.Owner+'</p>'+
+          '<p>Amount: '+nf.format(companyData.Amount)+'</p>'+
         '</div>';
     let infoWindow = new google.maps.InfoWindow({
       content: renderInfoWindowContent
@@ -89,19 +89,19 @@ class MyMgtMap extends Component {
     const companyData = this.props.companyData;
     const refs = this.refs;
     let marker = new google.maps.Marker();
-    console.log('refs: ', refs);
+    // console.log('refs: ', refs);
     let addresses = [];
     if (this.props.companyData.length > 0) {
       axios.post('userCompanies/api')
       .then(response => {
-        console.log('STARTING FOR LOOP AND GEOCACHING');
+        // console.log('STARTING FOR LOOP AND GEOCACHING');
         let apiKey = response.data
         const map = new google.maps.Map(refs.map, {
           center: {
             lat: 42.607111,
             lng: -83.286786
           },
-          zoom: 9,
+          zoom: 8,
           styles: [
             { "elementType": "geometry", "stylers": [ { "color": "#f5f5f5" } ] },
             { "elementType": "labels", "stylers": [ { "visibility": "off" } ] },
@@ -147,7 +147,7 @@ class MyMgtMap extends Component {
             let iconImage = 'http://res.cloudinary.com/stevens1434/image/upload/c_scale,h_25/v1518565004/dollar-bills-256_paddjo.png';
             this.renderMarker(companyData[i], lat, lon, map, iconImage);
           } else {
-            console.log('NO MARKER TO RENDER');
+            // console.log('NO MARKER TO RENDER');
           }
         } //for loop end
       }).catch(err => {

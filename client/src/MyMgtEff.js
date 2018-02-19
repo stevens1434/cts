@@ -96,7 +96,7 @@ class MyMgtEff extends Component {
     let _stage = [];
     if (this.props.allData) {
       let allData = this.props.allData;
-      console.log('allData: ', allData);
+      // console.log('allData: ', allData);
       for (var i in stages) {
         this.getAverage(allData[stages[i]], stages[i], _stage);
       }
@@ -112,30 +112,31 @@ class MyMgtEff extends Component {
   render() {
     if (this.state.stageData) {
       let stageData = this.state.stageData;
+      // console.log('stageData: ', stageData);
       return (
         <div className='effChartHolder' onClick={this.change}>
           <Paper>
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell style={{color: 'rgba(174, 25, 54, .67)'}}>Stage</TableCell>
-                    <TableCell style={{color: 'rgba(174, 25, 54, .67)'}}>Number of Companies (Currently in Stage)</TableCell>
-                    <TableCell style={{color: 'rgba(174, 25, 54, .67)'}}>Days (for Companies In Stage)</TableCell>
-                    <TableCell style={{color: 'rgba(174, 25, 54, .67)'}}>Total Companies</TableCell>
-                    <TableCell style={{color: 'rgba(174, 25, 54, .67)'}}>Total Days</TableCell>
-                    <TableCell style={{color: 'rgba(174, 25, 54, .67)'}}>Avg. Days</TableCell>
+                    <TableCell style={{color: 'rgba(174, 25, 54, .67)', padding: '0px 0px 0px 15px'}}>Stage</TableCell>
+                    <TableCell style={{color: 'rgba(174, 25, 54, .67)', padding: '0px 0px 0px 0px'}}>Current Total</TableCell>
+                    <TableCell style={{color: 'rgba(174, 25, 54, .67)', padding: '0px 0px 0px 0px'}}>Total Days</TableCell>
+                    <TableCell style={{color: 'rgba(174, 25, 54, .67)', padding: '0px 0px 0px 0px'}}>Historical Total</TableCell>
+                    <TableCell style={{color: 'rgba(174, 25, 54, .67)', padding: '0px 0px 0px 0px'}}>Historical Days</TableCell>
+                    <TableCell style={{color: 'rgba(174, 25, 54, .67)', padding: '0px 0px 0px 0px'}}>Avg. Days</TableCell>
                   </TableRow>
                 </TableHead>
                 {this.state.stageData.map((records, index) => {
                   return (
                     <TableBody>
                       <TableRow hover key={index}>
-                        <TableCell>{records.stage}</TableCell>
-                        <TableCell>{records.compCurIn}</TableCell>
-                        <TableCell>{records.daysCurIn}</TableCell>
-                        <TableCell>{records.items}</TableCell>
-                        <TableCell>{records.days}</TableCell>
-                        <TableCell>{records.average}</TableCell>
+                        <TableCell style={{padding: '0px 0px 0px 15px'}}>{records.stage}</TableCell>
+                        <TableCell style={{padding: '0px'}}>{records.compCurIn}</TableCell>
+                        <TableCell style={{padding: '0px'}}>{records.daysCurIn}</TableCell>
+                        <TableCell style={{padding: '0px'}}>{records.items}</TableCell>
+                        <TableCell style={{padding: '0px'}}>{records.days}</TableCell>
+                        <TableCell style={{padding: '0px'}}>{records.average}</TableCell>
                       </TableRow>
                     </TableBody>
                   );

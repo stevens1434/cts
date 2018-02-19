@@ -184,7 +184,15 @@ class MyManagement extends Component {
                 <h1 className='pageHeader' onClick={this.change}>Management Dashboard</h1>
               </Card>
             </Grid>
-            <Grid className='mgteff' item xl={8} lg={8} md={12} sm={12} xs={12}>
+            <Grid className='mgtlist' item xl={12} lg={12} md={12} sm={12} xs={12}>
+              <MetaData
+                style={{ margin: '0px 10px'}}
+                user={this.props.user}
+                metaData={this.state.metaData}
+                companyData={this.state.companyData}
+              />
+            </Grid>
+            <Grid className='mgteff' item xl={8} lg={8} md={8} sm={12} xs={12}>
               <Card style={{backgroundColor: 'rgba(163, 163, 163, .4)', margin: '0px 0px 0px 10px', paddingRight: '0px'}}>
                 <MyMgtEff
                   allData={this.props.allData}
@@ -192,8 +200,8 @@ class MyManagement extends Component {
                 />
               </Card>
             </Grid>
-            <Grid className='mgtchart' item xl={4} lg={4} md={6} sm={12} xs={12}>
-              <Paper style={{ margin: '0px 10px 10px 0px' , padding: '0px'}}>
+            <Grid className='mgtchart' item xl={4} lg={4} md={4} sm={12} xs={12}>
+              <Paper style={{ margin: '0px 10px 10px 0px', minWidth: '375px', padding: '0px'}}>
                 <MyMgtSummaryChart
                   user={this.props.user}
                   companyData={this.state.companyData}
@@ -211,14 +219,6 @@ class MyManagement extends Component {
                   Dead={this.state.Completed}
                 />
               </Paper>
-            </Grid>
-            <Grid className='mgtlist' item xl={12} lg={12} md={6} sm={12} xs={12}>
-              <MetaData
-                style={{ margin: '0px 10px'}}
-                user={this.props.user}
-                metaData={this.state.metaData}
-                companyData={this.state.companyData}
-              />
             </Grid>
             <Grid style={{margin: '0px -10px'}} className='mgtmap' item xl={12} lg={12} md={12} sm={12} xs={12}>
                 <MyMgtMap

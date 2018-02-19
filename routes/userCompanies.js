@@ -7,37 +7,17 @@ var axios = require('axios');
 var Schema = mongoose.Schema; //this is new
 const fetch = require("isomorphic-fetch");
 
-// router.post('/amount', function(req, res, next) {
-//   const stages = ['Closing', 'Closed', 'SCReceived', 'SCCompleted', 'OpsReceived', 'OpsOngoing', 'OpsCompleted', 'AccReceived', 'AccCompleted'];
-//   Company.find({}, 'StageHistory.StageName StageHistory.DateEntered StageHistory.DateCompleted Amount')
-//     .populate({path: 'StageName DateEntered DateCompleted'})
-//     .exec(function(err, records) {
-//       let finalData = [];
-//       records.forEach((data, index) => {
-//         // console.log("amount: ", data.Amount);
-//         const Amt = data.Amount;
-//         let amount = [];
-//         let result = {}
-//         result.amount = data.Amount;
-//         const info = data.StageHistory
-//         for (var i in info) {
-//           if (info[i].StageName !== undefined) {
-//             let currentStage = '';
-//             if (stages[i] !== undefined) {
-//               currentStage = stages[i];
-//             }
-//             // console.log('info[i]: ', info[i])
-//             result.stageName = info[i].StageName
-//             // console.log('info[i]: ', info[i]);
-//             // console.log('result: ', result);
-//             // finalData.push(result);
-//           }
-//           finalData.push(result);
-//         }
-//       })
-//       res.send(finalData);
-//     })
-// })
+router.get('/individCo/:id', function(req, res, next) {
+  let compId = req.params.id
+  console.log('compId: ', compId);
+    Company.find({
+      _id: compId
+    }, function(err, company){
+        if(err) return res.send(err);
+        console.log("company in UserTrail.js Route: ", company);
+        res.send(company);
+      })
+})
 
 // router.post('/userAmount', function(req, res, next) {
 //   let userId = req.body.data.id
@@ -74,15 +54,7 @@ const fetch = require("isomorphic-fetch");
 
 router.post('/api', function(req, res, next) {
   let apiKey = process.env.GoogleMapsApi;
-  // console.log('req.body.data: ', req.body);
   let address = req.body.data;
-  // fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+address+'&region=us&key='+apiKey)
-  // .then((result, status) => {
-  //   console.log('response: ', result, status);
-  //   console.log("response.body: ", result.body._events.error
-  // );
-  //   res.send(apiKey);
-  // })
   res.send(apiKey);
 })
 

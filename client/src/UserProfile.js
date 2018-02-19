@@ -80,9 +80,6 @@ class UserProfile extends Component {
                   <a href="/"> Dashboard </a>
                 </MenuItem>
                 <MenuItem className='App'>
-                  <li><Link to={this.userLink(Id)} params={{Id}} title='My Companies'>My Cos</Link></li>
-                </MenuItem>
-                <MenuItem className='App'>
                   <a href={this.userLink(user.id)}>My Companies</a>
                 </MenuItem>
                 <MenuItem className='menuItem' onClick={this.handleClick}>

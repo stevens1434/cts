@@ -8,6 +8,11 @@ import ExpansionPanel, {
 } from 'material-ui/ExpansionPanel';
 import Typography from 'material-ui/Typography';
 import Paper from 'material-ui/Paper';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 const nf = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
@@ -28,6 +33,7 @@ class MyMgtCompare extends Component {
     this.stageHistory = this.stageHistory.bind(this);
     this.getDifference = this.getDifference.bind(this);
     this.formatAmount = this.formatAmount.bind(this);
+    this.handleView = this.handleView.bind(this);
   }
 
   change() {
@@ -35,10 +41,13 @@ class MyMgtCompare extends Component {
   }
 
   getDifference(date1, date2, stage) {
-    if (date2 === undefined) {
+    // console.log('get dates: ', date1, '--', date2, '--', stage);
+    if (date2 === null) {
       let d1 = new Date(date1).getTime();
-      let d2 = new Date().getTime()
+      let d2 = new Date().getTime();
+      // console.log('d2: ', new Date().getTime(), "---", d2);
       let diff = d1 - d2;
+      // console.log('diff: ', diff);
       var timeDiff = Math.abs(diff);
       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
       return (
@@ -86,6 +95,18 @@ class MyMgtCompare extends Component {
     )
   }
 
+  handleView(e) {
+    let i = e.target.getAttribute('value');
+    console.log('i in eventtarget : ', e.target.getAttribute('value'));
+    // console.log('id: ', id);
+    return (`/mycompanies/`+i)
+  }
+
+// <Link className="linkto" to={"/mycompanies/" + records._id} params={records._id} data-key={index} value={records._id} onClick={this.handleView}>
+// <div data-key={index}><h3>{records.name}</h3></div></Link> <hr />
+
+
+
   componentWillReceiveProps() {
     if (this.props.companyData.length > 0) {
       let companyData = this.props.companyData;
@@ -131,10 +152,11 @@ class MyMgtCompare extends Component {
 
   render() {
     if (this.state.nameAndStageData.length > 0) {
-      console.log("this.state in render(): ", this.state);
+      // console.log("this.state in render(): ", this.state);
       let nameAndStageData = this.state.nameAndStageData;
       let chartData = this.state.chartData;
       let companyData = this.state.companyData;
+      console.log('companyData: ', companyData);
       return (
         <div>
             <Paper>
@@ -153,6 +175,11 @@ class MyMgtCompare extends Component {
                   {companyData.map((records, index) => {
                     return (
                       <TableRow key={index} hover>
+                        <TableCell style={{padding: '0px 0px 0px 15px'}}>
+                          <Link to={'/mycompanies/' + records._id} params={records._id} data-key={index} value={records._id} onClick={this.handleView}>
+                            {records.Name}
+                          </Link>
+                        </TableCell>
                         <TableCell>{records.Name}</TableCell>
                         <TableCell>{records.Owner}</TableCell>
                         <TableCell>{records.CurrentStage}</TableCell>

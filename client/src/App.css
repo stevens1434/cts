@@ -481,10 +481,18 @@ text {
   color: rgba(0, 0, 0, 0.87);
 }
 .summaryChart {
+  height: 486.997;
+  min-width: 375px;
 }
 @media screen and (max-width: 1200px) {
   .summaryChart {
+    height: 486.997px;
+  }
+}
+@media screen and (max-width: 960px) {
+  .summaryChart {
     height: 400px;
+    min-width: 0px;
   }
 }
 /*MetaData.js in MyManagement.js*/
@@ -519,7 +527,7 @@ text {
   font-family: sans-serif;
   font-weight: 300;
   font-size: 21px;
-  color: rgb(174, 25, 54);
+  color: white;
 }
 .metaAmount {
   position: relative;
@@ -593,9 +601,9 @@ text {
   left: 0px;
   z-index: 10000;
 }
-@media screen and (max-width: 1279px) { /*1251*/
+@media screen and (max-width: 960px) { /*863*/
   .mapContainer {
-    margin-top: -425px;
+    margin-top: -408px;
     margin-bottom: -13px;
   }
   .map {
@@ -604,19 +612,6 @@ text {
   }
   .canvas {
     top: 400px;
-    height: 400px;
-    width: 100%;
-  }
-}
-@media screen and (max-width: 960px) { /*863*/
-  .mapContainer {
-    margin-top: -408px;
-  }
-  .map {
-    height: 395px;
-    width: 100%;
-  }
-  .canvas {
     height: 400px;
     width: 100%;
   }

@@ -20,7 +20,8 @@ class MyMgtSummaryChart extends Component {
       amountPerCateg: [],
       nameInCateg: [],
       activeIndex: 1,
-      value: 0
+      value: 0,
+      width: 0
     }
     this.change = this.change.bind(this);
     this.randomColor = this.randomColor.bind(this);
@@ -100,6 +101,13 @@ class MyMgtSummaryChart extends Component {
     this.setState({ value });
   };
 
+  getCx() {
+    // console.log('width in getCx(): ', window.innerWidth);
+    this.setState({
+      width: window.innerWidth
+    })
+  }
+
   componentWillReceiveProps() {
     if (this.props) {
       let data = this.props
@@ -148,9 +156,6 @@ class MyMgtSummaryChart extends Component {
         amountPerCateg.push(amountPerCategInfo);
         tempAmount = 0;
       }
-      // console.log('numberPerCateg', numberPerCateg);
-      // console.log('amountPerCateg', amountPerCateg);
-      // console.log('nameInCateg', nameInCateg);
       this.setState({
         numberPerCateg: numberPerCateg,
         amountPerCateg: amountPerCateg,
@@ -159,25 +164,38 @@ class MyMgtSummaryChart extends Component {
     }
   }
 
+  componentDidMount() {
+    this.getCx();
+    window.addEventListener('change: ', this.getCx);
+  }
+
+  componentWillUpdate() {
+    // console.log("width in compWillUpdate: ", window.innerWidth);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('change: ', this.getCx);
+  }
+
   render() {
-    // console.log('============================== STATE AT END CHART: ', this.state);
+    const width = this.state.width;
       if (this.state.numberPerCateg && this.state.nameInCateg) {
         const {value} = this.state;
         let colors = ['rgb(173, 25, 52)','rgb(173, 72, 25)', 'rgb(173, 146, 25)', 'rgb(106, 173, 25)', 'rgb(65, 133, 129)', 'rgb(25, 52, 173)', 'rgb(72, 25, 173)', 'rgb(146, 25, 173)', 'rgb(103, 95, 96)'];
         return(
           <div className='summaryChart' onClick={this.change}>
             <div className='tabContainer'>
-              <AppBar position="static" color='default'>
+              <AppBar className='tabContainer' position="static" color='default'>
                 <Tabs value={value} onChange={this.handleChange} indicatorColor="primary" textColor="rgba(174, 25, 54, .67)" fullWidth centered>
-                  <Tab className='tabLabel' label="Companies Per Stage (%)" />
-                  <Tab className='tabLabel' label="Value Per Stage ($)"  href="#basic-tabs" />
+                  <Tab className='tabLabel' label="Companies/Stage" />
+                  <Tab className='tabLabel' label="Value/Stage ($)"  href="#basic-tabs" />
                 </Tabs>
               </AppBar>
               {value === 0 &&
                 <ResponsiveContainer width='100%' height='100%'>
                   <Grid className='summaryChart' container spacing={8}>
                     <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-                      <RadarChart className='radar' cx={225} cy={200} outerRadius={100} width={450} height={437} data={this.state.numberPerCateg}>
+                      <RadarChart className='radar' cx={this.state.width > 958 ? 190 : 225} cy={200} outerRadius={100} width={450} height={437} data={this.state.numberPerCateg}>
                         <PolarGrid/>
                         <PolarAngleAxis dataKey="stage" stroke='rgb(103, 95, 96)'/>
                         <PolarRadiusAxis/>
@@ -195,7 +213,7 @@ class MyMgtSummaryChart extends Component {
                       <PieChart className='pie' width={450} height={437}>
                         <Pie
                         data={this.state.amountPerCateg}
-                        cx={225} cy={200}
+                        cx={this.state.width > 958 ? 190 : 225} cy={200}
                         dataKey='amount' nameKey='stage'
                         outerRadius={100}
                         fill="#8884d8"
@@ -209,7 +227,7 @@ class MyMgtSummaryChart extends Component {
                         </Pie>
                         <Pie
                           data={this.state.nameInCateg}
-                          cx={225} cy={200}
+                          cx={this.state.width > 958 ? 190 : 225} cy={200}
                           dataKey='amount'
                           key='amount'
                           nameKey='stageAlt'
