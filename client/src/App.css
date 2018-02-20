@@ -630,6 +630,10 @@ text {
 }
 
 /*INDIVIDUAL COMPANY DATA PAGE*/
+.individCoWrapper {
+  margin-left: 10px;
+  margin-right: 10px;
+}
 .individCoData {
   min-height: 100px;
   margin: 0px 0px 5px 0px;
@@ -642,9 +646,9 @@ text {
   min-height: 100px;
 }
 .individCoStageHistory {
-  min-height: 100px;
+
 }
-.individCompletedStages {
+/*.individCompletedStages {
   border: 2px solid rgb(20, 140, 52);
   background-color: rgba(20, 140, 52, .3);
   border-radius: 5px;
@@ -658,18 +662,98 @@ text {
   border: 2px solid grey;
   background-color: lightgrey;
   border-radius: 5px;
-}
+}*/
 .individCoMainData {
   margin: 0px 0px 5px 0px;
   min-height: 0px;
   font-weight: bold;
 }
+.individContactTable {
+  border-bottom-color: transparent;
+}
 .individCoSubData {
   padding: 0px 5px;
 }
+.individCoStageData {
+
+}
 .individCoContactInfo {
-  background-color: blue;
   min-height: 100px;
+}
+.individContactName {
+  margin: 0px 0px 0px 0px;
+  width: 100%;
+  text-align: left;
+}
+.titleName {
+  font-size: 20px;
+}
+.individContactTitle {
+  margin-top: 3px;
+  font-size: 18px;
+  color: rgb(192, 192, 192);
+}
+.individCoToDoContent {
+  font-size: 14px;
+  text-align: left;
+  margin-bottom: 0px;
+}
+.individCoToDoTitle {
+  /*font-weight: bold;*/
+  text-align: left;
+  margin-left: 0px;
+  font-size: 15px;
+}
+.individCoToDoDue {
+  font-size: 12px;
+  font-style: italic;
+  text-align: left;
+}
+.individCoNotesContainer {
+  margin-left: -35px;
+}
+.vertAlignWrapper {
+  text-align: center;
+}
+.verticalAlign {
+  /*transform: rotate(270deg);*/
+  color: rgb(174, 25, 54);
+  font-size: 25px;
+  margin: 0px;
+  margin-top: 75px;
+  padding: 0px;
+}
+.IndividCoVerticalAlignContacts {
+  transform: rotate(270deg);
+  color: rgb(174, 25, 54);
+  font-size: 25px;
+  margin: 0px;
+  margin-top: 85px;
+  padding: 0px;
+}
+.IndividCoVerticalAlignToDo {
+  transform: rotate(270deg);
+  color: rgb(174, 25, 54);
+  font-size: 25px;
+  margin: 0px;
+  margin-top: 30px;
+  padding: 0px;
+}
+.IndividCoVerticalAlignHistory {
+  transform: rotate(270deg);
+  color: rgb(174, 25, 54);
+  font-size: 25px;
+  margin: 0px;
+  margin-top: 60px;
+  padding: 0px;
+}
+.IndividCoVerticalAlignNotes {
+  transform: rotate(270deg);
+  color: rgb(174, 25, 54);
+  font-size: 25px;
+  margin: 0px;
+  margin-top: 40px;
+  padding: 0px;
 }
 
 .mainGrid {

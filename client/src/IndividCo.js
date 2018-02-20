@@ -4,6 +4,7 @@ import IndividCoData from './IndividCoData';
 import IndividCoMap from './IndividCoMap';
 import IndividCoNotes from './IndividCoNotes';
 import IndividCoStageHistory from './IndividCoStageHistory';
+import IndividCoContact from './IndividCoContact';
 import Grid from 'material-ui/Grid';
 import axios from 'axios';
 import { MuiThemeProvider, theme } from 'material-ui/styles';
@@ -47,10 +48,17 @@ class IndividCo extends Component {
         const Coorid = this.state.individData[0].Address.Coorid;
         const notes = this.state.individData[0].Notes;
         return (
-          <div onClick={this.change}>
+          <div className='individCoWrapper' onClick={this.change}>
             <MuiThemeProvider theme={theme}>
               <Grid container spacing={8}>
-                <Grid className='individCoLeftWrapper' item xl={3} lg={4} md={4} sm={12} xs={12}>
+                <Grid className='individCoStageHistory' item xl={12} lg={12} md={12} sm={12} xs={12}>
+                  <IndividCoStageHistory
+                    currentStage={this.state.individData[0].CurrentStage}
+                    currentStageAlt={this.state.individData[0].CurrentStageAlt}
+                    stageHistory={this.state.individData[0].StageHistory}
+                  />
+                </Grid>
+                <Grid className='individCoLeftWrapper' item xl={4} lg={4} md={4} sm={12} xs={12}>
                   <Grid className='individCoLeft' container spacing={8}>
                     <Grid className='individCoData' item xl={12} lg={12} md={12} sm={12} xs={12}>
                       <IndividCoData
@@ -62,24 +70,23 @@ class IndividCo extends Component {
                         Coorid={Coorid}
                       />
                     </Grid>
-                    <Grid className='individCoNotes' item xl={12} lg={12} md={12} sm={12} xs={12}>
+                  </Grid>
+                </Grid>
+                <Grid className='individCoRightWrapper' item xl={8} lg={8} md={8} sm={12} xs={12}>
+                  <Grid className='individCoRight' container spacing={8}>
+                    <Grid className='individCoContactInfo' item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <IndividCoContact
+                        contactHistory={this.state.individData[0].ContactHistory}
+                        toDo={this.state.individData[0].ToDo}
+                        contacts={this.state.individData[0].Contacts}
+                      />
+                    </Grid>
+                    <Grid style={{padding: '0px', marginRight: '-25px', marginLeft: '-20px'}} className='vertAlignWrapper' item xl={1} lg={1} md={1} sm={1} xs={1}>
+                    </Grid>
+                    <Grid className='individCoNotes' item xl={11} lg={11} md={11} sm={11} xs={11}>
                       <IndividCoNotes
                         notes={notes}
                       />
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid className='individCoRightWrapper' item xl={9} lg={8} md={8} sm={12} xs={12}>
-                  <Grid className='individCoRight' container spacing={8}>
-                    <Grid className='individCoStageHistory' item xl={12} lg={12} md={12} sm={12} xs={12}>
-                      <IndividCoStageHistory
-                        currentStage={this.state.individData[0].CurrentStage}
-                        currentStageAlt={this.state.individData[0].CurrentStageAlt}
-                        stageHistory={this.state.individData[0].StageHistory}
-                      />
-                    </Grid>
-                    <Grid className='individCoContactInfo' item xl={12} lg={12} md={12} sm={12} xs={12}>
-
                     </Grid>
                   </Grid>
                 </Grid>

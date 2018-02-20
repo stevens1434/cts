@@ -53,7 +53,7 @@ class MyMgtMap extends Component {
           '<h3>'+companyData.Name+'</h3>'+
           '<p>Stage: '+companyData.CurrentStage+'</p>'+
           '<p>Owner: '+companyData.Owner+'</p>'+
-          '<p>Amount: '+nf.format(companyData.Amount)+'</p>'+
+          '<p>Amount: <span style={{color: `green`}}>'+nf.format(companyData.Amount)+'</span></p>'+
         '</div>';
     let infoWindow = new google.maps.InfoWindow({
       content: renderInfoWindowContent

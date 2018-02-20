@@ -3,7 +3,7 @@ import './App.css';
 import Stepper, { Step, StepLabel } from 'material-ui/Stepper';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
-// import { MuiThemeProvider, theme } from 'material-ui/styles';
+import { MuiThemeProvider, createMuiTheme, theme } from 'material-ui/styles';
 // import Paper from 'material-ui/Paper';
 // import Card from 'material-ui/Card';
 
@@ -13,14 +13,11 @@ class IndividCoStageHistory extends Component {
     this.state = {
       individData: {}
     }
-    this.getSteps = this.getSteps.bind(this);
+    this.stepperData = this.stepperData.bind(this);
   }
 
-  getSteps() {
-    return ['Select master blaster campaign settings', 'Create an ad group', 'Create an ad'];
-  }
-
-  componentDidMount() {
+  stepperData(index) {
+    console.log('index: ', index);
   }
 
   render() {
@@ -30,60 +27,34 @@ class IndividCoStageHistory extends Component {
         let incompleteStageData = [];
         const stages = ['Closing', 'Closed', 'SCReceived', 'SCCompleted', 'Operations Received', 'Operations Ongoing', 'Operations Completed', 'Accounting Received', 'Accounting Completed'];
         const stageHistory = this.props.stageHistory;
-        const currentStage = this.props.currentStage;
-        const currentStageAlt = this.props.currentStageAlt;
+        // const currentStage = this.props.currentStage;
+        // const currentStageAlt = this.props.currentStageAlt;
         const length = stageHistory.length - 1;
-        const currStgHstStgName = stageHistory[length].StageName;
-        // console.log('stageHistory: ', stageHistory, '-currentStage: ', currentStage, '-currentStageAlt: ', currentStageAlt, '-currStgHstStgName: ', currStgHstStgName);
-        for (var i in stages) {
-          if (stageHistory[i] !== undefined) {
-            // console.log('stageHistory[i]: ', i, ': ', stageHistory[i]);
-            if (stages[i] === stageHistory[i].StageName && stages[i] !== currStgHstStgName) {
-              completedStageData.push(stageHistory[i]);
-            } else if (stages[i] === currStgHstStgName || stages[i] === currentStage) {
-              currentStageData.push(stageHistory[i]);
-            }
-          } else {
-            let tempStageName = {};
-            tempStageName.StageName = stages[i];
-            incompleteStageData.push(tempStageName);
-          }
-        }
-        console.log('completedStageData: ', completedStageData);
-        console.log('currentStageData: ', currentStageData);
-        console.log('incompleteStageData: ', incompleteStageData);
-        const activeStep = stageHistory[length];
-        const steps = stages;
+        // const currStgHstStgName = stageHistory[length].StageName;
+        // for (var i in stages) {
+        //   if (stageHistory[i] !== undefined) {
+        //     if (stages[i] === stageHistory[i].StageName && stages[i] !== currStgHstStgName) {
+        //       completedStageData.push(stageHistory[i]);
+        //     } else if (stages[i] === currStgHstStgName || stages[i] === currentStage) {
+        //       currentStageData.push(stageHistory[i]);
+        //     }
+        //   } else {
+        //     let tempStageName = {};
+        //     tempStageName.StageName = stages[i];
+        //     incompleteStageData.push(tempStageName);
+        //   }
+        // }
         return (
-          <div className='individCoNotesContainer'>
-          <Stepper activeStep={activeStep} alternativeLabel>
-            {stages.map(label => {
-              return (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              );
-            })}
-          </Stepper>
-            {completedStageData.map((records, index) => (
-              <div className='individCompletedStages' key={index}>
-                <p className='individCoMainData'>{records.StageName}</p>
-                <span className='individCoSubData'>{records.DateEntered}</span>
-                <span className='individCoSubData'>{records.DateCompleted}</span>
-              </div>
-            ))}
-            {currentStageData.map((records, index) => (
-              <div className='individCurrentStage' key={index}>
-                <p className='individCoMainData'>{records.StageName}</p>
-                <span className='individCoSubData'>{records.DateEntered}</span>
-                <span className='individCoSubData'>{records.DateCompleted}</span>
-              </div>
-            ))}
-            {incompleteStageData.map((records, index) => (
-              <div className='individIncompleteStages' key={index}>
-                <p className='individCoMainData'>{records.StageName}</p>
-              </div>
-            ))}
+          <div className='individCoStageData'>
+            <Stepper style={{backgroundColor: 'rgb(252, 252, 252)'}} activeStep={length} alternativeLabel>
+              {stages.map((label, index) => {
+                return (
+                  <Step key={index}>
+                    <StepLabel>{label}</StepLabel>
+                  </Step>
+                );
+              })}
+            </Stepper>
           </div>
         )
       } else {
@@ -95,3 +66,23 @@ class IndividCoStageHistory extends Component {
 }
 
 export default IndividCoStageHistory;
+
+// {completedStageData.map((records, index) => (
+//   <div className='individCompletedStages' key={index}>
+//     <p className='individCoMainData'>{records.StageName}</p>
+//     <span className='individCoSubData'>{records.DateEntered}</span>
+//     <span className='individCoSubData'>{records.DateCompleted}</span>
+//   </div>
+// ))}
+// {currentStageData.map((records, index) => (
+//   <div className='individCurrentStage' key={index}>
+//     <p className='individCoMainData'>{records.StageName}</p>
+//     <span className='individCoSubData'>{records.DateEntered}</span>
+//     <span className='individCoSubData'>{records.DateCompleted}</span>
+//   </div>
+// ))}
+// {incompleteStageData.map((records, index) => (
+//   <div className='individIncompleteStages' key={index}>
+//     <p className='individCoMainData'>{records.StageName}</p>
+//   </div>
+// ))}
