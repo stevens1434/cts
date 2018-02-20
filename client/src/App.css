@@ -616,21 +616,60 @@ text {
     width: 100%;
   }
 }
+.radar {
+  margin: 0 auto;
+}
+.pie {
+  margin: 0 auto;
+}
 
 /*Last Chart in MyManagement.js*/
 .MyMgtCompareCard {
   background-color: rgb(163, 163, 163);
   padding: 8px 8px;
 }
-.mgtmap {
 
+/*INDIVIDUAL COMPANY DATA PAGE*/
+.individCoData {
+  min-height: 100px;
+  margin: 0px 0px 5px 0px;
+  min-height: 0px;
 }
-
-.radar {
-  margin: 0 auto;
+.individCoMap {
+  min-height: 400px;
 }
-.pie {
-  margin: 0 auto;
+.individCoNotes {
+  min-height: 100px;
+}
+.individCoStageHistory {
+  min-height: 100px;
+}
+.individCompletedStages {
+  border: 2px solid rgb(20, 140, 52);
+  background-color: rgba(20, 140, 52, .3);
+  border-radius: 5px;
+}
+.individCurrentStage {
+  border: 2px solid rgb(0, 84, 22);
+  background-color: rgba(20, 140, 52, .7);
+  border-radius: 5px;
+}
+.individIncompleteStages {
+  border: 2px solid grey;
+  background-color: lightgrey;
+  border-radius: 5px;
+}
+.individCoMainData {
+  margin: 0px 0px 5px 0px;
+  min-height: 0px;
+  font-weight: bold;
+}
+.individCoSubData {
+  padding: 0px 5px;
+}
+.individCoContactInfo {
+  background-color: blue;
+  min-height: 100px;
 }
 
 .mainGrid {

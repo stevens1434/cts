@@ -9,12 +9,12 @@ const fetch = require("isomorphic-fetch");
 
 router.get('/individCo/:id', function(req, res, next) {
   let compId = req.params.id
-  console.log('compId: ', compId);
+  // console.log('compId: ', compId);
     Company.find({
       _id: compId
     }, function(err, company){
         if(err) return res.send(err);
-        console.log("company in UserTrail.js Route: ", company);
+        // console.log("company in UserTrail.js Route: ", company);
         res.send(company);
       })
 })
