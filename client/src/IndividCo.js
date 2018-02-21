@@ -79,14 +79,10 @@ class IndividCo extends Component {
                         contactHistory={this.state.individData[0].ContactHistory}
                         toDo={this.state.individData[0].ToDo}
                         contacts={this.state.individData[0].Contacts}
+                        notes={notes}
                       />
                     </Grid>
                     <Grid style={{padding: '0px', marginRight: '-25px', marginLeft: '-20px'}} className='vertAlignWrapper' item xl={1} lg={1} md={1} sm={1} xs={1}>
-                    </Grid>
-                    <Grid className='individCoNotes' item xl={11} lg={11} md={11} sm={11} xs={11}>
-                      <IndividCoNotes
-                        notes={notes}
-                      />
                     </Grid>
                   </Grid>
                 </Grid>

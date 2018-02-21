@@ -712,6 +712,15 @@ text {
 .individCoNotesContainer {
   margin-left: -35px;
 }
+.individCoStageHistoryContact {
+  position: relative;
+}
+.individCoStageHistoryToDo {
+
+}
+.individCoStageHistoryContHist {
+
+}
 .vertAlignWrapper {
   text-align: center;
 }
@@ -728,24 +737,34 @@ text {
   color: rgb(174, 25, 54);
   font-size: 25px;
   margin: 0px;
-  margin-top: 85px;
+  margin-top: 90px;
   padding: 0px;
+  z-index: 1000000000000;
 }
 .IndividCoVerticalAlignToDo {
   transform: rotate(270deg);
   color: rgb(174, 25, 54);
   font-size: 25px;
+  white-space: nowrap;
   margin: 0px;
-  margin-top: 30px;
+  padding: 5px 0px 5px 0px;
+  margin-top: 60px;
   padding: 0px;
+  display: relative;
+  top: 0px;
+  left: 0px;
+  z-index: 1000000000000;
 }
 .IndividCoVerticalAlignHistory {
   transform: rotate(270deg);
   color: rgb(174, 25, 54);
   font-size: 25px;
   margin: 0px;
-  margin-top: 60px;
+  margin-top: 85px;
   padding: 0px;
+  display: relative;
+  top: 0px;
+  left: 0px;
 }
 .IndividCoVerticalAlignNotes {
   transform: rotate(270deg);
@@ -753,7 +772,11 @@ text {
   font-size: 25px;
   margin: 0px;
   margin-top: 40px;
-  padding: 0px;
+  padding: 0px 0px 12px 0px;
+  display: relative;
+  top: 0px;
+  left: 0px;
+  z-index: 1000000000000;
 }
 
 .mainGrid {
