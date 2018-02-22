@@ -8,6 +8,7 @@ import './App.css';
 //   ExpansionPanelDetails,
 // } from 'material-ui/ExpansionPanel';
 // import Typography from 'material-ui/Typography';
+import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 import Card from 'material-ui/Card';
@@ -107,6 +108,12 @@ class MetaData extends Component {
     if (this.state.metaData) {
       const metaData = this.state.metaData;
       console.log('sales amount: ', this.state.sales)
+      const styles = {
+        root: {
+          color: 'white',
+          zIndex: 5
+        }
+      }
         return (
           <div className='metaHolder' style={{margin: '0 auto'}} onClick={this.change}>
             <Grid className='meta-container container' style={{margin: '0 auto'}} container spacing={24}>
@@ -119,10 +126,10 @@ class MetaData extends Component {
                     <Grid style={{height: '60px'}} className='meta-sub-row row' item xl={6} lg={6} md={6} sm={6} xs={6}>
                       <p className='metaTitle'>Sales</p>
                     </Grid>
-                    <Grid style={{marginTop: '5px'}} className='meta-sub-row row' item xl={12} lg={12} md={12} sm={12} xs={12}>
-                      <Divider style={{zIndex: '5'}}/>
+                    <Grid style={{marginTop: '5px', zIndex: '5'}} className='meta-sub-row row' item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <hr style={{color: 'white', marginTop: '-3px', marginBottom: '-7px', zIndex: '5'}}/>
                     </Grid>
-                    <Grid className='meta-sub-row row' item xl={12} lg={12} md={12} sm={12} xs={12}>
+                    <Grid className='meta-sub-row-1 row' item xl={12} lg={12} md={12} sm={12} xs={12}>
                       <div className='metaAmount'>{nf.format(this.state.sales)}</div>
                     </Grid>
                   </Grid>
@@ -137,10 +144,10 @@ class MetaData extends Component {
                     <Grid style={{height: '60px'}} className='meta-sub-row row' item xl={6} lg={6} md={6} sm={6} xs={6}>
                       <p className='metaTitle'>Sales Coord.</p>
                     </Grid>
-                    <Grid style={{marginTop: '5px'}} className='meta-sub-row row' item xl={12} lg={12} md={12} sm={12} xs={12}>
-                      <Divider style={{zIndex: '5'}}/>
+                    <Grid style={{marginTop: '5px', zIndex: '5'}} className='meta-sub-row row' item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <hr style={{color: 'white', marginTop: '-3px', marginBottom: '-7px', zIndex: '5'}}/>
                     </Grid>
-                    <Grid className='meta-sub-row row' item xl={12} lg={12} md={12} sm={12} xs={12}>
+                    <Grid className='meta-sub-row-1 row' item xl={12} lg={12} md={12} sm={12} xs={12}>
                       <div className='metaAmount'>{nf.format(this.state.sc)}</div>
                     </Grid>
                   </Grid>
@@ -155,10 +162,10 @@ class MetaData extends Component {
                     <Grid style={{height: '60px'}} className='meta-sub-row row' item xl={6} lg={6} md={6} sm={6} xs={6}>
                       <p className='metaTitle'>Operations</p>
                     </Grid>
-                    <Grid style={{marginTop: '5px'}} className='meta-sub-row row' item xl={12} lg={12} md={12} sm={12} xs={12}>
-                      <Divider style={{zIndex: '5'}}/>
+                    <Grid style={{marginTop: '5px', zIndex: '5'}} className='meta-sub-row row' item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <hr style={{color: 'white', marginTop: '-3px', marginBottom: '-7px', zIndex: '5'}}/>
                     </Grid>
-                    <Grid className='meta-sub-row row' item xl={12} lg={12} md={12} sm={12} xs={12}>
+                    <Grid className='meta-sub-row-1 row' item xl={12} lg={12} md={12} sm={12} xs={12}>
                       <div className='metaAmount'>{nf.format(this.state.ops)}</div>
                     </Grid>
                   </Grid>
@@ -173,10 +180,10 @@ class MetaData extends Component {
                     <Grid style={{height: '60px'}} className='meta-sub-row row' item xl={6} lg={6} md={6} sm={6} xs={6}>
                       <p className='metaTitle'>Accounting</p>
                     </Grid>
-                    <Grid style={{marginTop: '5px'}} className='meta-sub-row row' item xl={12} lg={12} md={12} sm={12} xs={12}>
-                      <Divider style={{zIndex: '5'}}/>
+                    <Grid style={{marginTop: '5px', zIndex: '5'}} className='meta-sub-row row' item xl={12} lg={12} md={12} sm={12} xs={12}>
+                      <hr style={{color: 'white', marginTop: '-3px', marginBottom: '-7px', zIndex: '5'}}/>
                     </Grid>
-                    <Grid className='meta-sub-row row' item xl={12} lg={12} md={12} sm={12} xs={12}>
+                    <Grid className='meta-sub-row-1 row' item xl={12} lg={12} md={12} sm={12} xs={12}>
                       <div className='metaAmount'>{nf.format(this.state.acc)}</div>
                     </Grid>
                   </Grid>

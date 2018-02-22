@@ -19,26 +19,14 @@ class MyMgtMap extends Component {
     }
     this.change = this.change.bind(this);
     this.renderMarker = this.renderMarker.bind(this);
-    // this.renderInfoWindowContent = this.renderInfoWindowContent.bind(this);
   }
 
   change() {
     console.log('state in MyMgtSummaryChart.js: ', this.state);
   }
 
-  // renderInfoWindowContent(companyData) {
-  //   return (
-  //     '<div>'+
-  //       '<h1>'+companyData.Name+'</h1>'+
-  //       '<p>'+companyData.CurrentStage+'</p>'+
-  //       '<p>'+companyData.Owner+'</p>'+
-  //       '<p>'+nf.format(companyData.Amount)+'</p>'+
-  //     '</div>'
-  //   )
-  // }
-
   renderMarker(companyData, lat, lon, map, iconImage) {
-    // console.log('companyData in renderMarker: ', companyData);
+    const url = `/mycompanies/` + companyData._id;
     let mark = new google.maps.Marker({
       position: {
         lat: lat,
@@ -49,11 +37,12 @@ class MyMgtMap extends Component {
       map: map
     })
     let renderInfoWindowContent =
-        `<div>`+
-          '<h3>'+companyData.Name+'</h3>'+
+        `<div class='infoWindowText'>`+
+          `<h3 class='infoWindowName'>`+companyData.Name+'</h3>'+
           '<p>Stage: '+companyData.CurrentStage+'</p>'+
           '<p>Owner: '+companyData.Owner+'</p>'+
-          '<p>Amount: <span style={{color: `green`}}>'+nf.format(companyData.Amount)+'</span></p>'+
+          `<p>Amount: <span class='green'>`+nf.format(companyData.Amount)+'</span></p>'+
+          `<p class='italic'>`+`Click icon to view company details`+'</p>'+
         '</div>';
     let infoWindow = new google.maps.InfoWindow({
       content: renderInfoWindowContent
@@ -69,6 +58,9 @@ class MyMgtMap extends Component {
         infoWindow.close();
       }
     })(mark));
+    google.maps.event.addListener(mark, 'click', function() {
+      window.location.href = url;
+    });
   }
 
   componentWillReceiveProps() {

@@ -38,7 +38,7 @@ class MyManagement extends Component {
   }
 
   change() {
-    console.log('state in myManagement.js parent: ', this.state);
+    // console.log('state in myManagement.js parent: ', this.state);
   }
 
   handleMetaData(request) {

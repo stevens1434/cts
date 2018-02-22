@@ -159,6 +159,9 @@ input[type=submit]:hover {
   background-color: rgba(0, 0, 0, .01);
 }
 
+.dashExpansion {
+  background-color: rgb(252, 252, 252);
+}
 .MuiExpansionPanelSummary-content-272 {
   height: 100%;
   width: 100%;
@@ -174,8 +177,13 @@ input[type=submit]:hover {
   font-size: 13px;
   font-weight: bold;
   position: relative;
+  text-decoration: none;
+  color: black;
   top: -10px;
   left: -15px;
+}
+.compName:hover {
+  color: rgb(174, 25, 54);
 }
 .approvedImage {
   height: 20px;
@@ -529,6 +537,9 @@ text {
   font-size: 21px;
   color: white;
 }
+.meta-sub-row-1 {
+  /* background-color: white; */
+}
 .metaAmount {
   position: relative;
   /*float: right;*/
@@ -536,7 +547,8 @@ text {
   margin-top: 6px;
   letter-spacing: 2px;
   font-size: 16px;
-  color: rgb(173, 173, 173);
+  color: white;
+  /* color: rgb(68, 162, 23); */
 }
 @media screen and (max-width: 1200px) {
   .metaCard {
@@ -600,6 +612,33 @@ text {
   top: 323px;
   left: 0px;
   z-index: 10000;
+}
+.infoWindowText {
+  text-align: left;
+  font-size: 13px;
+	line-height: 18px;
+	font-weight: 400;
+	padding: 15px 5px 20px 15px;
+	max-height: 140px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.infoWindowName {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  margin: 0px;
+  margin-left: -10px;
+  font-size: 22px;
+	font-weight: 400;
+	padding: 10px;
+	color: rgb(174, 25, 54);
+}
+.green {
+  color: green;
+}
+.italic {
+  font-style: italic;
 }
 @media screen and (max-width: 960px) { /*863*/
   .mapContainer {

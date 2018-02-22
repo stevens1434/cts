@@ -106,9 +106,6 @@ class MyMgtEff extends Component {
     }
   }
 
-  componentDidMount() {
-  }
-
   render() {
     if (this.state.stageData) {
       let stageData = this.state.stageData;
@@ -122,6 +119,7 @@ class MyMgtEff extends Component {
                     <TableCell style={{color: 'rgba(174, 25, 54, .67)', padding: '0px 0px 0px 15px'}}>Stage</TableCell>
                     <TableCell style={{color: 'rgba(174, 25, 54, .67)', padding: '0px 0px 0px 0px'}}>Current Total</TableCell>
                     <TableCell style={{color: 'rgba(174, 25, 54, .67)', padding: '0px 0px 0px 0px'}}>Total Days</TableCell>
+                    <TableCell style={{color: 'rgba(174, 25, 54, .67)', padding: '0px 0px 0px 0px'}}>Current Avg.</TableCell>
                     <TableCell style={{color: 'rgba(174, 25, 54, .67)', padding: '0px 0px 0px 0px'}}>Historical Total</TableCell>
                     <TableCell style={{color: 'rgba(174, 25, 54, .67)', padding: '0px 0px 0px 0px'}}>Historical Days</TableCell>
                     <TableCell style={{color: 'rgba(174, 25, 54, .67)', padding: '0px 0px 0px 0px'}}>Avg. Days</TableCell>
@@ -130,10 +128,11 @@ class MyMgtEff extends Component {
                 {this.state.stageData.map((records, index) => {
                   return (
                     <TableBody>
-                      <TableRow hover key={index}>
+                      <TableRow key={index} hover>
                         <TableCell style={{padding: '0px 0px 0px 15px'}}>{records.stage}</TableCell>
-                        <TableCell style={{padding: '0px'}}>{records.compCurIn}</TableCell>
+                        <TableCell style={{padding: '0px'}}>{records.compCurIn === 1 ? `${records.compCurIn} Co` : `${records.compCurIn}` }</TableCell>
                         <TableCell style={{padding: '0px'}}>{records.daysCurIn}</TableCell>
+                        <TableCell style={{padding: '0px'}}>{records.compCurIn !== 0 ? `${records.daysCurIn / records.compCurIn}` : '0'}</TableCell>
                         <TableCell style={{padding: '0px'}}>{records.items}</TableCell>
                         <TableCell style={{padding: '0px'}}>{records.days}</TableCell>
                         <TableCell style={{padding: '0px'}}>{records.average}</TableCell>

@@ -36,7 +36,7 @@ class CtsMain extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
     this.change = this.change.bind(this);
     this.handleStateChange = this.handleStateChange.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+    // this.handleClose = this.handleClose.bind(this);
     this.handleData = this.handleData.bind(this);
   }
 
@@ -44,11 +44,11 @@ class CtsMain extends Component {
     console.log("this.state in CtsMain.js parent: ", this.state);
   }
 
-  handleClose() {
-    this.setState({
-      modal: false
-    })
-  }
+  // handleClose() {
+  //   this.setState({
+  //     modal: false
+  //   })
+  // }
 
   handleStateChange(result) {
     if (!result.destination) {
@@ -78,9 +78,9 @@ class CtsMain extends Component {
       } else {
         //MODAL TO EXPLAIN THAT YOU CANNOT DO THAT here
         console.log('YOU SHALL NOT PASS, nor make that change');
-        this.setState({
-          modal: true
-        })
+        // this.setState({
+        //   modal: true
+        // })
       }
     }
   }
@@ -207,6 +207,7 @@ class CtsMain extends Component {
   }
 
   render() {
+    // console.log('this.props in cgsmain: ', this.props)
     return (
       <Router>
         <div onClick={this.change} className='CtsMain'>
@@ -214,6 +215,7 @@ class CtsMain extends Component {
               render={() => <Dashboard
                 user={this.props.user}
                 userData={this.state.userData}
+                roleType={this.props.roles.RoleType}
                 companyData={this.state.companyData}
                 salesClosing={this.state.salesClosing}
                 salesClosed={this.state.salesClosed}

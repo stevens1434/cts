@@ -6,6 +6,11 @@ import ExpansionPanel, {
   ExpansionPanelSummary,
   ExpansionPanelDetails,
 } from 'material-ui/ExpansionPanel';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 import Typography from 'material-ui/Typography';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 require('dotenv').config();
@@ -27,8 +32,9 @@ class SalesDash extends Component {
       companyData: {},
       salesClosing: [],
       salesClosed: [],
+      hover: false
     }
-    this.componentDidMount = this.componentDidMount.bind(this);
+    this.change = this.change.bind(this);
     this.onDragStart = this.onDragStart.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
     this.draggable = this.draggable.bind(this);
@@ -37,6 +43,12 @@ class SalesDash extends Component {
     this.typeOfSale = this.typeOfSale.bind(this);
     this.dollarAmount = this.dollarAmount.bind(this);
     this.nextToDo = this.nextToDo.bind(this);
+    this.handleView = this.handleView.bind(this);
+    // this.mouseEnter = this.mouseEnter.bind(this);
+  }
+
+  change() {
+    console.log('state in salesDash: ', this.state);
   }
 
   onDragStart = (initial) => {
@@ -47,6 +59,13 @@ class SalesDash extends Component {
   onDragEnd = (result) => {
     console.log('___result onDragEnd___: ', result);
       this.props.handleStateChange(result)
+  }
+
+  handleView(e) {
+    let i = e.target.getAttribute('value');
+    console.log('i in eventtarget : ', e.target.getAttribute('value'));
+    // console.log('id: ', id);
+    return (`/mycompanies/`+i)
   }
 
   typeOfSale(SaleType) {
@@ -111,13 +130,31 @@ class SalesDash extends Component {
     )
   }
 
-  draggable(records, index) {
+  //ON MOUSE ENTER TO CHANGE STYLE...
+  // style={this.state.hover === true ? {backgroundColor: 'rgb(174, 25, 54)'} : {backgroundColor: 'none'}} onMouseEnter={this.mouseEnter} onMouseLeave={this.mouseEnter}
+  // mouseEnter(index) {
+  //   // console.log('mouseOverrrrrr');
+  //   if (this.state.hover === false) {
+  //     console.log('hover was false now true')
+  //     this.setState({
+  //       hover: true
+  //     })
+  //   } else {
+  //     console.log('hover was true now false')
+  //     this.setState({
+  //       hover: false
+  //     })
+  //   }
+  // }
+
+  draggable(records, index, userId, roleType) {
+    const companyUserId = records.userId[0];
     const center = {
       margin: 'auto',
     }
     let image;
-    let check = 'https://dy6j70a9vs3v1.cloudfront.net/funnel_wap/static/files/d97bbb09b0b4d656a621ea8ef892adb2/icon-checkmark.png';
-    let noCheck = 'http://sweetclipart.com/multisite/sweetclipart/files/imagecache/middle/x_mark_red_circle.png';
+    const check = 'https://dy6j70a9vs3v1.cloudfront.net/funnel_wap/static/files/d97bbb09b0b4d656a621ea8ef892adb2/icon-checkmark.png';
+    const noCheck = 'http://sweetclipart.com/multisite/sweetclipart/files/imagecache/middle/x_mark_red_circle.png';
     if (records.ApprovedForNextStep === false) {
       image = noCheck;
     } else {
@@ -128,10 +165,18 @@ class SalesDash extends Component {
         {(provided, snapshot) => (
           <Card className='card'>
             <div className='betweenCardAndExpansionPanel' ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-              <ExpansionPanel>
+              <ExpansionPanel className='dashExpansion'>
                 <ExpansionPanelSummary>
                   <Typography className='expansionHidden'>
-                    <span className='compName'>{records.Name}</span>
+                    {userId === companyUserId || roleType === 'Owner' || roleType === 'Manager' ?
+                      <span>
+                        <Link className='compName' to={'/mycompanies/' + records._id} params={records._id} data-key={index} value={records._id} onClick={this.handleView}>
+                          {records.Name}
+                        </Link>
+                      </span>
+                    :
+                      <span className='compName'>{records.Name}</span>
+                    }
                     <img className='approvedImage' src={image} alt='approval'></img>
                     <span className='location'>{records.Address.City}</span>
                     <span className='saleType'>{this.typeOfSale(records.SaleType)}</span>
@@ -174,19 +219,19 @@ class SalesDash extends Component {
     )
   }
 
-  componentDidMount() {
-  }
-
   render() {
     if (this.props.user && this.props.companyData) {
+      // console.log('this.props: ', this.props);
+      const userId = this.props.user.id;
+      const roleType = this.props.roleType;
       let salesClosingMap = this.props.salesClosing.map((records, index) => {
-        return ( <div>{this.draggable(records, index)}</div> )
+        return ( <div>{this.draggable(records, index, userId, roleType)}</div> )
       })
       let salesClosedMap = this.props.salesClosed.map((records, index) => {
-        return ( <div>{this.draggable(records, index)}</div> )
+        return ( <div>{this.draggable(records, index, userId, roleType)}</div> )
       })
       return (
-          <Grid container spacing={8}>
+          <Grid onClick={this.change} container spacing={8}>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
               <h3 className="column"> Sales<hr/><br/></h3>
             </Grid>

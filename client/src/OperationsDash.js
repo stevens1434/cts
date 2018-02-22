@@ -6,6 +6,11 @@ import ExpansionPanel, {
   ExpansionPanelSummary,
   ExpansionPanelDetails,
 } from 'material-ui/ExpansionPanel';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 import Typography from 'material-ui/Typography';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 require('dotenv').config();
@@ -27,7 +32,6 @@ class OperationsDash extends Component {
       salesClosing: [],
       salesClosed: [],
     }
-    this.componentDidMount = this.componentDidMount.bind(this);
     this.onDragStart = this.onDragStart.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
     this.draggable = this.draggable.bind(this);
@@ -36,6 +40,7 @@ class OperationsDash extends Component {
     this.typeOfSale = this.typeOfSale.bind(this);
     this.dollarAmount = this.dollarAmount.bind(this);
     this.nextToDo = this.nextToDo.bind(this);
+    this.handleView = this.handleView.bind(this);
   }
 
   onDragStart = (initial) => {
@@ -46,6 +51,13 @@ class OperationsDash extends Component {
   onDragEnd = (result) => {
     console.log('___result onDragEnd___: ', result);
       this.props.handleStateChange(result)
+  }
+
+  handleView(e) {
+    let i = e.target.getAttribute('value');
+    console.log('i in eventtarget : ', e.target.getAttribute('value'));
+    // console.log('id: ', id);
+    return (`/mycompanies/`+i)
   }
 
   typeOfSale(SaleType) {
@@ -124,7 +136,8 @@ class OperationsDash extends Component {
     }
   }
 
-  draggable(records, index) {
+  draggable(records, index, userId, roleType) {
+    const companyUserId = records.userId[0];
     const center = {
       margin: 'auto',
     }
@@ -141,11 +154,18 @@ class OperationsDash extends Component {
         {(provided, snapshot) => (
           <Card className='card'>
             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-
               <ExpansionPanel>
                 <ExpansionPanelSummary>
                   <Typography className='expansionHidden'>
-                    <span className='opsCompName'>{records.Name}</span>
+                    {userId === companyUserId || roleType === 'Owner' || roleType === 'Manager' ?
+                      <span>
+                        <Link className='compName' to={'/mycompanies/' + records._id} params={records._id} data-key={index} value={records._id} onClick={this.handleView}>
+                          {records.Name}
+                        </Link>
+                      </span>
+                    :
+                      <span className='compName'>{records.Name}</span>
+                    }
                     <img className='opsApprovedImage' src={image} alt='approval'></img>
                     <span className='opsLocation'>{records.Address.City}</span>
                     <span className='opsSaleType'>{this.typeOfSale(records.SaleType)}</span>
@@ -189,19 +209,18 @@ class OperationsDash extends Component {
     )
   }
 
-  componentDidMount() {
-  }
-
   render() {
     if (this.props.user && this.props.companyData) {
+      const userId = this.props.user.id;
+      const roleType = this.props.roleType;
       let OpsReceivedMap = this.props.OpsReceived.map((records, index) => {
-        return ( <div>{this.draggable(records, index)}</div> )
+        return ( <div>{this.draggable(records, index, userId, roleType)}</div> )
       })
       let OpsOngoingMap = this.props.OpsOngoing.map((records, index) => {
-        return ( <div>{this.draggable(records, index)}</div> )
+        return ( <div>{this.draggable(records, index, userId, roleType)}</div> )
       })
       let OpsCompletedMap = this.props.OpsCompleted.map((records, index) => {
-        return ( <div>{this.draggable(records, index)}</div> )
+        return ( <div>{this.draggable(records, index, userId, roleType)}</div> )
       })
       return (
         <Grid container spacing={8}>
